@@ -16,6 +16,8 @@
 \usepackage{caption}
 \usepackage{pdflscape}
 \usepackage{afterpage}
+\usepackage{comment}
+\usepackage{hyperref}
 
 \usepackage[round]{natbib}
 
@@ -72,14 +74,14 @@
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
-\newcommand{\famname}{FamName} % PUT YOUR PROGRAM NAME HERE
+\newcommand{\famname}{CFS} % PUT YOUR PROGRAM NAME HERE
 
 \usepackage{fullpage}
 
 \begin{document}
 
-\title{Program Family Title} 
-\author{Author Name}
+\title{Curve Fitting Software} 
+\author{Malavika Srinivasan}
 \date{\today}
 
 \maketitle
@@ -93,7 +95,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
+Sep 28, 2018 & 1.0 & First draft by Malavika\\
 Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -102,9 +104,12 @@ Date 2 & 1.1 & Notes\\
 	
 \section{Reference Material}
 
-This section records information for easy reference.
+This section records information for ease of reference. The information includes the units, symbols and abbreviations used in this document.
 
 \subsection{Table of Units}
+This library is designed to work for any set of data, irrespective of their units. So, table of units is not applicable. 
+\begin{comment}
+
 
 Throughout this document SI (Syst\`{e}me International d'Unit\'{e}s) is employed
 as the unit system.  In addition to the basic units, several derived units are
@@ -132,26 +137,25 @@ description of the unit and the SI name.
 \wss{Only include the units that your CA actually uses.  If there are no units
   for your problem, like for a general purpose library, you should still include
 the heading, with the content ``not applicable'' (or similar).}
-
+\end{comment}
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
-their units.  The choice of symbols was made to be consistent with the heat
-transfer literature and with existing documentation for solar water heating
-systems.  The symbols are listed in alphabetical order.
-
+their units. The symbols are listed in alphabetical order.
+\ms{I am just noting down symbols, they are not yet in alphabetical order}
 \renewcommand{\arraystretch}{1.2}
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area
-\\
-$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & surface area over 
-which heat is transferred in
-\\ 
+
+$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & \\
+$\Phi$ & & \\
+$\sum_{min}^{max}$& & \\
+ 
 \bottomrule
 \end{longtable*}
+\ms{ISSUE 1: For libraries, we have only mathematical symbols which do not have units. Should we remove units or just say not applicable.}
 \wss{Use your problems actual symbols.  The si package is a good idea to use for
   units.}
 
@@ -170,8 +174,9 @@ which heat is transferred in
   LC & Likely Change\\
   PS & Physical System Description\\
   R & Requirement\\
-  SRS & Software Requirements Specification\\
-  \famname{} & \wss{put your famram name here}\\
+  %SRS & Software Requirements Specification\\
+  CA & Commonality Analysis\\
+  \famname & Curve Fitting Software\\
   T & Theoretical Model\\
   \bottomrule
 \end{tabular}\\
@@ -188,16 +193,37 @@ which heat is transferred in
 
 \section{Introduction}
 
-\wss{This CA template is based on \citet{Smith2006}.  It
-  will get you started, but you will have to make changes.  Any changes to
-  section headings should be approved by the instructor, since that implies a
-  deviation from the template.  Although the bits shown below do not include
-  type information, you may need to add this information for your problem.}
+Scientific Computation (SC) is the collection of tools, techniques, and theories that are required to solve problems in the field of science and engineering using computer-based mathematical models. The source data for scientific computation problems are often large sets of data from experiments conducted in a laboratory setup. This large set of data (such as time and temperature) is usually complex to analyze and require segmenting and curve-fitting.
 
-\wss{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
+Curve fitting is the process of constructing a curve, or mathematical function, that has the best fit to a series of data points possibly subject to constraints~\cite{CurvefitWiki}.
+\begin{figure}[h!]
+	\begin{center}
+		%rotatebox{-90}
+		{
+			\includegraphics[width=0.5\textwidth]{lstsq11.png}
+		}
+		\caption{\label{Fig_CurveFitEg} Typical example of a curve fitting process}
+	\end{center}
+\end{figure}
+
+A fit for the data can be obtained by different methods like interpolation, data smoothing and regression.
+
+\subsection{Interpolation}
+Interpolation is a process of fitting a function to given data so that the function has some values as the given data.
+
+\subsection{Smoothing}
+Smoothing is a process of creating an approximating function that attempts to capture important patterns in the data, while leaving out noise or other rapid phenomena.
+
+\subsection{Regression}
+Regression analysis is the process of finding the best fit parameters for a regression model for a given set of data points and thus obtain a curve through a set of data points. \\ 
+
+
+
+
+
 
 \subsection{Purpose of Document}
+
 
 \subsection{Scope of the Family} 
 
@@ -434,5 +460,155 @@ show the values of the symbolic parameters introduced in the report.}
 
 \wss{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.}
+
+
+
+\ms{Points to be noted}\\
+\ms{***********************************************************************}
+\ms{Interpolation means fitting some function to given data so that the function has some values as the given data.}\\
+The Simplest 1d interpolation is given by:\\
+for a given data ($t_{i},y_{i}$), where $i = 1,2,3...m$,\\
+f is an interpolating function such that, \\
+\begin{equation*}
+f(t_{i}) = y_i \text{where i} = 1,2...m
+\end{equation*}
+
+Some of the variabilities includes:\\
+\begin{itemize}
+	\item What form should the function have?
+	\item How should the function behave between data points?
+	\item Should the function inherit properties of the data such as monotonicity, convexity or periodicity?
+	\item Are we interested in the values of the parameters that define the interpolating function, or simply in evaluating the function at various points for plotting or other purposes?
+	\item If the function and data are plotted, should the results be visually pleasing?  
+\end{itemize}
+
+\section{Selection of function}
+The selection of function for interpolation depends on the following factors:
+\begin{itemize}
+	\item How easy is the interpolant or the function is to work with. Working means determining the parameters of the interpolant from the data, evaluating the interpolant at a given point, differentiating or integrating the interpolant.
+	\item How well the properties of the interpolant match the properties of the data to be fit(smoothness, monotonicity, convexity, periodicity etc)
+\end{itemize}
+
+Some of the familiar functions commonly used for interpolation are:
+\begin{itemize}
+	\item Polynomials
+	\item Piecewise Polynomials
+	\item Trignometric functions
+	\item Exponential functions
+	\item Rational functions
+\end{itemize}
+\ms{Questions: Ask Dr.Smith if we need to have all these five variabilities for fitting data or its enough if we have piecewise and polynomial}
+
+To find an interpolating function for a set of data points, it is important to make sure that the interpolant exists. This comes down to the discussion of matching the number of parameters in the interpolant to number of data points to be fit.If there are too few parameters, then the interpolant does not exist. If there are too many points, then the interpolant is not unique. \\
+
+For a gien set of data points $(t_i,y_i)$, where i $= 1,2 3...m$, an interpolant is chosen from a suitable set of basis functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$. Therefore, the interpolating function f can be expressed as a linear combination of these basis functions.
+
+\begin{equation*}
+f(t) = \sum_{j=1}^{n}x_j \Phi_j (t) 
+\end{equation*}
+where $x_j$ are the parameters to be found. But inorder for f to be interpolating the data points $(t_i,y_i)$, 
+\begin{equation*}
+f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t) = y_i
+\end{equation*}
+where i $= 1,2,3...m$
+This can be expressed as a liner system of equations 
+\begin{equation*}
+Ax = y
+\end{equation*}
+where A is the basis matrix whose m X n entries are given by,
+\begin{equation*}
+a_{ij} = \Phi_j(t_i) 
+\end{equation*} 
+where $a_{ij}$ is the value of $j^{th}$ basis function at $i^{th}$ data point.
+
+\subsection{Polynomial interpolation}
+
+Polynomial function has different types of basis functions.
+\begin{itemize}
+	\item Monomial
+	\item Lagrange
+	\item Newton
+	\item Orthogonal
+	\item Interpolating continuous functions
+\end{itemize}
+\subsubsection{Monomial basis}
+To interpolate n data points, we choose k = n-1 as the maximum degree of the polynomial. We define $P_{n-1}$ as the set of polynomials of degree at most n-1 and is composed on first n monomials.
+\begin{equation*}
+\Phi_j (t) = t^{j-1} 
+\end{equation*}
+where j $= {1,2,...n}$
+We can construct the polynomial from this which will have the form,\\
+\begin{equation*}
+P_{n-1}(t) = x_1 + x_2 t + x_3 t^2 + x_4 t^3 + ... x_n t^{n-1} 
+\end{equation*}
+The matrix form is given by,
+
+\begin{equation*}
+Ax = \begin{bmatrix}
+1 & t_{1} & t_{1} ^2 & \dots & t_{1} ^{n-1} \\
+1 & t_{2} & t_{2} ^2 & \dots & t_{2} ^{n-1} \\
+\vdots & \vdots & \vdots & \vdots \\
+1 & t_{n} & t_{n} ^2 & \dots & t_{n} ^{n-1} \\
+\end{bmatrix}
+\begin{bmatrix}
+x_1  \\
+x_2 \\
+\vdots \\
+x_n \\
+\end{bmatrix} = 
+\begin{bmatrix}
+y_1  \\
+y_2 \\
+\vdots \\
+y_n \\
+\end{bmatrix} = y
+\end{equation*} 
+\ms{Note: A matrix whose columns are successive powers of some independent variable t is called Vandermonde matrix}
+\ms{Assumption: The vandermonde matrix should be non singular provided $t_i$ are all distint, hence the interpolant exists.}
+\ms{Cost of computing interpolant is high}
+
+\subsection{Lagrange Interpolation}
+
+For a given set of data points $(t_i,y_i)$, $i = 1,2,$ \dots n, the Lagrange polynomial of degree n-1, $P_{n-1}$ is given by,
+\begin{equation*}
+P_{n-1} (t) = y_1 l_1 (t) + y_2 l_2(t) + \dots y_n l_n (t).
+\end{equation*}
+
+where the basis functions(also called fundamental polynomials) for the $l_j$ is given by,
+\begin{equation*}
+l_j (t) =  \frac{ \Pi _{k=1, k\neq j} ^n (t - t_k)} {\Pi _{k=1,k \neq j} ^ n (t_j - t_k)} = \frac{(t - t_1)}{(t_j - t_1)}...\frac{(t - t_{j-1})}{(t_j - t_{j-1})}\frac{(t - t_{j+1})}{(t_j - t_{j+1})}... \frac{(t - t_n)}{(t_j - t_n)}
+\end{equation*}
+where j =$ 1,2,... n$
+\ms{Expensive to evaluate and more difficult to differentiate and integrate}
+
+\subsection{Newton Interpolation}
+
+For a given set of data points $(t_i,y_i)$, $i = 1,2,$ \dots n, the newton basis function for $P_{n-1}$ is given by,
+
+\begin{equation*}
+\pi(t) = \Pi_{k=1}^{j-1} (t - t_k) 
+\end{equation*}
+where j = 1,2,....n,
+
+The polynomial $P_{n-1}$ is given by,
+
+\begin{equation*}
+P_{n-1} (t) = x_1 + x_2(t-t_1) + x_3(t-t_1)(t-t_2) + ... x_n(t-t_1)(t-t_2)...(t-t_{n-1})
+\end{equation*}
+
+
+
+
+
+
+\ms{***********************************************************************}
+
+
+
+
+
+
+
+
 
 \end{document}
