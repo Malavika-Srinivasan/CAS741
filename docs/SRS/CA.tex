@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-
+\usepackage{xcolor}
 \usepackage{amsmath, mathtools}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -520,6 +520,31 @@ where A is the basis matrix whose m X n entries are given by,
 a_{ij} = \Phi_j(t_i) 
 \end{equation*} 
 where $a_{ij}$ is the value of $j^{th}$ basis function at $i^{th}$ data point.
+\textcolor{violet}{\subsection{For my understanding}
+\ms{Important points to be noted here}\\
+\begin{itemize}
+	\item m data points $(t_i,y_i)$ where $ i = 1.... m$
+	\item n basis function $\Phi_1(t) , \Phi_2(t), \Phi_3(t)... \Phi_n(t)$
+	\item f is the interpolating function
+	\item f is the linear combination of basis function as shown below
+	\item \begin{equation*}
+	f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t) = y_i
+	\end{equation*}
+	Where i $= 1, 2 ..m$. Here they consider m because there are m data points
+	\item $x_j$ is the parameters of the fit to be found
+	\item To find $x_j$, we use matrix solving method because the above form is a system of linear equations. \begin{equation*}
+	Ax = y
+	\end{equation*}
+	
+	Where A is the basis matrix whose entries are given by $a_{ij}$ 
+	\item $a_{ij}$ is given by the following equation
+	\begin{equation*}
+	a_{ij} = \Phi_j (ti)
+	\end{equation*}
+\end{itemize}}
+
+
+
 
 \subsection{Polynomial interpolation}
 
@@ -531,18 +556,21 @@ Polynomial function has different types of basis functions.
 	\item Orthogonal
 	\item Interpolating continuous functions
 \end{itemize}
+\ms{I have worked out only monomial, lagrange and newton}
+\ms{Need to ask if Orthogonal and continous function can be left out}
 \subsubsection{Monomial basis}
-To interpolate n data points, we choose k = n-1 as the maximum degree of the polynomial. We define $P_{n-1}$ as the set of polynomials of degree at most n-1 and is composed on first n monomials.
+To interpolate n data points $(t_i,y_i)$, we choose $k = n-1$ as the maximum degree of the polynomial. We define $P_{n-1}$ as the set of polynomials of degree at most n-1 and is composed on first n monomials $\Phi_j$.
+\ms{Note: n data points, n basis function, max degree of polynomial = n-1}
 \begin{equation*}
 \Phi_j (t) = t^{j-1} 
 \end{equation*}
-where j $= {1,2,...n}$
+where j $= {1,2,...n}$\\
 We can construct the polynomial from this which will have the form,\\
 \begin{equation*}
 P_{n-1}(t) = x_1 + x_2 t + x_3 t^2 + x_4 t^3 + ... x_n t^{n-1} 
 \end{equation*}
 The matrix form is given by,
-
+\ms{To understand this, see in class notes. Example problem solved} 
 \begin{equation*}
 Ax = \begin{bmatrix}
 1 & t_{1} & t_{1} ^2 & \dots & t_{1} ^{n-1} \\
@@ -567,7 +595,7 @@ y_n \\
 \ms{Assumption: The vandermonde matrix should be non singular provided $t_i$ are all distint, hence the interpolant exists.}
 \ms{Cost of computing interpolant is high}
 
-\subsection{Lagrange Interpolation}
+\subsubsection{Lagrange Interpolation}
 
 For a given set of data points $(t_i,y_i)$, $i = 1,2,$ \dots n, the Lagrange polynomial of degree n-1, $P_{n-1}$ is given by,
 \begin{equation*}
@@ -578,23 +606,43 @@ where the basis functions(also called fundamental polynomials) for the $l_j$ is 
 \begin{equation*}
 l_j (t) =  \frac{ \Pi _{k=1, k\neq j} ^n (t - t_k)} {\Pi _{k=1,k \neq j} ^ n (t_j - t_k)} = \frac{(t - t_1)}{(t_j - t_1)}...\frac{(t - t_{j-1})}{(t_j - t_{j-1})}\frac{(t - t_{j+1})}{(t_j - t_{j+1})}... \frac{(t - t_n)}{(t_j - t_n)}
 \end{equation*}
-where j =$ 1,2,... n$
+where j =$ 1,2,... n$\\
+The matrix form, 
+\begin{equation*}
+Ax = y
+\end{equation*}
+A is the Identity matrix I.
 \ms{Expensive to evaluate and more difficult to differentiate and integrate}
-
-\subsection{Newton Interpolation}
+\ms{n data points, n basis function, n-1 is the maximum degree of polynomials. Refer to notes for example problem.}
+\subsubsection{Newton Interpolation}
 
 For a given set of data points $(t_i,y_i)$, $i = 1,2,$ \dots n, the newton basis function for $P_{n-1}$ is given by,
-
+\ms{n data points, n basis points}
 \begin{equation*}
 \pi(t) = \Pi_{k=1}^{j-1} (t - t_k) 
 \end{equation*}
-where j = 1,2,....n,
-
+where j = 1,2,....n\\
+When the limits make it vacuous, the product is taken to be 1\\
+Also, $\pi_j (t) = 0$ for i<j.
 The polynomial $P_{n-1}$ is given by,
 
 \begin{equation*}
 P_{n-1} (t) = x_1 + x_2(t-t_1) + x_3(t-t_1)(t-t_2) + ... x_n(t-t_1)(t-t_2)...(t-t_{n-1})
 \end{equation*}
+
+The matrix form of basis in $Ax = y$ is lower triangular as $\pi_j (t) = 0$ for i<j with its entries defined by $a_{ij} = \pi_j (t_i)$
+
+\subsection{Piecewise Polynomial Interpolation}
+Even though choosing an appropriate basis function and intetpolation points mitigate the difficulties associated with 
+
+\subsubsection{Hermite Cubic interpolation}
+
+\subsubsection{Cubic spline interpolation}
+
+\subsubsection{B-splines}
+
+
+
 
 
 
