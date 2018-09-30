@@ -503,48 +503,54 @@ To find an interpolating function for a set of data points, it is important to m
 
 For a gien set of data points $(t_i,y_i)$, where i $= 1,2 3...m$, an interpolant is chosen from a suitable set of basis functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$. Therefore, the interpolating function f can be expressed as a linear combination of these basis functions.
 
+
 \begin{equation*}
 f(t) = \sum_{j=1}^{n}x_j \Phi_j (t) 
 \end{equation*}
 where $x_j$ are the parameters to be found. But inorder for f to be interpolating the data points $(t_i,y_i)$, 
+
 \begin{equation*}
 f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t) = y_i
 \end{equation*}
 where i $= 1,2,3...m$
 This can be expressed as a liner system of equations 
+
 \begin{equation*}
 Ax = y
 \end{equation*}
 where A is the basis matrix whose m X n entries are given by,
+
 \begin{equation*}
 a_{ij} = \Phi_j(t_i) 
 \end{equation*} 
 where $a_{ij}$ is the value of $j^{th}$ basis function at $i^{th}$ data point.
-\textcolor{violet}{\subsection{For my understanding}
-\ms{Important points to be noted here}\\
+
+\textcolor{violet}{
+\subsection{For my understanding}
+\ms{Important points to be noted here}}\\
+\textcolor{violet}{
 \begin{itemize}
 	\item m data points $(t_i,y_i)$ where $ i = 1.... m$
 	\item n basis function $\Phi_1(t) , \Phi_2(t), \Phi_3(t)... \Phi_n(t)$
 	\item f is the interpolating function
 	\item f is the linear combination of basis function as shown below
-	\item \begin{equation*}
+	\item 
+	\begin{equation*}
 	f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t) = y_i
 	\end{equation*}
 	Where i $= 1, 2 ..m$. Here they consider m because there are m data points
 	\item $x_j$ is the parameters of the fit to be found
-	\item To find $x_j$, we use matrix solving method because the above form is a system of linear equations. \begin{equation*}
+	\item To find $x_j$, we use matrix solving method because the above form is a system of linear equations.
+	 \begin{equation*}
 	Ax = y
 	\end{equation*}
-	
 	Where A is the basis matrix whose entries are given by $a_{ij}$ 
 	\item $a_{ij}$ is given by the following equation
 	\begin{equation*}
 	a_{ij} = \Phi_j (ti)
 	\end{equation*}
-\end{itemize}}
-
-
-
+\end{itemize} 
+}
 
 \subsection{Polynomial interpolation}
 
@@ -633,15 +639,172 @@ P_{n-1} (t) = x_1 + x_2(t-t_1) + x_3(t-t_1)(t-t_2) + ... x_n(t-t_1)(t-t_2)...(t-
 The matrix form of basis in $Ax = y$ is lower triangular as $\pi_j (t) = 0$ for i<j with its entries defined by $a_{ij} = \pi_j (t_i)$
 
 \subsection{Piecewise Polynomial Interpolation}
-Even though choosing an appropriate basis function and intetpolation points mitigate the difficulties associated with 
+Even though choosing an appropriate basis function and intetpolation points mitigate the difficulties associated with interpolation by a polynomial of higher degree, fitting a single polynomial to a large number of data points will still yield unsatisfactory oscillating behaviour in the interpolant. 
+\ms{I think this has reference to my thesis, because we chose Piecewise polynomials for data fitting. I need to add this to thesis as a place holder}
+Piecewise polynomial provides an alternative to the difficulties associated with higher order polynomial interpolation. The main advantage is that a large number of data ppints can be fit with a low degree poynomials.
+
+In piecewise polynomial interpolation of a given set of points $(t_i,y_i)$, i $=1,2,...n$, with $t_1 < t_2 < t_3 ...t_n$, a different polynomial is used in each subinterval $[t_i, t_{i+1}]$.The points at which the interpolant changes from one polynomial to another is called breakpoints or knots or control points.
 
 \subsubsection{Hermite Cubic interpolation}
+Hermite interpolation matches an unknown function both in observed value, and the observed value of its first m derivatives. This means that n(m + 1) values must be known, rather than just the first n values required for Newton interpolation.
 
+Data to be known is given by, \\
+~\newline
+
+\renewcommand{\arraystretch}{1.2}
+%\begin{table}[ht]
+\noindent
+ \begin{tabular}{l l l l l} 
+	\toprule		
+	\midrule 
+	 $(x_0,y_0)$,& $(x_1,y_1)$, & $(x_2,y_2)$, \dots, & $x_{n-1}, y_{n-1}$\\
+	 $(x_0,y_0 ^{'})$,& $(x_1,y_1 ^{'})$, & $(x_2,y_2 ^{'})$, \dots, & $x_{n-1}, y_{n-1} ^{'}$\\
+	 \vdots & \vdots & \vdots & \vdots \\
+	 $(x_0,y_0 ^{'})$,& $(x_1,y_1 ^{'})$, & $(x_2,y_2 ^{'})$, \dots, & $x_{n-1}, y_{n-1} ^{'}$,\\
+	\bottomrule
+\end{tabular}
+%	\caption{Provide a caption}
+%\end{table} 
+\\
+The resulting polynomial may have degree at most $n(m + 1)-1$.
+
+In a simple case, using a divided difference to calculate hermite polynomial f, the first step is to copy each point m times.For a simple case $m = 1$ for all points, which means for the given n+1 data points, all the points have m derivatives (here m = 1).\\ 
+
+This means data is of the form,
+
+\renewcommand{\arraystretch}{1.2}
+%\begin{table}[ht]
+\noindent
+\begin{tabular}{l l l l l} 
+	\toprule		
+	\midrule 
+	$(x_0,y_0)$,& $(x_1,y_1)$, & $(x_2,y_2)$, \dots, & $x_{n}, y_{n}$\\
+	$(x_0,y_0 ^{'})$,& $(x_1,y_1 ^{'})$, & $(x_2,y_2 ^{'})$, \dots, & $x_{n}, y_{n} ^{'}$\\
+	\bottomrule
+\end{tabular}\\
+ Note:\\
+ $y_0, y_1, y_2$\dots$y_n = f(x_0), f(x_1), f(x_2)$\dots$f(x_n)$\\
+ $y_0 ^{'}, y_1 ^{'}, y_2 ^{'}$\dots$y_n ^{'} = f ^{'}(x_0), f ^{'}(x_1), f ^{'}(x_2)$\dots$f ^{'}(x_n)$\\
+~\newline
+To find:\\
+f which is an interpolating polynomial\\
+~\newline
+Steps to find:\\
+\begin{itemize}
+	\item Create a new data set $z_0,z_1,z_2,z_3$\dots$z_{2n+1}$ such that 
+	\begin{equation*}
+	z_{2i} = z_{2i+1} = x_i
+	\end{equation*}\\
+	Which means at i = 0, $z_0 = z_1 = x_0$
+	Here we have only $z_0,z_1$ bacause we assumed m = 1, so each element $xi$ repeats in z data set 2 times.\\
+	For a general case, where we have k derivatives for each point, the data set $z_0,z_1,z_2,z_N$ will contain k identical copies of $x_i$.\\
+	\item Create a divided difference table for the data set $z_0,z_1,z_2,z_3$\dots$z_{2n+1}$. For the general case, $z_0,z_1,z_2,z_3$\dots$z_{N}$\\
+	However, When creating the table, divided differences of $j = 2,3,$\dots k 
+	identical values will be calculated as,
+	$\frac{f^{(j)}(x_i)}{x!}$
+	
+	\item Then we generate the polynomial by taking the coefficients from the diagonal of the divided difference table, and multiplying the kth coefficient by $\Pi_{i=0} ^{k-1}(x-z_i)$.
+	
+\end{itemize} 
+ 
 \subsubsection{Cubic spline interpolation}
+\ms{This notes is in bookmark named NOTES FOR CUBIC SPLINE}\\
+A spline is a piecewise polynomial of degree k that is continuously differentiable $k-1$ times. For a cubic spline, $k = 3$ so it is continuously differentiable $2$ times. \\
+
+Let there be a set of points,\\
+\\
+K $= {x_0,x_1...,x_m}$ where 
+
+\begin{equation*}
+a = x_0 < x_1 < x_2 < x_3 ... x_m = b
+\end{equation*}
+
+A function S $\in C^2[a,b]$\ms{C2 denotes first and second derivative} is called a cubic spline if S is a cubic polynomial $S_i$ in each interval $[x_i,x_{i+1}]$. It is a cubic interpolating spline if $s(x_i) = y_i$ for given values of $y_i$.
+
+The ansatz of m piecewise polynomials is given by:
+\begin{equation*}
+s_i(x) = a_i (x-x_i) ^3 + b_i (x-x_i) ^2 + c_i (x-x_i) + di
+\end{equation*}
+
+For each $s_i$, we have 4 coefficients to be fixed $a_i, b_i, c_i$ and $d_i$.\\
+so for m polynomials $(0 to m-1)$ , we need to fix $4m$ coefficients to fix the spline.\\
+
+To fix these coefficients, we need 4m conditions \ms{similar to how we need 2 equations to solve for 2 variables}\\
+The conditions are: 
+\begin{equation}
+S_i(x_i) = Y_i    ....   i = 0,1,2... m-1
+\end{equation}
+
+\begin{equation}
+S_{m-1} = Y_m
+\end{equation}
+
+\begin{equation}
+S_i(x_{i+1}) = S_{i+1}(x_{i+1})   ..... i = 0,1,2... m-2
+\end{equation}
+
+\begin{equation}
+S_i ^{'}(x_{i+1}) = S^{'} _{i+1}(x_{i+1})   ..... i = 0,1,2... m-2
+\end{equation}
+
+\begin{equation}
+S_i ^{''}(x_{i+1}) = S^{''} _{i+1}(x_{i+1})   ..... i = 0,1,2... m-2
+\end{equation}
+\\
+These are $4m-2$ conditions. We need 2 more for the spline to be unique which has several alternatives.
+
+\begin{itemize}
+	\item Natural splines $S^{''} _0(x_0) = 0$ and $S^{''}_{m-1}(x_m) = 0$
+	\item End slope spline $S^{'} _0(x_0) = Y^{'}_0$ and $S^{'}_{m-1}(x_m) = Y^{'}_m$
+	\item Periodic spline $S^{'} _0(x_0) = S^{'}_{m-1}(x_m)$ and $S^{''} _0(x_0) = S^{''}_{m-1}(x_m)$.
+	\item Not-a-Knot spline $S^{'''} _0(x_1) = S^{'''} _1(x_1)$ and $S^{'''} _{m-2}(x_{m-1}) = S^{'''} _{m-1}(x_{m-1})$
+\end{itemize}
+
+\ms{If you want visually pleasing results, then choose Hermite cubic interpolation but if smoothness is important then cubic splines are better}
+
+
+
+
+
+
+
+
+Interpolating the given data and requiring continuity of first derivative imposes $3n-4$ constraints on cubic spline.Requiring continuity at second derivative imposes n-2 additional constraints which leaves only 2 free parameters. The final two parameters can be fixed by floolowing ways:
+\begin{itemize}
+	\item 
+\end{itemize}
 
 \subsubsection{B-splines}
 
 
+This allows the representation of arbitrary splines as a linear combination of basis functions. They can be defined in a number of ways like recursion, convolution and divided differences.\\
+For given set of knots or data points $..t_{-2} < t_{-1} < t_0 < t_{1} < t_{2} < ...$\\
+
+~\newline
+\textbf{Assumptions for notational convinience:}
+\begin{itemize}
+	\item We use recursion to define bsplines
+	\item Assume infinite set of knots, even though in practice we have only finite set of knots
+	\item Linear functions is assumed for notational convinience
+\end{itemize}
+
+\begin{equation*}
+v_i ^k = \frac{t-t_i}{t_{i+k} - t_i}
+\end{equation*}
+To start the recursion we start with B-splines of degree 0 by:
+\begin{equation*}
+B_i ^0 (t) = \begin{cases}
+1, & \text{if $t_i \leq t < t_{i+1}$}.\\
+0, & \text{otherwise}.
+\end{cases}
+\end{equation*}
+
+For B-splines of degree k, $k > 0$,
+
+\begin{equation*}
+B_i ^k (t) = v_i ^k (t) B_i ^{k-1} (t) + (1 - v_{i+1} ^k (t))B_{i+1} ^{k-1} (t)
+\end{equation*}
+In general, $B_i ^k$ is a piecewise polynomial of degree $=$ k 
 
 
 
@@ -650,13 +813,52 @@ Even though choosing an appropriate basis function and intetpolation points miti
 
 
 \ms{***********************************************************************}
+~\newline
+
+\ms{***********************************************************************}
+~\newline
 
 
+\ms{***********************************************************************}
+~\newline
+\ms{Only linear least squares, no non linear. This can go into assumptions.}
+\section{Least Squares}
+\subsection{Assumptions}
+\begin{itemize}
+	\item Only linear, no non linear.
+\end{itemize}
+The general form is given by,
+\begin{equation*}
+Ax \approxeq b
+\end{equation*}
 
+where the approximation is understood to be in 2-norm or least squares sense.
 
+\subsection{Curve fitting}
+\textbf{Given:}\\
+m data points, $(t_i,y_i)$ where i $= 1,2,3 ... m$\\
+\textbf{To find:}\\
+Find n-vector x that it gives the best fit to th data by the model function f(t,x) \\
+Best fit is defined by:\\
+\begin{equation*}
+\min_{x}\sum_{i=1}^{m} (y_i - f(t_i,x)) ^2
+\end{equation*}
+Assuming linear data, which means f is linear in parameter x, hence f is a linear combination of $\Phi_j$ that depend only on t.
+\begin{equation*}
+f(t,x) = x_1 \Phi_1(t) + x_2\Phi_2(t) + ... + x_n \Phi_n (t)
+\end{equation*}
+Where $\Phi_j$ can be replaced by $t^{j-1}$, so the equation becomes,
+\begin{equation*}
+f(t,x) = x1 + x2 t  + x_3 t^2 + ... + x_n t^{n-1}
+\end{equation*}
+The matrix form is given by,
+\begin{equation*}
+Ax \approxeq b
+\end{equation*}
+Where the entries of the matrix $a_{ij}$ is defined by $a_{ij} = \Phi_j(t_i)$ and m vector b is given by components $b_i = y_i$.
 
-
-
+\textbf{Existence and uniqueness}
+The solution to a $m X n$ least squares problem $Ax \approxeq b$ 
 
 
 \end{document}
