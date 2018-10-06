@@ -95,8 +95,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Sep 28, 2018 & 1.0 & First draft by Malavika\\
-Date 2 & 1.1 & Notes\\
+Sep 28, 2018 & 1.0 & $0^{th}$ draft by Malavika\\
+Oct 2, 2018 & 1.1 & $1^{st}$ draft by Malavika\\
 \bottomrule
 \end{tabularx}
 
@@ -107,57 +107,31 @@ Date 2 & 1.1 & Notes\\
 This section records information for ease of reference. The information includes the units, symbols and abbreviations used in this document.
 
 \subsection{Table of Units}
-This library is designed to work for any set of data, irrespective of their units. So, table of units is not applicable. 
-\begin{comment}
+This library is designed to work for any set of data, irrespective of their units. So, table of units is \textbf{not applicable}. 
 
 
-Throughout this document SI (Syst\`{e}me International d'Unit\'{e}s) is employed
-as the unit system.  In addition to the basic units, several derived units are
-used as described below.  For each unit, the symbol is given followed by a
-description of the unit and the SI name.
-~\newline
 
-\renewcommand{\arraystretch}{1.2}
-%\begin{table}[ht]
-  \noindent \begin{tabular}{l l l} 
-    \toprule		
-    \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
-    \midrule 
-    \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
-    \si{\second} & time & second\\
-    \si{\celsius} & temperature & centigrade\\
-    \si{\joule} & energy & Joule\\
-    \si{\watt} & power & Watt (W = \si{\joule\per\second})\\
-    \bottomrule
-  \end{tabular}
-  %	\caption{Provide a caption}
-%\end{table}
-
-\wss{Only include the units that your CA actually uses.  If there are no units
-  for your problem, like for a general purpose library, you should still include
-the heading, with the content ``not applicable'' (or similar).}
-\end{comment}
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
 their units. The symbols are listed in alphabetical order.
-\ms{I am just noting down symbols, they are not yet in alphabetical order}
+
 \renewcommand{\arraystretch}{1.2}
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-
-$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & \\
-$\Phi$ & & \\
-$\sum_{min}^{max}$& & \\
- 
+$f$ & & Function\\
+$P$ & & Orthogonal matrix\\
+$\Phi$ & & Basis function\\
+$\Pi$ & & Basis function\\
+$\sum_{min}^{max}$& & Summation \\ 
+$r$ & & Residual\\
+$T$ & & Transpose operation of matrix\\
+$v$ & & Basis function\\
 \bottomrule
 \end{longtable*}
-\ms{ISSUE 1: For libraries, we have only mathematical symbols which do not have units. Should we remove units or just say not applicable.}
-\wss{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
+
 
 \subsection{Abbreviations and Acronyms}
 
@@ -181,7 +155,6 @@ $\sum_{min}^{max}$& & \\
   \bottomrule
 \end{tabular}\\
 
-\wss{Add any other abbreviations or acronyms that you add}
 
 \newpage
 
@@ -193,9 +166,74 @@ $\sum_{min}^{max}$& & \\
 
 \section{Introduction}
 
-Scientific Computation (SC) is the collection of tools, techniques, and theories that are required to solve problems in the field of science and engineering using computer-based mathematical models. The source data for scientific computation problems are often large sets of data from experiments conducted in a laboratory setup. This large set of data (such as time and temperature) is usually complex to analyze and require segmenting and curve-fitting.
+Scientific Computation (SC) is the collection of tools, techniques, and theories that are required to solve problems in the field of science and engineering using computer-based mathematical models. The source data for scientific computation problems are often large sets of data from experiments conducted in a laboratory setup. This large set of data (such as time and temperature) is usually complex to analyze and require segmenting and curve-fitting. Curve fitting is the process of constructing a curve, or mathematical function, that has the best fit to a series of data points possibly subject to constraints.\\
 
-Curve fitting is the process of constructing a curve, or mathematical function, that has the best fit to a series of data points possibly subject to constraints~\cite{CurvefitWiki}.
+The following section provides an overview of the Commonality Analysis (CA) for a family of softwares developed to fit a set of data points. The developed program will be referred to as Curve Fitting Software(\famname{}). This section explains the purpose of this document, the scope of the family, the organization of the document and the characteristics of intended reader.
+ 
+
+\subsection{Purpose of Document}
+The purpose of this document is to analyze the commonalities(assumptions which are true) and variabilities(assumptions which can vary) between the family of softwares produced as part of this library.
+
+
+\subsection{Scope of the Family}\label{Scope}
+The scope of \famname{} is restricted to finding the best fit parameters of linear systems using methods of interpolation and regression discussed in chapter $3$ and $7$ of ~\cite{Health1997} . To reduce the complexity of \famname{}, we use only polynomials and piecewise polynomials as our basis functions for interpolation. In regression, we restrict ourselves to over determined linear systems and least squares methods to minimize the residual.\\
+
+
+ 
+
+\subsection{Characteristics of Intended Reader} 
+The reader of this document is expected to know the basic concepts of curve fitting. However to obtain a deeper understanding of this document, the reader is expected to be a undergraduate in science or engineering.
+
+\subsection{Organization of Document}
+The organization of this document follows the template for a Commonality analysis (CA) for scientific computing software proposed by Dr.Spencer Smith.  The sections of this document are grouped into commonalities and variabilities of the \famname{}. The presentation starts with the analyzing commonalities between the softwares of \famname{} which will contain goals, theories,  and definitions which will be common for the family members of \famname{}. Then the variabilities of the family members is presented which will contain the assumptions, instance models and the output. The goal statements are refined to the theoretical models, and theoretical models to the instance models.
+
+\section{General System Description}
+
+This section identifies the interfaces between the system and its environment,
+describes the potential user characteristics and lists the potential system
+constraints.
+
+\subsection{Potential System Contexts}
+
+Figure~\ref{Fig_SystemContext} shows the system context.  A circle represents an
+external entity outside the software, the user in this case.  A rectangle
+represents the software system itself (\famname{}).  Arrows are used to show
+the data
+flow between the system and its environment.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{SystemContextFigure}
+		\caption{System Context}
+		\label{Fig_SystemContext} 
+	\end{center}
+\end{figure}
+\begin{itemize}
+\item User Responsibilities:
+\begin{itemize}
+\item Enter input data points to be fit.
+\item Input whether to use interpolation or regression.
+\item Input interpolating method or regression method based on their choice in the previous step. 
+\end{itemize}
+\item \famname{} Responsibilities:
+\begin{itemize}
+\item Detect data type mismatch, such as a string of characters instead of a number.
+\item Compute best fit parameters.
+\end{itemize}
+\end{itemize}
+
+\subsection{Potential User Characteristics} \label{SecUserCharacteristics}
+
+The end user of \famname{} should have an understanding of undergraduate Level Regression and Interpolation.
+
+\subsection{Potential System Constraints}
+
+Not Applicable.
+
+\section{Commonalities}
+
+\subsection{Background Overview} \label{Sec_Background}
+Curve fitting is the process of constructing a curve, or mathematical function, that has the best fit to a series of data points possibly subject to constraints. The figure below(\ref{Fig_CurveFitEg}) shows the best fit curve through a series of points.
 \begin{figure}[h!]
 	\begin{center}
 		%rotatebox{-90}
@@ -208,65 +246,14 @@ Curve fitting is the process of constructing a curve, or mathematical function, 
 
 A fit for the data can be obtained by different methods like interpolation, data smoothing and regression.
 
-\subsection{Interpolation}
+\subsubsection{Interpolation}
 Interpolation is a process of fitting a function to given data so that the function has some values as the given data.
 
-\subsection{Smoothing}
+\subsubsection{Smoothing}
 Smoothing is a process of creating an approximating function that attempts to capture important patterns in the data, while leaving out noise or other rapid phenomena.
 
-\subsection{Regression}
-Regression analysis is the process of finding the best fit parameters for a regression model for a given set of data points and thus obtain a curve through a set of data points. \\ 
-
-
-
-
-
-
-\subsection{Purpose of Document}
-
-
-\subsection{Scope of the Family} 
-
-\subsection{Characteristics of Intended Reader} 
-
-\subsection{Organization of Document}
-
-\section{General System Description}
-
-This section identifies the interfaces between the system and its environment,
-describes the potential user characteristics and lists the potential system
-constraints.
-
-\subsection{Potential System Contexts}
-
-\wss{Your system context will likely include an explicit list of user and system
-  responsibilities}
-
-\begin{itemize}
-\item User Responsibilities:
-\begin{itemize}
-\item 
-\end{itemize}
-\item \famname{} Responsibilities:
-\begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
-\end{itemize}
-\end{itemize}
-
-\subsection{Potential User Characteristics} \label{SecUserCharacteristics}
-
-The end user of \famname{} should have an understanding of undergraduate Level
-1 Calculus and Physics.
-
-\subsection{Potential System Constraints}
-
-\wss{You may not have any system constraints}
-
-\section{Commonalities}
-
-\subsection{Background Overview} \label{Sec_Background}
+\subsubsection{Regression}
+Regression analysis is the process of finding the best fit parameters for a regression model for a given set of data points and thus obtain a curve through a set of data points.
 
 \subsection{Terminology and  Definitions}
 
@@ -276,105 +263,719 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item 
+\item Basis functions: A basis function is an element of a particular basis for a function space. Every continuous function can be represented as a linear combination of basis functions.
+
+\item Transpose: This is a mathematical operation on a matrix by which the rows of a matrix becomes its columns and vice versa.
+
+\item Cholesky Factorization: This is a particular form of this factorization which is commonly used to solve the normal equations that characterize the least squares solution to the overdetermined linear system.
+
+\item Orthogonality: Orthogonality is the generalization of the notion of perpendicularity.
 
 \end{itemize}
 
 \subsection{Data Definitions} \label{sec_datadef}
 
 This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \wss{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
+models. The dimension of each quantity is also given. 
 
 ~\newline
-
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number
+& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_Monomial}\\
 \hline
-Label& \bf Heat flux out of coil\\
+
+Label
+& \bf Data definitions of monomial interpolation method.\\
 \hline
-Symbol &$q_C$\\
+
+Symbol 
+&$\Phi$, $A$ and $y$.\\
 \hline
-% Units& $Mt^{-3}$\\
-% \hline
-  SI Units & \si{\watt\per\square\metre}\\
-  \hline
-  Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
-  \hline
-  Description & 
-                $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
-                The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
-                assuming that Newton's Law 
-                of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-                the coil, which has area $A_C$ (\si{\square\metre}) and heat 
-                transfer coefficient $h_C$
-                (\si{\watt\per\square\metre\per\celsius}).  This equation
-                assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
-                of the coil (\aref{A_tlcoil}).
-  \\
-  \hline
-  Sources& Citation here\\
-  \hline
-  Ref.\ By & \iref{ewat}\\
-  \hline
+
+SI Units 
+& Not applicable\\
+\hline
+
+Equation
+	&For the given set of data $(t_i, y_i)$ where j $= {1,2,...n}$, the below equation gives the basis functions.
+\begin{equation*}
+\Phi_j (t) = t^{j-1} 
+\end{equation*}
+\\
+&The matrix A and y is given by,
+\begin{equation*}
+A = \begin{bmatrix}
+1 & t_{1} & t_{1} ^2 & \dots & t_{1} ^{n-1} \\
+1 & t_{2} & t_{2} ^2 & \dots & t_{2} ^{n-1} \\
+\vdots & \vdots & \vdots & \vdots \\
+1 & t_{n} & t_{n} ^2 & \dots & t_{n} ^{n-1} \\
+\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+y = \begin{bmatrix}
+y_1  \\
+y_2 \\
+\vdots \\
+y_n \\
+\end{bmatrix} 
+\end{equation*} \\
+\hline
+Description 
+&To provide the basis functions and matrices necessary for monomial interpolation \iref{IM_Monomial}.\\
+& The symbols used in the above equation are $\Phi_j(t)$ which represents the basis function at any t in the data $(t_i, y_i)$.\\
+&A and y are matrices representing the system of equations through the given set of data points.\\
+\hline
+
+Sources
+& ~\cite{Health1997}\\
+\hline
+
+Ref.\ By 
+& \iref{IM_Monomial}\\
+\hline
+
 \end{tabular}
 \end{minipage}\\
-
-\subsection{Goal Statements}
-
-\noindent Given the \wss{inputs}, the goal statements are:
-
-\begin{itemize}
-
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] \wss{One
-    sentence description of the goal.  There may be more than one.  Each Goal
-    should have a meaningful label.}
-
-\end{itemize}
-
-\subsection{Theoretical Models} \label{sec_theoretical}
-
-This section focuses on the general equations and laws that \famname{} is based
-on.  \wss{Modify the examples below for your problem, and add additional models
-  as appropriate.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     DD_Lagrange   %%%%%%%%%%%%%%%%%%%%%%%%
 
 ~\newline
 
 \noindent
 \begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
-  \hline
-  Label&\bf Conservation of thermal energy\\
-  \hline
-  Equation&  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$\\
-  \hline
-  Description & 
-                The above equation gives the conservation of energy for transient heat transfer in a material
-                of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
-                (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
-                $g$ is the volumetric heat generation
-                (\si{\watt\per\cubic\metre}), $T$ is the temperature
-                (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
-                the gradient operator.  For this equation to apply, other forms
-                of energy, such as mechanical energy, are assumed to be negligible in the
-                system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.\\
-  \hline
-  Source &
-           \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}\\
-  % The above web link should be replaced with a proper citation to a publication
-  \hline
-  Ref.\ By & \dref{ROCT}\\
-  \hline
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_Lagrange}\\
+		\hline
+		
+		Label
+		& \bf Data definitions of Lagrange's interpolation method.\\
+		\hline
+		
+		Symbol 
+		&$l$, $A$ and $y$.\\
+		\hline
+		
+		SI Units 
+		& Not applicable\\
+		\hline
+		
+		Equation
+		&For the given set of data $(t_i, y_i)$ where j $= {1,2,...n}$, the below equation gives the basis functions.
+		\begin{equation*}
+		l_j (t) =  \frac{ \Pi _{k=1, k\neq j} ^n (t - t_k)} {\Pi _{k=1,k \neq j} ^ n (t_j - t_k)} = \frac{(t - t_1)}{(t_j - t_1)}...\frac{(t - t_{j-1})}{(t_j - t_{j-1})}\frac{(t - t_{j+1})}{(t_j - t_{j+1})}... \frac{(t - t_n)}{(t_j - t_n)}
+		\end{equation*}
+		\\
+		&The matrix A(Identity matrix) and y is given by,
+		\begin{equation*}
+		A = \begin{bmatrix}
+		1 & 0 & 0 & \dots & 0 \\
+		0 & 1 & 0 & \dots & 0 \\
+		\vdots & \vdots & \vdots & \vdots \\
+		0 & 0 & 0 & \dots & 1 \\
+		\end{bmatrix}
+		\end{equation*}
+		\begin{equation*}
+		y = \begin{bmatrix}
+		y_1  \\
+		y_2 \\
+		\vdots \\
+		y_n \\
+		\end{bmatrix}
+		\end{equation*} \\
+		\hline
+Description 
+&To provide the basis functions and matrices necessary for lagrange's interpolation \iref{IM_Lagrange}.\\
+& The symbols used in the above equation are $l_j(t)$ which represents the basis function at any t in the data $(t_i, y_i)$.\\
+&A and y are matrices representing the system of equations through the given set of data points.\\
+\hline
+
+Sources
+& ~\cite{Health1997}\\
+\hline
+
+Ref.\ By 
+& \iref{IM_Lagrange}\\
+\hline
+
 \end{tabular}
+\end{minipage}\\
+
+%%%%%%%%%%%%%%%%%%%%%%    DD_Newton      %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_Newton}\\
+		\hline
+		
+		Label
+		& \bf Data definitions of Newton interpolation method.\\
+		\hline
+		
+		Symbol 
+		&$\pi$, $A$ and $y$.\\
+		\hline
+		
+		SI Units 
+		& Not applicable\\
+		\hline
+		
+		Equation
+		&For the given set of data $(t_i, y_i)$ where j $= {1,2,...n}$, the below equation gives the basis functions.
+		\begin{equation*}
+		\pi(t) = \Pi_{k=1}^{j-1} (t - t_k)  
+		\end{equation*}
+		When the limits make it vacuous, the product is taken to be 1.\\
+		& Also, $\pi_j (t) = 0$ for $i < j$.
+		\\
+		&The matrix A and y is given by,
+		
+		A is a lower triangular as $\pi_j (t) = 0$ for $i < j$ with its entries defined by $a_{ij} = \pi_j (t_i)$
+		\begin{equation*}
+		A = \begin{bmatrix}
+		\pi_0 (t_0) & 0           & 0            & \dots         & 0 \\
+		
+		\pi_0 (t_1) & \pi_1 (t_1) & 0            & \dots         & 0 \\
+		\vdots      & \vdots      & \vdots       &\ddots         & 0 \\
+		\pi_0 (t_n) & \pi_1 (t_n) & \pi_2 (t_n)  & \dots         & \pi_n (t_n) \\
+		\end{bmatrix}
+		\end{equation*}
+		\begin{equation*}
+		y = \begin{bmatrix}
+		y_1  \\
+		y_2 \\
+		\vdots \\
+		y_n \\
+		\end{bmatrix} 
+		\end{equation*} \\
+		\hline
+		
+		Description 
+		&To provide the basis functions and matrices necessary for Newton's interpolation \iref{IM_Newton}.\\
+		& The symbols used in the above equation are $\pi_j(t)$ which represents the basis function at any t in the data $(t_i, y_i)$.\\
+		&A and y are matrices representing the system of equations through the given set of data points.\\
+		\hline
+		
+		
+		Sources
+		& ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By 
+		& \iref{IM_Newton}\\
+		\hline
+		
+	\end{tabular}
+\end{minipage}\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     DD_HermiteCubic   %%%%%%%%%%%%%%%%%%%%%%%%
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_HermiteCubic}\\
+		\hline
+		
+		Label
+		& \bf Data definitions of Hermite Cubic interpolation method.\\
+		\hline
+		
+		Symbol 
+		&$A$ and $y$.\\
+		\hline
+		
+		SI Units 
+		& Not applicable\\
+		\hline
+		
+		Equation
+		&The matrix A and y is given by,\\
+		&$
+		A = \begin{bmatrix}
+		1          & t_0       & t_0 ^{2}         & t_0 ^{3}         \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		1          & t_n       & t_n ^{2}         & t_n ^{3}          \\
+		0          & 1         & 2 t_0            & 3 t_0 ^{2}         \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 1         & 2 t_n            & 3 t_n ^{2}          \\
+		0          & 0         & 2                & 6 t_0              \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 0         & 2                & 6 t_n           \\
+		0          & 0         & 0                & 6                 \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 0         & 0                & 6               \\
+		\end{bmatrix}$ and $y = \begin{bmatrix}
+		y_0  \\
+		\vdots \\
+		y_0 ^{(1)} \\
+		y_1 ^{(1)} \\
+		\vdots \\
+		y_n ^{(1)} \\
+		y_1 ^{(2)} \\
+		\vdots \\
+		y_n ^{(2)} \\  
+		y_1 ^{(3)} \\
+		\vdots \\
+		y_n ^{(3)} \\ 
+		\end{bmatrix}
+		$ \\
+		\hline
+		Description 
+		&To provide the matrices necessary for Hermite cubic interpolation \iref{IM_HermiteCubic}.\\
+		&A and y are matrices representing the system of equations through the given set of data points.\\
+		\hline
+		
+		Sources
+		& Some related information can be obtained at: \url{https://coast.nd.edu/jjwteach/www/www/30125/pdfnotes/lecture5_9v14.pdf}\\
+		\hline
+		
+		Ref.\ By 
+		& \iref{IM_HermiteCubic}\\
+		\hline
+		
+	\end{tabular}
+\end{minipage}\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     DD_BSpline  %%%%%%%%%%%%%%%%%%%%%%%%
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_B-Spline}\\
+		\hline
+		
+		Label
+		& \bf Data definitions of B-Spline interpolation.\\
+		\hline
+		
+		Symbol 
+		&$v ^{k} _i (t)$\\
+		\hline
+		
+		SI Units 
+		& Not applicable\\
+		\hline
+		
+		Equation
+		&The basis function for B-Spline is given by:
+		\begin{equation*}
+		v_i ^k = \frac{t-t_i}{t_{i+k} - t_i}
+		\end{equation*}
+		\\
+		\hline
+		
+		Description 
+		&To provide the basis function for BSpline interpolation \iref{IM_BSpline}.\\
+		\hline
+		
+		Sources
+		& ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By 
+		& \iref{IM_BSpline}\\
+		\hline
+		
+	\end{tabular}
+\end{minipage}\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     DD_Matrix Transpose %%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_MatrixTranspose}\\
+		\hline
+		
+		Label
+		& \bf Matrix Transpose\\
+		\hline
+		
+		Symbol 
+		&$A^{T}$\\
+		\hline
+		
+		SI Units 
+		& Not applicable\\
+		\hline
+		
+		Equation
+		&
+		\begin{equation*}
+		[A^{T}]_{ij} = [A]_{ji}
+		\end{equation*}\\
+		\hline
+		
+		Description 
+		&The symbols used in the equations are,\\ 
+		& $i, j$ represents the rows and columns of a matrix.\\
+		& T represents the transpose operation of a matrix.\\
+		
+		\hline
+		
+		Sources
+		& ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By 
+		& \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem}\\
+		\hline
+		
+	\end{tabular}
+\end{minipage}\\
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     DD_NormalEquations  %%%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_NormalEquations}\\
+		\hline
+		
+		Label
+		& \bf Data definitions of Regression using Normal Equations.\\
+		\hline
+		
+		Symbol 
+		&$A^{T} A$\\
+		\hline
+		
+		SI Units 
+		& Not applicable\\
+		\hline
+		
+		Equation
+		&
+		\begin{equation*}
+		A^{T} A = L L^{T}
+		\end{equation*}
+		\begin{equation*}
+		[A^{T}]_{ij} = [A]_{ji}
+		\end{equation*}\\
+		\hline
+		
+		Description 
+		&The symbols used in the equations are,\\ 
+		& $L$ represents the lower triangular matrix for Cholesky Factorization.\\
+		& $i, j$ represents the rows and columns of a matrix.\\
+		& T represents the transpose operation of a matrix.\\
+		
+		\hline
+		
+		Sources
+		& ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By 
+		& \iref{IM_NormalEquations}\\
+		\hline
+		
+	\end{tabular}
+\end{minipage}\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     DD_Orthogonality Matrix %%%%%%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& DD\refstepcounter{datadefnum}\thedatadefnum \label{DD_OrthogonalityMatrix}\\
+		\hline
+		
+		Label
+		& \bf Orthogonality Matrix\\
+		\hline
+		
+		Symbol 
+		&$P$\\
+		\hline
+		
+		SI Units 
+		& Not applicable\\
+		\hline
+		
+		Equation
+		&\begin{equation*}
+		P =  (\frac{A A^{T}}{A^{T} A} )  y
+		\end{equation*}\\
+		\hline
+		
+		Description 
+		&The symbols used in the equations are,\\ 
+		& $P$ represents the orthogonal matrix of A.\\
+		& T represents the transpose operation of a matrix.\\
+		
+		\hline
+		
+		Sources
+		& Some related information is given at: \url{http://uspas.fnal.gov/materials/05UCB/4_LSQ.pdf}\\
+		\hline
+		
+		Ref.\ By 
+		& \iref{IM_OrthogonalTransformation}\\
+		\hline
+		
+	\end{tabular}
+\end{minipage}\\
+
+
+
+\subsection{Goal Statements}\label{Goals}
+
+\noindent Given the set of data points, the choice of software from \famname{} and the variabilities of the software the \famname{} should:
+
+\begin{itemize}
+
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_bestfit}:] compute the parameters of the curve which is the best possible fit through the set of data points.
+
+\end{itemize}
+
+\subsection{General Definitions}\label{sec_gendef}
+
+This section collects the equations that will be used in deriving the
+data definitions, which in turn will be used to build the instance models.\\
+
+%%%%%%%%%%%%    GD1     %%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& GD\refstepcounter{defnum}\thedefnum
+		\label{GD_CurveFitEq}\\
+		\hline
+		Label &\bf General form of linear curve fitting\\
+		\hline
+		SI Units& Not applicable\\
+		\hline
+		Equation & $f(t) = \sum_{j=1}^{n}x_j \Phi_j (t)$ where i $= 1,2,3...m$\\
+		\hline
+		Description & The above equation gives the general form of linear curve fitting where,
+		\begin{itemize}
+			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
+			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the curve fitting function $f$.
+			\item $x_j$ is the parameters of the best fit.
+		\end{itemize}\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		\hline
+			
+		Ref.\ By &\tref{T_Interpolation}, \tref{T_LinearRegression}, \iref{IM_Polynomial},\iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic} and \iref{IM_BSpline}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& GD\refstepcounter{defnum}\thedefnum
+		\label{GD_OverdetLinearSys}\\
+		\hline
+		SI Units& Not applicable\\
+		\hline
+		Label & \bf Overdetermined Linear Systems\\
+		\hline
+		Equation
+		& For a given set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$ represented in matrix form $Ax = y$ as in \tref{T_LinearEqMatrix}, where $A$ is an m X n matrix with $m > n$ which means there are more equations than unknowns. \\		
+		& A solution to the system $x$ can be computed such that the residual vector,
+		\begin{equation*}
+		r = y - Ax
+		\end{equation*} is small. 
+		where $i = 1,2,3 ....n$.\\
+		\hline
+		
+		Description 
+		& The symbols used in this equation are .\\
+		& $(t_i,y_i)$ is the given input data.\\
+		& To find a solution to this problem we use least squares method.(\tref{T_LeastSquares})\\
+		\hline
+		
+		Sources& Some related information is available at:
+		\url{https://s-mat-pcs.oulu.fi/~mpa/matreng/ematr5_5.htm}\\
+		\hline
+		Ref.\ By & \tref{T_LinearEqMatrix}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem}, \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+\subsection{Theoretical Models} \label{sec_theoretical}
+
+This section focuses on the general equations that \famname{} is based on.
+~\newline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%        Ax = y      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LinearEqMatrix}\\
+		\hline
+		Label&\bf Matrix-Vector notation for a system of linear equations.\\
+		\hline
+		Equation& \begin{equation*}
+		Ax = y
+		\end{equation*} \\
+		\hline
+		Description & The above equation gives the general form of system of linear equations in matrix vector notation where,\\
+		& A is a $m$ X $n$ matrix\\
+		& y is a m-vector\\
+		& x is an n-vector\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By & \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+~\newline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%        Least squares     %%%%%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LeastSquares}\\
+		\hline
+		Label&\bf Least Squares method.\\
+		\hline
+		Equation& For a given overdetermined system of equations represented in matrix form as in \tref{T_LinearEqMatrix}, a best fit solution $x$ is found such that,  
+		\begin{equation*}
+		\min_{x}\sum_{i=1}^{m} (y_i - f(t_i,x)) ^2
+		\end{equation*} \\
+		\hline
+		Description & The above equation gives the definition of best fit solution in least squares method.\\
+		& A is a $m$ X $n$ matrix\\
+		& y is a m-vector\\
+		& x is an n-vector\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By &\iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+~\newline
+
+%%%%%%%%%%%%%%%%%%%%%% T_Interpolation  %%%%%%%%%%%%%%%%%%%%%%%%
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_Interpolation}\\
+		\hline
+		Label&\bf General form of Interpolation\\
+		\hline
+		Equation&  $f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t) = y_i$ where i $= 1,2,3...m$\\
+		\hline
+		Description & 
+		The above equation gives the general form of interpolating function where,
+		\begin{itemize}
+			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
+			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the interpolating function $f$ whose value at a given $t_i$ is $y_i$.
+			\item $x_j$ is the parameters of the best fit.
+			\item $y_i$ is the given data point at $t_i$.
+		\end{itemize}\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By & \dref{GD_CurveFitEq}, \iref{IM_Polynomial}, \iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+%%%%%%%%%%%%%%%%%%%%%%     Least Squares %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LinearRegression}\\
+		\hline
+		Label&\bf General form of Linear Regression using Least squares method and best fit in least squares. \\
+		\hline
+		Equation&  For i $= 1,2,3...m$, general form of regression is given by
+		\begin{equation*}
+		f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t)	
+		\end{equation*} 
+		~\newline
+		Since we deal with only linear problems(\ref{Scope}), $\Phi_j$ depend only on $t$. Hence $f(t_i,x) $ can be expressed as,
+		\begin{equation*}
+		f(t_i,x) = x_1 + x_2 t + x_3 t^{2} + ... + x_n t^{n-1}.
+		\end{equation*}
+		~\newline
+		To find $x_i$ using Least squares method as in \tref{T_LeastSquares}\\
+		\hline
+		Description & 
+		The above equation gives the general form of linear regression function and the definition of best fit in least squares method.\\
+		
+		&$(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.\\
+		&The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the function $f$ whose value at any $t$ is the best fit to the given data.\\
+		&$x_j$ is the parameters of the best fit.\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By & \dref{GD_CurveFitEq}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
 \end{minipage}\\
 
 ~\newline
@@ -385,14 +986,566 @@ on.  \wss{Modify the examples below for your problem, and add additional models
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  \wss{Short description of each assumption.  Each assumption
-    should have a meaningful label.  Use cross-references to identify the
-    appropriate traceability to T, GD, DD etc., using commands like dref, ddref etc.}
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_data}:] For the given set of data points $(t_i,y_i)$ where i $= 0,1,2,...n$, n $\geq 2$.(\rref{R_IInputs})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dataConstraint}:] For the given set of data points $(t_i,y_i)$ where i $= 0,1,2,...n$, $t_i < t_{i+1}$.(\iref{IM_HermiteCubic},\iref{IM_BSpline})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Interpolation}:] For the given set of data points $(t_i,y_i)$ where i $= 0,1,2,...n$,  there exists an interpolant.(\iref{IM_Polynomial}, \iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic} and \iref{IM_BSpline}).
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Regression}:] For the given set of data points $(t_i,y_i)$, there exists a least squares solution.(\iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_BSplines}:] We assume only linear basis functions for B-Splines. (\iref{IM_BSpline}) 
+
 
 \end{itemize}
 
 \subsection{Calculation} \label{sec_Calculation}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Instance Model} \label{PolynomialInterpolation}    
+
+This section transforms the goal of \famname{} defined in the Section~\ref{Goals} into one which is expressed in mathematical terms. It uses concrete symbols defined in Section~\ref{sec_datadef} to replace the abstract symbols in the models identified in the Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& IM\refstepcounter{instnum}\theinstnum \label{IM_Polynomial}\\
+		\hline
+		
+		Label
+		& \bf Polynomial Interpolation\\
+		\hline
+		
+		Input
+		& A set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$\\		
+		\hline
+		
+		Output& $P_{n-1}(t)$ is a polynomial of degree atmost $n-1$ such that 
+		\begin{equation*}
+		P_{n-1}(t_i) = y_i
+		\end{equation*}
+		where $i = 1,2,3 ....n$
+		\\
+		\hline
+		
+		Description 
+		& The symbols used in this equation are $P_{n-1}$ which represents the polynomial of degree at the most $n-1$.\\
+		& $(t_i,y_i)$ is the given input data where no two $t_i$ are the same.\\
+		&Polynomial interpolation has different variabilities which are discussed as separate instance models.\\
+		\hline
+		
+		Sources
+		& Some related information is available at ~\cite{PolyInterpolation}\\
+		\hline
+		Ref.\ By & \tref{T_Interpolation}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, and \rref{R_Imethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& IM\refstepcounter{instnum}\theinstnum \label{IM_Piecewise}\\
+		\hline
+		
+		Label
+		& \bf Piecewise Interpolation\\
+		\hline
+		
+		Input
+		& A set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$ where $x_{i+1} > X_i$.\\		
+		\hline
+		
+		Output& $P(t) = L_i (t)$ is a piecewise linear function where $L_i$ is gievn by the following equation. 
+		\begin{equation*}
+		L_i (t) = y_i + \frac{y_{i+1} - y_i}{t_{i+1} - t_i} (t - t_i)
+		\end{equation*}
+		where $i = 1,2,3 ....n$. The degree of the polynomial can be varied as per requirement in each interval.\\
+		\hline
+		
+		Description 
+		& The symbols used in this equation are $P(t)$ which represents the piecewise polynomial of degree $1$.\\
+		& $(t_i,y_i)$ is the given input data where no two $t_i$ are the same.\\
+		&Piecewise interpolation has different variabilities which are discussed as separate instance models.\\
+		\hline
+		
+		Sources& Some related information is available at:
+		 \url{http://www.math.umd.edu/~petersd/460/spline.pdf}\\
+		\hline
+		Ref.\ By & \tref{T_Interpolation}, \iref{IM_HermiteCubic}, \iref{IM_BSpline} and
+		\rref{R_Imethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& IM\refstepcounter{instnum}\theinstnum \label{IM_Monomial}\\
+		\hline
+		
+		Label
+		& \bf Monomial Interpolation\\
+		\hline
+		
+		Input
+		& $(t_i,y_i)$ i $= {1,2,...n}$\\
+		& see~\ddref{DD_Monomial}, from which the basis function of the monomial interpolation is obtained.\\
+		& see~\ddref{DD_Monomial}, from which the definition of matrix A and b are obtained.\\
+		\hline
+		
+		Output
+		&Find $P_{n-1}(t)$ such that for the given input $(t_i,y_i)$,
+		\begin{equation*}
+		P_{n-1}(t_i) = x_1 + x_2 t_i + x_3 t_i ^2 + x_4 t_i ^3 + ... x_n t_i ^{n-1} = y_i 
+		\end{equation*}
+		Where $x_1, x_2, x_3 ... x_n$ can be obtained by representing the above system of linear equations in matrix form $Ax = b$ as in \tref{T_LinearEqMatrix} and solving for x using the equation below.
+		\begin{equation*}
+		Ax = \begin{bmatrix}
+		1 & t_{1} & t_{1} ^2 & \dots & t_{1} ^{n-1} \\
+		1 & t_{2} & t_{2} ^2 & \dots & t_{2} ^{n-1} \\
+		\vdots & \vdots & \vdots & \vdots \\
+		1 & t_{n} & t_{n} ^2 & \dots & t_{n} ^{n-1} \\
+		\end{bmatrix}
+		\begin{bmatrix}
+		x_1  \\
+		x_2 \\
+		\vdots \\
+		x_n \\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+		y_1  \\
+		y_2 \\
+		\vdots \\
+		y_n \\
+		\end{bmatrix} = y
+		\end{equation*}\\ 
+	
+		
+		\hline
+		Description & To determine the interpolating polynomial $p_{n-1}$ for a given set of input points.\\
+		& The symbols used in this equation are $P_{n-1}$ which represents the polynomial of degree at the most $n-1$.\\
+		& $x_1, x_2 ... x_n$ are best fit parameters.\\
+		\hline
+		
+		Sources& Some related information is available at:~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By & \tref{T_Interpolation}, \dref{GD_CurveFitEq}, \rref{R_Polynomialmethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IM: Lagrange interpolation         %%%%%%
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{IM_Lagrange}\\
+		\hline
+		Label& \bf Lagrange's Interpolation\\
+		\hline
+		
+		Input
+		& $(t_i,y_i)$ i $= {1,2,...n}$\\
+		& see~\ddref{DD_Lagrange}, from which the basis function of the lagrange's interpolation is obtained.\\
+		& see~\ddref{DD_Lagrange}, from which the definition of matrix A and b are obtained.\\
+		\hline
+		
+		Output
+		&Find $P_{n-1}(t)$ such that for the given input $(t_i,y_i)$,
+		\begin{equation*}
+		P_{n-1} (t) = y_1 l_1 (t) + y_2 l_2(t) + \dots y_n l_n (t).
+		\end{equation*}
+		
+		Where $x_1, x_2, x_3 ... x_n$ can be obtained by representing the above system of linear equations in matrix form $Ax = b$ as in \tref{T_LinearEqMatrix} and solving for x using the equation below.
+		\begin{equation*}
+	Ax = \begin{bmatrix}
+		1 & 0 & 0 & \dots & 0 \\
+		0 & 1 & 0 & \dots & 0 \\
+		\vdots & \vdots & \vdots & \vdots \\
+		0 & 0 & 0 & \dots & 1 \\
+	\end{bmatrix}
+	\begin{bmatrix}
+	x_1  \\
+	x_2 \\
+	\vdots \\
+	x_n \\
+	\end{bmatrix} = 
+	\begin{bmatrix}
+	y_1  \\
+	y_2 \\
+	\vdots \\
+	y_n \\
+	\end{bmatrix} = y
+	\end{equation*}\\ 
+	
+		\hline
+		
+		Description & To determine the interpolating polynomial $p_{n-1}$ for a given set of input points.\\
+		& The symbols used in this equation are $P_{n-1}$ which represents the polynomial of degree at the most $n-1$.\\
+		& $x_1, x_2 ... x_n$ are best fit parameters.\\
+		\hline
+		
+		Sources& Some related information is available at:~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By & \tref{T_Interpolation}, \dref{GD_CurveFitEq}, \rref{R_Polynomialmethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IM: Newton interpolation         %%%%%%
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{IM_Newton}\\
+		\hline
+		Label& \bf Newton's Interpolation\\
+		\hline
+		
+		Input
+		& $(t_i,y_i)$ i $= {1,2,...n}$\\
+		& see~\ddref{DD_Newton}, from which the basis function of the Newton's interpolation is obtained.\\
+		& see~\ddref{DD_Newton}, from which the definition of matrix A and b are obtained.\\
+		\hline
+		
+		Output
+		&Find $P_{n-1}(t)$ such that for the given input $(t_i,y_i)$,
+		\begin{equation*}
+		P_{n-1} (t) = x_1 + x_2(t-t_1) + x_3(t-t_1)(t-t_2) + ... x_n(t-t_1)(t-t_2)...(t-t_{n-1})
+		\end{equation*}
+		Where $x_1, x_2, x_3 ... x_n$ can be obtained by representing the above system of linear equations in matrix form $Ax = y$ as in \tref{T_LinearEqMatrix} and solving for x using the equation below.
+		\begin{equation*}
+		Ax = \begin{bmatrix}
+		\pi_0 (t_0) & 0           & 0            & \dots         & 0 \\
+		\pi_0 (t_1) & \pi_1 (t_1) & 0            & \dots         & 0 \\
+		\vdots      & \vdots      & \vdots       &\ddots         & 0 \\
+		\pi_0 (t_n) & \pi_1 (t_n) & \pi_2 (t_n)  & \dots         & \pi_n (t_n) \\
+		\end{bmatrix}
+		\begin{bmatrix}
+		x_1  \\
+		x_2 \\
+		\vdots \\
+		x_n \\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+		y_1  \\
+		y_2 \\
+		\vdots \\
+		y_n \\
+		\end{bmatrix} = y
+		\end{equation*}\\ 
+		\hline
+		
+		Description & To determine the interpolating polynomial $p_{n-1}$ for a given set of input points.\\
+		& The symbols used in this equation are $P_{n-1}$ which represents the polynomial of degree at the most $n-1$.\\
+		& $x_1, x_2 ... x_n$ are best fit parameters.\\
+		\hline
+		
+		Sources& Some related information is available at:~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By & \tref{T_Interpolation}, \dref{GD_CurveFitEq}, \rref{R_Polynomialmethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IM:Hermite cubic interpolation         %%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{IM_HermiteCubic}\\
+		\hline
+		Label& \bf Hermite Cubic Interpolation\\
+		\hline
+		
+		Input
+		& $(t_i,y_i)$ where i $= {1,2,...n}$\\
+		& $m$ derivatives for the $n$ data points above (where $m= 3$ as a cubic polynomial can have only 3 derivatives) represented by $(t_i ^{(m)},y_i ^{(m)} )$ where i $= {1,2,...n}$.\\
+		& see~\ddref{DD_HermiteCubic}, from which the definition of matrix A and b are obtained.\\
+		\hline
+		
+		Output
+		&Find $P(t)$ such that for the given input $(t_i,y_i)$,
+		\begin{equation*}
+		P(t) = x_0 + x_1 t + x_2 t^{2} + x_3 t^{3}
+		\end{equation*}
+		Where $x_0, x_1, x_2, x_3$ can be obtained by representing the above system of linear equations in matrix form $Ax = y$ as in \tref{T_LinearEqMatrix} and solving for x using the equation below.
+		\begin{equation*}
+		Ax = \begin{bmatrix}
+		1          & t_0       & t_0 ^{2}         & t_0 ^{3}         \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		1          & t_n       & t_n ^{2}         & t_n ^{3}          \\
+		0          & 1         & 2 t_0            & 3 t_0 ^{2}         \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 1         & 2 t_n            & 3 t_n ^{2}          \\
+		0          & 0         & 2                & 6 t_0              \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 0         & 2                & 6 t_n           \\
+		0          & 0         & 0                & 6                 \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 0         & 0                & 6               \\
+		\end{bmatrix}
+		\begin{bmatrix}
+		x_1  \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		x_{n(m+1)} \\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+		y_0  \\
+		\vdots \\
+		y_0 ^{(1)} \\
+		y_1 ^{(1)} \\
+		\vdots \\
+		y_n ^{(1)} \\
+		y_1 ^{(2)} \\
+		\vdots \\
+		y_n ^{(2)} \\  
+		y_1 ^{(3)} \\
+		\vdots \\
+		y_n ^{(3)} \\ 
+		\end{bmatrix} = y
+		\end{equation*}\\ 
+		
+		\hline
+		
+		Description & To determine the interpolating polynomial $p$ for a given set of input points.\\
+		& The symbols used in this equation are $P$ which represents the polynomial of degree at the most $n(m+1)-1$.\\
+		& $x_1, x_2 ... x_{n(m+1)}$ are best fit parameters.\\
+		\hline
+		
+		Sources& Some related information can be obtained at: \url{https://coast.nd.edu/jjwteach/www/www/30125/pdfnotes/lecture5_9v14.pdf}\\
+		\hline
+		
+		Ref.\ By & \tref{T_Interpolation}, \dref{GD_CurveFitEq}, \rref{R_Piecewisemethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IM: B-Spline interpolation         %%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number
+		& IM\refstepcounter{instnum}\theinstnum \label{IM_BSpline}\\
+		\hline
+		
+		Label
+		& \bf B-Spline Interpolation\\
+		\hline
+		
+		Input
+		& $(t_i,y_i)$ i $= {1,2,...n}$ such that $t_0 < t_1 < ...t_n$ \\
+		& see~\ddref{DD_B-Spline}, from which the basis function for B-Splines is obtained.\\
+		\hline
+		
+		Output
+		&Find $B^{k} _{i}(t)$ such that for the given input $(t_i,y_i)$,
+		\begin{equation*}
+		B_i ^k (t) = v_i ^k (t) B_i ^{k-1} (t) + (1 - v_{i+1} ^k (t))B_{i+1} ^{k-1} (t)
+		\end{equation*} 
+		for $k>0$.\\
+		\hline
+		
+		Description & To determine B-Spline $B_i ^k$ for a given set of input points.\\
+		& The symbols used in this equation are $B_i ^k$ which represents a piecewise polynomial of degree $k$.\\
+		& Important properties of B-Splines includes:
+		\begin{itemize}
+			\item For $t < T_i or t > t_{i+k+1}, B ^{k} _i (t) = 0$
+			\item For $t_i < t < t_{i+k+1}, B ^{k} _i (t) > 0$
+			\item For all t, $\sum_{i= - \infty}^{\infty} B ^{k} _i (t) = 1 $
+			\item For $k \geq 1 B ^{k} _i$ is $k-1$ times continously differentiable. 
+		\end{itemize}\\
+		\hline
+		
+		Sources& Some related information is available at:~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By & \tref{T_Interpolation}, \dref{GD_CurveFitEq}, \rref{R_Piecewisemethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IM:Normal Equations         %%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{IM_NormalEquations}\\
+		\hline
+		Label& \bf Normal Equations\\
+		\hline
+		
+		Input 
+		& A set of data points $(t_i,y_i)$ for i $=1,2,...n$ represented as a overdetrmined system of equations as in \tref{T_LinearEqMatrix}.\\
+		& The matrices $A^{T} A$ and $A^{T}$ from \ddref{DD_NormalEquations} and \ddref{DD_MatrixTranspose}\\
+		\hline
+		
+		Output
+		& $x_j$ for j $=1,2..m$ by solving the equations below,
+		\begin{equation*}
+		A^{T} Ax = A^{T}y
+		\end{equation*}\\
+		\hline
+		Description & The symbols used in the above equations are:\\
+		& $T$ which represents the transpose function of a given matrix.\\
+		\hline
+		Sources& ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By & \dref{GD_CurveFitEq}, \dref{GD_OverdetLinearSys}, \tref{T_LeastSquares}, \tref{T_LinearRegression} and \rref{R_Rmethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IM:Augmented system         %%%%%%
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{IM_AugmentedSystem}\\
+		\hline
+		Label& \bf Augmented System\\
+		\hline
+		
+		Input
+		& A set of data points $(t_i,y_i)$ for i $=1,2,...n$ represented as a overdetrmined system of equations as in \tref{T_LinearEqMatrix}.\\
+		& The matrix $A^{T}$ from \ddref{DD_MatrixTranspose}\\
+		\hline
+		
+		Output
+		& $x_j$ for j $=1,2..m$ by solving the equations below,
+		\begin{equation*}
+		r + Ax = y
+		\end{equation*}
+		\begin{equation*}
+		A^{T} r = 0
+		\end{equation*}\\
+		\hline
+		Description & The equations above give the system to be solved for finding $x$. The symbols used in the equation are,\\
+		& $r$ - The residual vector.\\
+		\hline
+		Sources& ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By & \dref{GD_CurveFitEq}, \dref{GD_OverdetLinearSys}, \tref{T_LeastSquares}, \tref{T_LinearRegression} and \rref{R_Rmethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IM:Orthogonal Transformations        %%%%%%
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& IM\refstepcounter{instnum}\theinstnum \label{IM_OrthogonalTransformation}\\
+		\hline
+		Label& \bf Orthogonal Transformation \\
+		\hline
+		
+		Input
+		& A set of data points $(t_i,y_i)$ for i $=1,2,...n$ represented as a overdetrmined system of equations as in \tref{T_LinearEqMatrix}.\\
+		& The matrix $P$ from \ddref{DD_OrthogonalityMatrix}\\
+		\hline
+		
+		Output
+		& $x_j$ for j $=1,2..m$ by solving the equations below,
+		\begin{equation*}
+		Ax = Py
+		\end{equation*}\\
+		\hline
+		
+		Description & The equation above give the system to be solved for finding $x$. The symbols used in the equation are,\\
+		& $P$ - The orthogonality matrix.\\
+		\hline
+	
+		Sources& ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By &  \dref{GD_CurveFitEq}, \dref{GD_OverdetLinearSys}, \tref{T_LeastSquares}, \tref{T_LinearRegression} and \rref{R_Rmethod}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+
+
+
+
+
+
 
 \subsection{Output} \label{sec_Output}    
 
@@ -404,45 +1557,138 @@ qualities that the software is expected to exhibit.
 
 \subsection{Functional Requirements}
 
-\noindent \begin{itemize}
+\begin{itemize}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_IInputs}:] Read the input the data $(t_i,y_i)$.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] \wss{Requirements
-    for the inputs that are supplied by the user.  This information has to be
-    explicit.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_IverifyIPType}:]Verify the input data to see if only numbers are entered.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] \wss{It isn't
-    always required, but often echoing the inputs as part of the output is a
-    good idea.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_IverifyIPData}:]Verify the input data to see if \aref{A_data} and \aref{A_dataConstraint} are satisfied.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] \wss{Calculation
-    related requirements.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Int_or_Reg}:]Read the user's choice of curve fitting method between Interpolation(\tref{T_Interpolation}) or Regression(\tref{T_LinearRegression}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:]
-  \wss{Verification related requirements.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Imethod}:]If interpolation, is chosen in \rref{R_Int_or_Reg}, read user's choice of basis function between Polynomial(\iref{IM_Polynomial}) or Piecewise(\iref{IM_Piecewise}). (\aref{A_Interpolation})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] \wss{Output related
-    requirements.}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Polynomialmethod}:]If Polynomial is chosen in \rref{R_Imethod}, read user's choice of basis functions from Monomial(\iref{IM_Monomial}), Lagrange(\iref{IM_Lagrange}) or Newton(\iref{IM_Newton}).(\aref{A_Interpolation})
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Piecewisemethod}:]If Piecewise Polynomial is chosen in \rref{R_Imethod}, read user's choice of interpolating method from Hermite cubic(\iref{IM_HermiteCubic}) or B-Splines(\iref{IM_BSpline}).(\aref{A_Interpolation})
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Rmethod}:]If regression is chosen in \rref{R_Int_or_Reg}, read user's choice of regression methods between Normal equations(\iref{IM_NormalEquations}), Augmented system(\iref{IM_AugmentedSystem}) and Orthogonal transformations(\iref{IM_OrthogonalTransformation}).(\aref{A_Regression})
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_ICalculate}:] Compute best fit parameters.
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_IOutput}:] Display the plot with data(\rref{R_IInputs}) and best fit result from \rref{R_ICalculate}.
 
 \end{itemize}
-
 \subsection{Nonfunctional Requirements}
 
-\wss{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
+\subsubsection{Portability Requirements}
+\begin{itemize}
+	\item \famname{} shall be able to run on Windows 7/10, Linux, and Mac OSX
+	operating systems.
+\end{itemize}
+
+\subsubsection{Verifiability Requirements}
+\begin{itemize}
+	\item \famname{} should be verifiable, which means the results should be comparable to Matlab.
+\end{itemize}
+
+\subsubsection{Maintainability and Support Requirements}
+\begin{itemize}
+	\item \famname{} should be able to accommodate new fitting methods for linear problems. 
+\end{itemize}	
+	
+
 
 \section{Likely Changes}    
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \wss{If
-    there is a ranking of variabilities, or combinations of variabilities, that
-    are more likely, this information can be included here.}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_Smoothing}:]The
+user may want to use smoothing to fit the data.(\aref{A_HeatTransCoeff}). 
 
 \end{itemize}
 
 \section{Traceability Matrices and Graphs}
 
-\wss{You will have to add tables.}
+The traceability matrix between data definitions and general definitions is represented below.\\
+~\newline
+\begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+	
+	\hline
+	 & DD1 & DD2 & DD3 & DD4 & DD5 & DD6 & DD7 & DD8\\
+	 \hline
+	 GD1 & \checkmark & \checkmark  & \checkmark  & \checkmark  & \checkmark  & \checkmark   & \checkmark & \checkmark\\
+	  \hline
+	 GD2 &  &   &   &   &   & \checkmark   & \checkmark & \checkmark \\
+	 
+	\hline
+	
+\end{tabular}\\
+~\newline
+The traceability matrix between data definitions and Theoretical models is represented below.\\
+
+\begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+	
+	\hline
+	& DD1 & DD2 & DD3 & DD4 & DD5 & DD6 & DD7 & DD8\\
+	\hline
+	\tref{T_LinearEqMatrix} & \checkmark & \checkmark  & \checkmark  & \checkmark  &   & \checkmark   & \checkmark & \checkmark\\
+	\hline
+	\tref{T_LeastSquares} &  &   &   &   &   & \checkmark   & \checkmark & \checkmark \\
+	\hline
+	\tref{T_Interpolation} & \checkmark & \checkmark  & \checkmark  & \checkmark  & \checkmark  &    &  &  \\
+	\hline
+	\tref{T_LinearRegression} &  &   &   &   &   & \checkmark   & \checkmark & \checkmark \\
+	\hline
+\end{tabular}\\
+
+
+~\newline
+The traceability matrix between Data definitions and Instance models is represented below.\\
+
+\begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+	
+	\hline
+	&\iref{IM_Polynomial}  & \iref{IM_Piecewise} & \iref{IM_Monomial} & \iref{IM_Lagrange} & \iref{IM_Newton} & \iref{IM_HermiteCubic}  & \iref{IM_BSpline} & \iref{IM_NormalEquations} & \iref{IM_AugmentedSystem} & \iref{IM_OrthogonalTransformation}\\
+	\hline
+	\ddref{DD_Monomial} &  &   & \checkmark  &  &  &   &  &  &  & \\
+	\hline
+	\ddref{DD_Lagrange} &  &   &   &   \checkmark &   &    &  &  &  &  \\
+	\hline
+	\ddref{DD_Newton} &  & &  &  & \checkmark  &   & & & & \\
+	\hline
+	\ddref{DD_HermiteCubic} &  & &  &  &  & \checkmark   & & & & \\
+	\hline
+	\ddref{DD_B-Spline} &  & &  &  &  &   &\checkmark  & & & \\
+	\hline
+	\ddref{DD_MatrixTranspose} &  &   &   &   &   &    &  & \checkmark & \checkmark &  \\
+	\hline
+	\ddref{DD_NormalEquations} &  &  &   &   &   &  & & & \checkmark & \\
+	\hline
+	\ddref{DD_OrthogonalityMatrix} &  &   &   &   &   &  &  &  &  & \checkmark  \\
+	\hline
+\end{tabular}\\
+
+
+
+~\newline
+The traceability matrix between Theoretical models and Instance models is represented below.\\
+
+\begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+	
+	\hline
+	&\iref{IM_Polynomial}  & \iref{IM_Piecewise} & \iref{IM_Monomial} & \iref{IM_Lagrange} & \iref{IM_Newton} & \iref{IM_HermiteCubic}  & \iref{IM_BSpline} & \iref{IM_NormalEquations} & \iref{IM_AugmentedSystem} & \iref{IM_OrthogonalTransformation}\\
+	\hline
+	\tref{T_LinearEqMatrix} &  &   & \checkmark  & \checkmark & \checkmark  & \checkmark    &  & \checkmark & \checkmark & \checkmark \\
+	\hline
+	\tref{T_LeastSquares} &  &   &   &   &   &    &  & \checkmark & \checkmark & \checkmark \\
+	\hline
+	\tref{T_Interpolation} & \checkmark & \checkmark  & \checkmark  & \checkmark  & \checkmark  & \checkmark   & \checkmark & & & \\
+	\hline
+	\tref{T_LinearRegression} &  &   &   &   &   &  &  & \checkmark & \checkmark & \checkmark  \\
+	\hline
+\end{tabular}\\
+
 
 \newpage
 
@@ -453,15 +1699,12 @@ qualities that the software is expected to exhibit.
 
 \section{Appendix}
 
-\wss{Your report may require an appendix.  For instance, this is a good point to
-show the values of the symbolic parameters introduced in the report.}
+
 
 \subsection{Symbolic Parameters}
 
-\wss{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
 
-
+\begin{comment}
 
 \ms{Points to be noted}\\
 \ms{***********************************************************************}
@@ -636,7 +1879,7 @@ The polynomial $P_{n-1}$ is given by,
 P_{n-1} (t) = x_1 + x_2(t-t_1) + x_3(t-t_1)(t-t_2) + ... x_n(t-t_1)(t-t_2)...(t-t_{n-1})
 \end{equation*}
 
-The matrix form of basis in $Ax = y$ is lower triangular as $\pi_j (t) = 0$ for i<j with its entries defined by $a_{ij} = \pi_j (t_i)$
+The matrix form of basis in $Ax = y$ is lower triangular as $\pi_j (t) = 0$ for $i<j$ with its entries defined by $a_{ij} = \pi_j (t_i)$
 
 \subsection{Piecewise Polynomial Interpolation}
 Even though choosing an appropriate basis function and intetpolation points mitigate the difficulties associated with interpolation by a polynomial of higher degree, fitting a single polynomial to a large number of data points will still yield unsatisfactory oscillating behaviour in the interpolant. 
@@ -859,6 +2102,6 @@ Where the entries of the matrix $a_{ij}$ is defined by $a_{ij} = \Phi_j(t_i)$ an
 
 \textbf{Existence and uniqueness}
 The solution to a $m X n$ least squares problem $Ax \approxeq b$ is unique if and only if A has full column rank that is $rank(A) = n$. If $rank(A) < n$, then A is said to be rank deficient. Even though a solution must still exist, it is not unique. 
-
+\end{comment}
 
 \end{document}
