@@ -155,6 +155,14 @@ $v$ & & Basis function\\
   \bottomrule
 \end{tabular}\\
 
+\subsection{Mathematical Notations}
+\subsubsection{Matrix form}
+Each data point can be converted to a system of linear equations that can be represented in a matrix form. For instance, let the data be $(t_i,y_i)$ for i = $0,1,2$, then the matrix form is given by,
+
+
+\ms{A plcae holder to add matrix form explanation}
+
+
 
 \newpage
 
@@ -172,7 +180,7 @@ The following section provides an overview of the Commonality Analysis (CA) for 
  
 
 \subsection{Purpose of Document}
-The purpose of this document is to analyze the commonalities(assumptions which are true) and variabilities(assumptions which can vary) between the family of softwares produced as part of this library.
+The purpose of this document is to analyze the commonalities and variabilities between the family of softwares produced as part of this library. The commonalities are the elements which are true for each member which is a part of this software family. For instance, curve fitting is common for all the softwares of this family. The variabilities are the elements which may vary between each software member of this family. For instance, the technique used to fit the curve such as interpolation, regression, smoothing are examples of variabilities.
 
 
 \subsection{Scope of the Family}\label{Scope}
@@ -182,7 +190,7 @@ The scope of \famname{} is restricted to finding the best fit parameters of line
  
 
 \subsection{Characteristics of Intended Reader} 
-The reader of this document is expected to know the basic concepts of curve fitting. However to obtain a deeper understanding of this document, the reader is expected to be a undergraduate in science or engineering.
+The reader of this document is expected to know the basic concepts of curve fitting. However to obtain a deeper understanding of this document, the reader is expected to be proficient in elementary linear algebra.
 
 \subsection{Organization of Document}
 The organization of this document follows the template for a Commonality analysis (CA) for scientific computing software proposed by Dr.Spencer Smith.  The sections of this document are grouped into commonalities and variabilities of the \famname{}. The presentation starts with the analyzing commonalities between the softwares of \famname{} which will contain goals, theories,  and definitions which will be common for the family members of \famname{}. Then the variabilities of the family members is presented which will contain the assumptions, instance models and the output. The goal statements are refined to the theoretical models, and theoretical models to the instance models.
