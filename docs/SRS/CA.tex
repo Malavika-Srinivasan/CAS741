@@ -281,6 +281,86 @@ easier to correctly understand the requirements:
 
 \end{itemize}
 
+
+
+\subsection{General Definitions}\label{sec_gendef}
+
+This section collects the equations that will be used in deriving the
+data definitions, which in turn will be used to build the instance models.\\
+
+%%%%%%%%%%%%    GD1     %%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& GD\refstepcounter{defnum}\thedefnum
+		\label{GD_CurveFitEq}\\
+		\hline
+		Label &\bf General form of linear curve fitting\\
+		\hline
+		SI Units& Not applicable\\
+		\hline
+		Equation & $f(t) = \sum_{j=1}^{n}x_j \Phi_j (t)$ where i $= 1,2,3...m$\\
+		\hline
+		Description & The above equation gives the general form of linear curve fitting where,
+		\begin{itemize}
+			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
+			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the curve fitting function $f$.
+			\item $x_j$ is the parameters of the best fit.
+		\end{itemize}\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		\hline
+		
+		Ref.\ By &\tref{T_Interpolation}, \tref{T_LinearRegression}, \iref{IM_Polynomial},\iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic} and \iref{IM_BSpline}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& GD\refstepcounter{defnum}\thedefnum
+		\label{GD_OverdetLinearSys}\\
+		\hline
+		SI Units& Not applicable\\
+		\hline
+		Label & \bf Overdetermined Linear Systems\\
+		\hline
+		Equation
+		& For a given set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$ represented in matrix form $Ax = y$ as in \tref{T_LinearEqMatrix}, where $A$ is an m X n matrix with $m > n$ which means there are more equations than unknowns. \\		
+		& A solution to the system $x$ can be computed such that the residual vector,
+		\begin{equation*}
+		r = y - Ax
+		\end{equation*} is small. 
+		where $i = 1,2,3 ....n$.\\
+		\hline
+		
+		Description 
+		& The symbols used in this equation are .\\
+		& $(t_i,y_i)$ is the given input data.\\
+		& To find a solution to this problem we use least squares method.(\tref{T_LeastSquares})\\
+		\hline
+		
+		Sources& Some related information is available at:
+		\url{https://s-mat-pcs.oulu.fi/~mpa/matreng/ematr5_5.htm}\\
+		\hline
+		Ref.\ By & \tref{T_LinearEqMatrix}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem}, \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+
+
+
 \subsection{Data Definitions} \label{sec_datadef}
 
 This section collects and defines all the data needed to build the instance
@@ -773,81 +853,6 @@ Ref.\ By
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_bestfit}:] compute the parameters of the curve which is the best possible fit through the set of data points.
 
 \end{itemize}
-
-\subsection{General Definitions}\label{sec_gendef}
-
-This section collects the equations that will be used in deriving the
-data definitions, which in turn will be used to build the instance models.\\
-
-%%%%%%%%%%%%    GD1     %%%%%%%%%%%%%%
-~\newline
-\noindent
-\begin{minipage}{\textwidth}
-	\renewcommand*{\arraystretch}{1.5}
-	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Number& GD\refstepcounter{defnum}\thedefnum
-		\label{GD_CurveFitEq}\\
-		\hline
-		Label &\bf General form of linear curve fitting\\
-		\hline
-		SI Units& Not applicable\\
-		\hline
-		Equation & $f(t) = \sum_{j=1}^{n}x_j \Phi_j (t)$ where i $= 1,2,3...m$\\
-		\hline
-		Description & The above equation gives the general form of linear curve fitting where,
-		\begin{itemize}
-			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
-			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the curve fitting function $f$.
-			\item $x_j$ is the parameters of the best fit.
-		\end{itemize}\\
-		\hline
-		Source & ~\cite{Health1997}\\
-		\hline
-			
-		Ref.\ By &\tref{T_Interpolation}, \tref{T_LinearRegression}, \iref{IM_Polynomial},\iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic} and \iref{IM_BSpline}\\
-		\hline
-	\end{tabular}
-\end{minipage}\\
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-~\newline
-\noindent
-\begin{minipage}{\textwidth}
-	\renewcommand*{\arraystretch}{1.5}
-	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Number& GD\refstepcounter{defnum}\thedefnum
-		\label{GD_OverdetLinearSys}\\
-		\hline
-		SI Units& Not applicable\\
-		\hline
-		Label & \bf Overdetermined Linear Systems\\
-		\hline
-		Equation
-		& For a given set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$ represented in matrix form $Ax = y$ as in \tref{T_LinearEqMatrix}, where $A$ is an m X n matrix with $m > n$ which means there are more equations than unknowns. \\		
-		& A solution to the system $x$ can be computed such that the residual vector,
-		\begin{equation*}
-		r = y - Ax
-		\end{equation*} is small. 
-		where $i = 1,2,3 ....n$.\\
-		\hline
-		
-		Description 
-		& The symbols used in this equation are .\\
-		& $(t_i,y_i)$ is the given input data.\\
-		& To find a solution to this problem we use least squares method.(\tref{T_LeastSquares})\\
-		\hline
-		
-		Sources& Some related information is available at:
-		\url{https://s-mat-pcs.oulu.fi/~mpa/matreng/ematr5_5.htm}\\
-		\hline
-		Ref.\ By & \tref{T_LinearEqMatrix}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem}, \iref{IM_OrthogonalTransformation}\\
-		\hline
-	\end{tabular}
-\end{minipage}\\
 
 
 \subsection{Theoretical Models} \label{sec_theoretical}
