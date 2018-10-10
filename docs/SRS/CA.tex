@@ -1624,28 +1624,30 @@ user may want to use smoothing to fit the data.(\aref{A_HeatTransCoeff}).
 \end{itemize}
 
 \section{Traceability Matrices and Graphs}
-
-The traceability matrix between data definitions and general definitions is represented below.\\
+The traceability matrix between different sections of this document is presented below. A \checkmark entry in the table represents that they are referenced to each other. The way they are referenced is explained in the description of each table.
+\subsection{Traceability Matrix - General definitions and Data definitions}
+The traceability matrix between data definitions and general definitions is represented below. A `\checkmark' entry in the table means that the Data definition of the corresponding column is based on the General definition in the corresponding row.\\
 ~\newline
 \begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 	
 	\hline
-	 & DD1 & DD2 & DD3 & DD4 & DD5 & DD6 & DD7 & DD8\\
+	 & \ddref{DD_Monomial} & \ddref{DD_Lagrange} & \ddref{DD_Newton} & \ddref{DD_HermiteCubic} & \ddref{DD_B-Spline} & \ddref{DD_MatrixTranspose}  & \ddref{DD_NormalEquations} & \ddref{DD_OrthogonalityMatrix}\\
 	 \hline
-	 GD1 & \checkmark & \checkmark  & \checkmark  & \checkmark  & \checkmark  & \checkmark   & \checkmark & \checkmark\\
+	 \dref{GD_CurveFitEq} & \checkmark & \checkmark  & \checkmark  & \checkmark  & \checkmark  & \checkmark   & \checkmark & \checkmark\\
 	  \hline
-	 GD2 &  &   &   &   &   & \checkmark   & \checkmark & \checkmark \\
+	 \dref{GD_OverdetLinearSys} &  &   &   &   &   & \checkmark   & \checkmark & \checkmark \\
 	 
 	\hline
 	
 \end{tabular}\\
-~\newline
-The traceability matrix between data definitions and Theoretical models is represented below.\\
 
+\subsection{Traceability Matrix - Theoretical models and Data definitions}
+The traceability matrix between Theoretical models and Data definitions is represented below. A `\checkmark' entry in the table means that the Data definition in the corresponding column is based on the the Theoretical models in the corresponding row.\\
+~\newline
 \begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 	
 	\hline
-	& DD1 & DD2 & DD3 & DD4 & DD5 & DD6 & DD7 & DD8\\
+	& \ddref{DD_Monomial} & \ddref{DD_Lagrange} & \ddref{DD_Newton} & \ddref{DD_HermiteCubic} & \ddref{DD_B-Spline} & \ddref{DD_MatrixTranspose}  & \ddref{DD_NormalEquations} & \ddref{DD_OrthogonalityMatrix}\\
 	\hline
 	\tref{T_LinearEqMatrix} & \checkmark & \checkmark  & \checkmark  & \checkmark  &   & \checkmark   & \checkmark & \checkmark\\
 	\hline
@@ -1657,10 +1659,9 @@ The traceability matrix between data definitions and Theoretical models is repre
 	\hline
 \end{tabular}\\
 
-
+\subsection{Traceability Matrix - Data definitions and Instance models}
+The traceability matrix between Data definitions and Instance models is represented below. A `\checkmark' entry in the table means that the Instance model in the corresponding column uses the Data definition in the corresponding row.\\
 ~\newline
-The traceability matrix between Data definitions and Instance models is represented below.\\
-
 \begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 	
 	\hline
@@ -1685,10 +1686,9 @@ The traceability matrix between Data definitions and Instance models is represen
 \end{tabular}\\
 
 
-
+\subsection{Traceability Matrix - Theoretical models and Instance models}
+The traceability matrix between Data definitions and Instance models is represented below. A `\checkmark' entry in the table means that the Instance model in the corresponding column is based on the Theoretical model in the corresponding row.\\
 ~\newline
-The traceability matrix between Theoretical models and Instance models is represented below.\\
-
 \begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 	
 	\hline
