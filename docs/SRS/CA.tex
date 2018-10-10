@@ -279,6 +279,8 @@ easier to correctly understand the requirements:
 
 \item Orthogonality: Orthogonality is the generalization of the notion of perpendicularity.
 
+\item Interpolant: An interpolant is a function $L=L(t)$ which agrees with a particular function f at a set of known points $t_0,t_1,t_2,...,t_n$ and which is used to compute values for f(t) at points $t \neq t_i$ where i $=0,1,2,...,n$.
+
 \end{itemize}
 
 
@@ -999,8 +1001,8 @@ This section focuses on the general equations that \famname{} is based on.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_data}:] For the given set of data points $(t_i,y_i)$ where i $= 0,1,2,...n$, n $\geq 2$.(\rref{R_IInputs})
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dataConstraint}:] For the given set of data points $(t_i,y_i)$ where i $= 0,1,2,...n$, $t_i < t_{i+1}$.(\iref{IM_HermiteCubic},\iref{IM_BSpline})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_data}:] For the given `n' number of data points $(t_i,y_i)$ where i $= 0,1,2,...n$, n $\geq 2$.(\rref{R_IInputs})
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dataConstraint}:] For the given `n' number of data points $(t_i,y_i)$ where i $= 0,1,2,...n$, $t_i < t_{i+1}$.(\iref{IM_HermiteCubic},\iref{IM_BSpline})
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Interpolation}:] For the given set of data points $(t_i,y_i)$ where i $= 0,1,2,...n$,  there exists an interpolant.(\iref{IM_Polynomial}, \iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic} and \iref{IM_BSpline}).
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Regression}:] For the given set of data points $(t_i,y_i)$, there exists a least squares solution.(\iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation})
