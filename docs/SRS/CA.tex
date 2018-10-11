@@ -220,6 +220,7 @@ flow between the system and its environment.
 \item User Responsibilities:
 \begin{itemize}
 \item Enter input data points to be fit.
+\item Understand what each point $t_i, y_i$ means with respect to \famname{}.
 \item Input whether to use interpolation or regression.
 \item Input interpolating method or regression method based on their choice in the previous step. 
 \end{itemize}
@@ -360,6 +361,143 @@ data definitions, which in turn will be used to build the instance models.\\
 	\end{tabular}
 \end{minipage}\\
 
+\subsection{Theoretical Models} \label{sec_theoretical}
+
+This section focuses on the general equations that \famname{} is based on.
+~\newline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%        Ax = y      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LinearEqMatrix}\\
+		\hline
+		Label&\bf Matrix-Vector notation for a system of linear equations.\\
+		\hline
+		Equation& \begin{equation*}
+		Ax = y
+		\end{equation*} \\
+		\hline
+		Description & The above equation gives the general form of system of linear equations in matrix vector notation where,\\
+		& A is a $m$ X $n$ matrix\\
+		& y is a m-vector\\
+		& x is an n-vector\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By & \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+~\newline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%        Least squares     %%%%%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LeastSquares}\\
+		\hline
+		Label&\bf Least Squares method.\\
+		\hline
+		Equation& For a given overdetermined system of equations represented in matrix form as in \tref{T_LinearEqMatrix}, a best fit solution $x$ is found such that,  
+		\begin{equation*}
+		\min_{x}\sum_{i=1}^{m} (y_i - f(t_i,x)) ^2
+		\end{equation*} \\
+		\hline
+		Description & The above equation gives the definition of best fit solution in least squares method.\\
+		& A is a $m$ X $n$ matrix\\
+		& y is a m-vector\\
+		& x is an n-vector\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By &\iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+~\newline
+
+%%%%%%%%%%%%%%%%%%%%%% T_Interpolation  %%%%%%%%%%%%%%%%%%%%%%%%
+
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_Interpolation}\\
+		\hline
+		Label&\bf General form of Interpolation\\
+		\hline
+		Equation&  $f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t) = y_i$ where i $= 1,2,3...m$\\
+		\hline
+		Description & 
+		The above equation gives the general form of interpolating function where,
+		\begin{itemize}
+			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
+			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the interpolating function $f$ whose value at a given $t_i$ is $y_i$.
+			\item $x_j$ is the parameters of the best fit.
+			\item $y_i$ is the given data point at $t_i$.
+		\end{itemize}\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By & \dref{GD_CurveFitEq}, \iref{IM_Polynomial}, \iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+%%%%%%%%%%%%%%%%%%%%%%     Least Squares %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+\noindent
+\begin{minipage}{\textwidth}
+	\renewcommand*{\arraystretch}{1.5}
+	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+		\hline
+		\rowcolor[gray]{0.9}
+		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LinearRegression}\\
+		\hline
+		Label&\bf General form of Linear Regression using Least squares method and best fit in least squares. \\
+		\hline
+		Equation&  For i $= 1,2,3...m$, general form of regression is given by
+		\begin{equation*}
+		f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t)	
+		\end{equation*} 
+		~\newline
+		Since we deal with only linear problems(\ref{Scope}), $\Phi_j$ depend only on $t$. Hence $f(t_i,x) $ can be expressed as,
+		\begin{equation*}
+		f(t_i,x) = x_1 + x_2 t + x_3 t^{2} + ... + x_n t^{n-1}.
+		\end{equation*}
+		~\newline
+		To find $x_i$ using Least squares method as in \tref{T_LeastSquares}\\
+		\hline
+		Description & 
+		The above equation gives the general form of linear regression function and the definition of best fit in least squares method.\\
+		
+		&$(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.\\
+		&The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the function $f$ whose value at any $t$ is the best fit to the given data.\\
+		&$x_j$ is the parameters of the best fit.\\
+		\hline
+		Source & ~\cite{Health1997}\\
+		
+		\hline
+		Ref.\ By & \dref{GD_CurveFitEq}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
+		\hline
+	\end{tabular}
+\end{minipage}\\
+
+~\newline
 
 
 
@@ -857,143 +995,6 @@ Ref.\ By
 \end{itemize}
 
 
-\subsection{Theoretical Models} \label{sec_theoretical}
-
-This section focuses on the general equations that \famname{} is based on.
-~\newline
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%        Ax = y      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\noindent
-\begin{minipage}{\textwidth}
-	\renewcommand*{\arraystretch}{1.5}
-	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LinearEqMatrix}\\
-		\hline
-		Label&\bf Matrix-Vector notation for a system of linear equations.\\
-		\hline
-		Equation& \begin{equation*}
-		Ax = y
-		\end{equation*} \\
-		\hline
-		Description & The above equation gives the general form of system of linear equations in matrix vector notation where,\\
-		& A is a $m$ X $n$ matrix\\
-		& y is a m-vector\\
-		& x is an n-vector\\
-		\hline
-		Source & ~\cite{Health1997}\\
-		
-		\hline
-		Ref.\ By & \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
-		\hline
-	\end{tabular}
-\end{minipage}\\
-~\newline
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%        Least squares     %%%%%%%%%%%%%%%%%%%%%%%%%%
-~\newline
-\noindent
-\begin{minipage}{\textwidth}
-	\renewcommand*{\arraystretch}{1.5}
-	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LeastSquares}\\
-		\hline
-		Label&\bf Least Squares method.\\
-		\hline
-		Equation& For a given overdetermined system of equations represented in matrix form as in \tref{T_LinearEqMatrix}, a best fit solution $x$ is found such that,  
-		\begin{equation*}
-		\min_{x}\sum_{i=1}^{m} (y_i - f(t_i,x)) ^2
-		\end{equation*} \\
-		\hline
-		Description & The above equation gives the definition of best fit solution in least squares method.\\
-		& A is a $m$ X $n$ matrix\\
-		& y is a m-vector\\
-		& x is an n-vector\\
-		\hline
-		Source & ~\cite{Health1997}\\
-		
-		\hline
-		Ref.\ By &\iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
-		\hline
-	\end{tabular}
-\end{minipage}\\
-~\newline
-
-%%%%%%%%%%%%%%%%%%%%%% T_Interpolation  %%%%%%%%%%%%%%%%%%%%%%%%
-
-~\newline
-\noindent
-\begin{minipage}{\textwidth}
-	\renewcommand*{\arraystretch}{1.5}
-	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_Interpolation}\\
-		\hline
-		Label&\bf General form of Interpolation\\
-		\hline
-		Equation&  $f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t) = y_i$ where i $= 1,2,3...m$\\
-		\hline
-		Description & 
-		The above equation gives the general form of interpolating function where,
-		\begin{itemize}
-			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
-			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the interpolating function $f$ whose value at a given $t_i$ is $y_i$.
-			\item $x_j$ is the parameters of the best fit.
-			\item $y_i$ is the given data point at $t_i$.
-		\end{itemize}\\
-		\hline
-		Source & ~\cite{Health1997}\\
-		
-		\hline
-		Ref.\ By & \dref{GD_CurveFitEq}, \iref{IM_Polynomial}, \iref{IM_Piecewise}, \iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, \iref{IM_HermiteCubic}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
-		\hline
-	\end{tabular}
-\end{minipage}\\
-%%%%%%%%%%%%%%%%%%%%%%     Least Squares %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-~\newline
-\noindent
-\begin{minipage}{\textwidth}
-	\renewcommand*{\arraystretch}{1.5}
-	\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-		\hline
-		\rowcolor[gray]{0.9}
-		Number& T\refstepcounter{theorynum}\thetheorynum \label{T_LinearRegression}\\
-		\hline
-		Label&\bf General form of Linear Regression using Least squares method and best fit in least squares. \\
-		\hline
-		Equation&  For i $= 1,2,3...m$, general form of regression is given by
-		\begin{equation*}
-		f(t_i) = \sum_{j=1}^{n}x_j \Phi_j (t)	
-		\end{equation*} 
-		~\newline
-		Since we deal with only linear problems(\ref{Scope}), $\Phi_j$ depend only on $t$. Hence $f(t_i,x) $ can be expressed as,
-		\begin{equation*}
-		f(t_i,x) = x_1 + x_2 t + x_3 t^{2} + ... + x_n t^{n-1}.
-		\end{equation*}
-		~\newline
-		To find $x_i$ using Least squares method as in \tref{T_LeastSquares}\\
-		\hline
-		Description & 
-		The above equation gives the general form of linear regression function and the definition of best fit in least squares method.\\
-		
-		&$(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.\\
-		&The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the function $f$ whose value at any $t$ is the best fit to the given data.\\
-		&$x_j$ is the parameters of the best fit.\\
-		\hline
-		Source & ~\cite{Health1997}\\
-		
-		\hline
-		Ref.\ By & \dref{GD_CurveFitEq}, \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and \iref{IM_OrthogonalTransformation}\\
-		\hline
-	\end{tabular}
-\end{minipage}\\
-
-~\newline
 
 \section{Variabilities}
 
