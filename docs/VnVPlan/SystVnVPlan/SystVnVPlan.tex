@@ -1,5 +1,5 @@
 \documentclass[12pt, titlepage]{article}
-
+\newcommand{\famname}{CFS} % PUT YOUR PROGRAM NAME HERE
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
@@ -11,26 +11,45 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
-
+\usepackage{xcolor}
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{comment}
 \input{../../Comments}
+
+
+\usepackage{titlesec}
+
 
 \begin{document}
 
-\title{Project Title: System Verification and Validation Plan} 
-\author{Author Name}
+\title{CFS: System Verification and Validation Plan} 
+\author{Malavika Srinivasan}
 \date{\today}
 	
 \maketitle
 
 \pagenumbering{roman}
 
+
 \section{Revision History}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Oct 16, 2018 & 1.0 & First draft by Malavika\\
 \bottomrule
 \end{tabularx}
 
@@ -46,9 +65,9 @@ Date 2 & 1.1 & Notes\\
   T & Test\\
   \bottomrule
 \end{tabular}\\
+\\
+Also see the table of symbols in CA at: \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}{Table of Symbols}\\
 
-\wss{symbols, abbreviations or acronyms -- you can simply reference the SRS
-  tables, if appropriate}
 
 \newpage
 
@@ -62,17 +81,74 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+Verification and Validation .....\ms{Needs more explanations}
+
+
+
+This document explains the verification and validation plan to improve the quality of \famname{}. There are several standards available for software quality and according to the quality model of ISO 9126,  software quality is described as a structured set of characteristics namely - Functional suitability, Performance, efficiency, Compatibility, Usability,  Reliability, Security, Maintainability and Portability ~\cite{ISO25000}.
+
+Here we restrict ourselves to Functional suitability, Maintainability and portability. 
+
 
 \section{General Information}
 
+This section explains the summary of what is being tested in this document, the objectives of this document and references for this document. 
+
+
 \subsection{Summary}
+
+This document will summarize the plan for verification and validation of \famname{} for compliance with the requirements specified in the CA document. 
+The goal statement as found in CA document is presented below.
+\\
+\\
+\noindent ``Given the set of data points, the choice of software from \famname{} and the variabilities of the software the \famname{} should:
+
+\begin{enumerate}
+	
+	\item compute the parameters of the curve which is the best possible fit through the set of data points.	''
+\end{enumerate}
+
+The process explained in the goal statement is called curve fitting. There different choices like regression, interpolation and smoothing. This is explained better in the Figure \ref{Fig_CurveFitEg}.
+
+\begin{figure}[h!]
+	\begin{center}
+		%rotatebox{-90}
+		{
+			\includegraphics[width=0.5\textwidth]{lstsq11.png}
+		}
+		\caption{\label{Fig_CurveFitEg} Typical example of a curve fitting process}
+	\end{center}
+\end{figure}
 
 \wss{Say what software is being tested.  Give its name and a brief overview of
   its general functions.}
 
 \subsection{Objectives}
+
+The goal of verifying and validating is to increase improve the quality of the \famname{} and obtain confidence in the software implementation. The qualities which are important concerning \famname{} are correctness(Functional suitability), maintainability, re-usability, portability. The definitions of the above mentioned qualities are explained below.
+
+\subsubsection {Functional Suitability}
+
+This characteristic represents the degree to which a product or system provides
+functions that meet stated and implied needs when used under specified
+conditions. It can be further characterized into completeness, correctness and
+appropriateness.
+\paragraph{Correctness }
+The degree to which a product or system provides the correct results with the
+needed degree of precision.
+
+\subsubsection{Maintainability}
+This characteristic represents the degree of effectiveness and efficiency with
+which a product or system can be modified to improve it, correct it or adapt it
+to changes in the environment, and in requirements. Reusability is an important characteristic of maintainability.
+\paragraph{Reusability}
+The degree to which an asset can be used in more than one system, or in
+building other assets.
+
+\subsubsection{Portability}
+The degree of effectiveness and efficiency with which a system, product or
+component can be transferred from one hardware, software or other operational
+or usage environment to another. 
 
 \wss{State what is intended to be accomplished.  The objective will be around
   the qualities that are most important for your project.  You might have
@@ -82,15 +158,24 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 
 \subsection{References}
 
+Throughout this document, we refer to the terminologies that have been already explained in the CA document for Program \famname{}.
 \wss{Reference relevant documentation.  This will definitely include your SRS}
 
 \section{Plan}
 	
 \subsection{Verification and Validation Team}
 
+\begin{enumerate}
+	\item Malavika srinivasan
+\end{enumerate}
+
+
+
 \wss{Probably just you.  :-)}
 
 \subsection{SRS Verification Plan}
+
+The CA document for \famname{} will be reviewed by Dr.Spencer Smith and my classmate Mr.Robert White.
 
 \wss{List any approaches you intend to use for SRS verification.  This may just
   be ad hoc feedback from reviewers, like your classmates, or you may have
@@ -98,10 +183,13 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 
 \subsection{Design Verification Plan}
 
+My design will be verified with the help of my supervisor Dr.Spencer Smith and my classmates Ms.Jennifer Garner and Mr.Brooks MacLachlan.
 \wss{Plans for design verification}
 
 \subsection{Implementation Verification Plan}
 
+
+My implementation will be verified by the tests listed in this document and the unitVnVplan document. My classmate Ms.Vajiheh Motamer will help me verify the document.	
 \wss{You should at least point to the tests listed in this document and the unit
   testing plan.}
 
