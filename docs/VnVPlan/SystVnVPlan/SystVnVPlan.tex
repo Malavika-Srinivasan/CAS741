@@ -107,7 +107,7 @@ The goal statement as found in the CA document is presented below.\\
 
 \subsection{Objectives}
 
-The goal of verification and validation is to improve the quality of the \famname{} and obtain confidence in the software implementation. There are several standards which define software quality. According to the quality model of ISO 9126,  software quality is described as a structured set of characteristics namely - Functional suitability, Performance, efficiency, Compatibility, Usability,  Reliability, Security, Maintainability and Portability (~\cite{ISO9126}). The qualities which are important concerning \famname{} are correctness(functional suitability), maintainability, re-usability and portability. The definitions of the above mentioned qualities are explained below.
+The goal of verification and validation is to improve the quality of the \famname{} and obtain confidence in the software implementation. There are several standards which define software quality. According to the quality model of ISO 9126,  software quality is described as a structured set of characteristics namely - Functional suitability, Performance, efficiency, Compatibility, Usability,  Reliability, Security, Maintainability and Portability (\cite{ISO9126}). The qualities which are important concerning \famname{} are correctness(functional suitability), maintainability, re-usability and portability. The definitions of the above mentioned qualities are explained below.
 
 \subsubsection {Functional Suitability}
 
@@ -327,8 +327,7 @@ Output: [1,-5.75, 9.5, 2] (Coefficients of t, starting from $t^{0}$.)
 
 How test will be performed: Pytest
 
-Test case reference: \url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.PchipInterpolator.html#scipy.interpolate.PchipInterpolator}\\
-
+Test case reference: \cite{HermiteCubic} \\
 
 \item{\textbf{T11: ${II}^{nd}$ test case for hermite cubic interpolation} \\}
 
@@ -347,9 +346,8 @@ Output:
 
 How test will be performed: Pytest
 
-Test case reference: \url{https://stackoverflow.com/questions/43458414/python-scipy-how-to-get-cubic-spline-equations-from-cubicspline}\\
+Test case reference: \cite{HermiteCubic2}\\
 %#######################################################
-i 
 
 \item{\textbf{T12: $I^{st}$ test case for BSpline interpolation} \\}
 
@@ -367,8 +365,7 @@ Output:
 
 How test will be performed: Pytest
 
-Test case reference: \url{https://stackoverflow.com/questions/45179024/scipy-bspline-fitting-in-python}\\
-
+Test case reference: \cite{BSpline}
 
 %#######################################################
 
@@ -402,7 +399,7 @@ Output: -2.33333333333, 3 (Coefficients of t, starting from $t^{0}$.)
 
 How test will be performed: Pytest
 
-Test case reference: \url{http://www4.ncsu.edu/eos/users/w/white/www/white/ma341/lslecture.PDF}\\
+Test case reference: ~\cite{RegNormal}\\
 
 %#######################################################
 
@@ -418,8 +415,7 @@ Output: 0.00116857142857, -0.00000408571429, 0.00000001785714 (Coefficients of t
 
 How test will be performed: Pytest
 
-Test case reference: \url{http://www4.ncsu.edu/eos/users/w/white/www/white/ma341/lslecture.PDF}\\
-
+Test case reference:~\cite{RegNormal}\\
 
 %#######################################################
 
@@ -448,7 +444,7 @@ Output: -8, 4, 7 (Coefficients of t, starting from $t^{0}$.)
 
 How test will be performed: Pytest
 
-Test case reference: \url{https://math.stackexchange.com/questions/710750/find-a-second-degree-polynomial-that-goes-through-3-points}\\
+Test case reference: \cite{RegAugmented}\\
 
 
 \item{\textbf{T18: ${II}^{nd}$ test case for regression using orthogonal transformations}\\}
@@ -476,7 +472,7 @@ Output: 6,-1.3 (Coefficients of t, starting from $t^{0}$.)
 
 How test will be performed: Pytest
 
-Test case reference: Page $4$ and $5$ of \url{http://www.maths.lse.ac.uk/personal/james/old_ma201/solns8.pdf}\\
+Test case reference: Page $4$ and $5$ of \cite{RegOrthogonal}\\
 
 
 
@@ -517,12 +513,15 @@ Input: Module guide, Module Interface specification
 
 Steps: 
 \begin{enumerate}
-	\item Choose a task such as changing the output type of a module
+	\item Choose participants
+	\item Assign a task such as changing the secret of a module
 	\item Give the participants MG and MIS
 	\item Ask them to find, which module undergoes change.
 \end{enumerate}
-					
-Output: Pass/ Fail
+
+This will help in accessing the maintainability of the software by measuring the ability to undergo change.\\
+~\newline	
+Output: Pass/ Fail\\
 					
 How test will be performed: Manual
 
