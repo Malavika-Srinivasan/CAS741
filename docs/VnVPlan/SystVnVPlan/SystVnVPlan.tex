@@ -170,7 +170,7 @@ System testing is a process in which we test the overall working of the system. 
 
 \begin{enumerate}
 
-\item{\textbf{T1: $I^{st}$ test case for faulty inputs}\\}
+\item{\textbf{T1: Test case for inputs with less than 2 points}\\}
 
 Control: Automatic
 
@@ -185,7 +185,7 @@ How test will be performed: Pytest
 
 
 
-\item{\textbf{T2: ${II}^{nd}$ test case for faulty inputs}\\}
+\item{\textbf{T2: Test case for data type mismatch}\\}
 
 Control: Automatic
 
@@ -193,7 +193,7 @@ Initial State: NA
 
 Input: t=[1,2,3,4,t] , y=[2,2,3,4,5] 
 
-Output: Error message (``Please enter only numbers'')
+Output: Error message (``Please enter only numbers'') or TypeError exception
 
 How test will be performed: Pytest
 
@@ -241,7 +241,7 @@ Control: Automatic
 					
 Initial State: NA
 					
-Input: Data points x = [-2,0,1], y = [-27,-1,0]
+Input: Data points t = [-2,0,1], y = [-27,-1,0]
 
 Output: [-1,5,-4](Coefficients of t, starting from $t^{0}$.)
 
@@ -357,7 +357,7 @@ Control: Automatic
 
 Initial State: NA
 
-Input: x = [ 0.0, 1.2,  1.9,  3.2,  4.0,  6.5], y = [ 0.0,  2.3,  3.0,  4.3,  2.9,  3.1], s=0, k=4
+Input: t = [ 0.0, 1.2,  1.9,  3.2,  4.0,  6.5], y = [ 0.0,  2.3,  3.0,  4.3,  2.9,  3.1], s=0, k=4
 
 
 Output: 
