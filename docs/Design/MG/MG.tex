@@ -49,7 +49,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct 27, 2018 & 1.0 & First draft by Malavika\\
-Date 2 & 1.1 & Notes\\
+Oct 30, 2018 & 1.1 & Second draft by Malavika\\
 \bottomrule
 \end{tabularx}
 
@@ -133,7 +133,7 @@ change.
 
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running. \ms{Is it related to portability}
+  hardware on which the software is running. 
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.\ms{May be manual instead of file input, or instead of t arrays and y arrays, they may want to input data as a tuple of t,y}
 \item[\refstepcounter{acnum} \actheacnum \label{acSmoothing}:] The method used to calculate best fit may be smoothing instead of interpolation and regression.
@@ -167,8 +167,23 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Behaviour-Hiding Module
+\item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
+
+\item [\refstepcounter{mnum} \mthemnum \label{mBestFit}:] Best fit Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSD}:] Software Decision Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSeqSer}:] Sequence Services Module 
+\item [\refstepcounter{mnum} \mthemnum \label{mInterp}:] Interpolation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mLinearReg}:] Linear Regression Module
+\item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plot Module
 \end{description}
+
+
+
+Note that \mref{mHH} is a commonly used module and is already implemented by the operating system.  It will not be reimplemented.  Similarly, \mref{mSeqSer} and \mref{mPlot} are already available in Python and will not be reimplemented.
+
 
 
 \begin{table}[h!]
@@ -181,19 +196,17 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Control\\
+& Input\\
+& Best fit\\
+& Output\\
+
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & Sequence Services\\
+& Interpolation\\
+& Linear Regression\\
+& Plot\\
 \bottomrule
 
 \end{tabular}
@@ -247,17 +260,44 @@ selected.
   module will need to change if there are changes in the SRS.
 \item[Implemented By:] --
 \end{description}
-
-\subsubsection{Input Format Module (\mref{mInput})}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Control Module (\mref{mControl})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+	\item[Secrets:]The algorithm for coordinating the running of the program.
+	\item[Services:] Provides the main program.
+	\item[Implemented By:] \famname{}
 \end{description}
 
-\subsubsection{Etc.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Input Module (\mref{mInput})}
+
+\begin{description}
+	\item[Secrets:]The format and structure of input data.
+	\item[Services:]Converts the input data into the data structure used by other modules and verifies the type of the input. A `TypeError' exception is raised if there is a type mismatch. 
+	\item[Implemented By:] \famname{}
+\end{description}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Best fit Module (\mref{mBestFit})}
+
+\begin{description}
+	\item[Secrets:]The user's choice of best fit method and degree of the fit.
+	\item[Services:] Provides the method to invoke the appropriate method of fit and obtains additional input like degree of the polynomial for regression.
+	\item[Implemented By:] \famname{}
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Output Module (\mref{mOutput})}
+
+\begin{description}
+	\item[Secrets:] The format and structure of the output data.
+	\item[Services:] Outputs the best fit parameters and plots the output along with input data and best fit parameters.
+	\item[Implemented By:] \famname{}
+\end{description} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \subsection{Software Decision Module}
@@ -273,7 +313,39 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+
+\subsubsection{Sequence Services Module  (\mref{mSeqSer})}
+
+\begin{description}
+	\item[Secrets:] The data structure for a sequence data type.
+	\item[Services:] Provides array manipulation, including building an array,
+	accessing a specific entry etc.
+	\item[Implemented By:] Python
+\end{description} 
+
+\subsubsection{Plot Module (\mref{mPlot})}
+
+\begin{description}
+	\item[Secrets:] The data structures and algorithms for plotting data graphically.
+	\item[Services:] Provides a plot function.
+	\item[Implemented By:] Python
+\end{description}
+
+\subsubsection{Interpolation Module (\mref{mInterp})}
+
+\begin{description}
+	\item[Secrets:] The algorithms used for interpolation
+	\item[Services:] Provides the best fit coefficients
+	\item[Implemented By:] \famname{}
+\end{description}
+
+\subsubsection{Linear Regression (\mref{mLinearReg})}
+
+\begin{description}
+	\item[Secrets:] The algorithm used for linear regression
+	\item[Services:] Provides the best fit coefficients
+	\item[Implemented By:] \famname{}
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -288,17 +360,17 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+R1 & \mref{mHH},\mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer} \\
+R2 & \mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer}\\
+R3 & \mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer}\\
+R4 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
+R5 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\ 
+R6 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
+R7 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
+R8 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
+R9 & \mref{mBH},\mref{mControl},\mref{mSD}, \mref{mSeqSer}, \mref{mInterp}, \mref{mLinearReg}\\
+R10 & \mref{mHH},\mref{mBH}, \mref{mOutput}, \mref{mSeqSer}, \mref{mPlot}\\
+
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -313,16 +385,9 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
 \acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
+\acref{acSmoothing} & \mref{mBestFit}\\
 \acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acDegree} & \mref{mBestFit}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -344,7 +409,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
