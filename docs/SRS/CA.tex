@@ -80,7 +80,7 @@
 
 \begin{document}
 
-\title{Curve Fitting Software \wss{put the nae of your library in the title}} 
+\title{CFS: Curve Fitting Software} 
 \author{Malavika Srinivasan}
 \date{\today}
 
@@ -104,6 +104,7 @@ Oct 11, 2018 & 1.4 & $4^{th}$ Corrections based on feedback from Robert and Dr. 
 Oct 12, 2018 & 1.5 & $5^{th}$ Corrections based on feedback from Robert and Dr.Smith\\
 Oct 22, 2018 & 1.6 & $6^{th}$ Corrections based on feedback from Dr.Smith\\
 Oct 29, 2018 & 1.7 & $7^{th}$ Corrections after System VnV plan\\
+Nov 2, 2018 & 1.8 & $8^{th}$ Corrections based on feedback from Dr.Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -178,7 +179,7 @@ Scientific Computation (SC) is the collection of tools, techniques, and theories
 The following section provides an overview of the Commonality Analysis (CA) for a family of softwares developed to fit a set of data points. The developed program will be referred to as Curve Fitting Software(\famname{}). This section explains the purpose of this document, the scope of the family, the organization of the document and the characteristics of intended reader.
  
 \wss{80 character width for text in tex file, please}
-
+\ms{Dr.Smith, I already have it set for 80 character width.}
 \subsection{Purpose of Document}
 The purpose of this document is to analyze the commonalities and variabilities between the family of softwares produced as part of this library. The commonalities are the elements which are true for each member which is a part of this software family. For instance, curve fitting is common for all the softwares of this family. The variabilities are the elements which may vary between each software member of this family. For instance, the technique used to fit the curve such as interpolation, regression, smoothing are examples of variabilities.
 
@@ -211,7 +212,7 @@ flow between the system and its environment.
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{SystemContextFigure}
+		\includegraphics[width=0.6\textwidth]{SystemContextFigure.png}
 		\caption{System Context}
 		\label{Fig_SystemContext} 
 	\end{center}
@@ -220,6 +221,7 @@ flow between the system and its environment.
 \wss{Your figure isn't showing the use of your library correctly.  Your library
   is not used by a User, but by a program.  You can show the user using the
   program, if you like.}
+\ms{Change made}
 
 \begin{itemize}
 \item User Responsibilities:
