@@ -50,6 +50,8 @@
 \midrule
 Oct 27, 2018 & 1.0 & First draft by Malavika\\
 Oct 30, 2018 & 1.1 & Second draft by Malavika\\
+Oct 27, 2018 & 1.0 & Third draft by Malavika\\
+Nov 5, 2018 & 1.2 & Fourth draft by Malavika\\
 \bottomrule
 \end{tabularx}
 
@@ -135,7 +137,7 @@ change.
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running. 
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.\ms{May be manual instead of file input, or instead of t arrays and y arrays, they may want to input data as a tuple of t,y}
+  initial input data.
 \item[\refstepcounter{acnum} \actheacnum \label{acSmoothing}:] The method used to calculate best fit may be smoothing instead of interpolation and regression.
 \item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of output data. Instead of best fit coefficients and plot, they may want to obtain the value of `y' at a particular `t' or a series of `t' values where $(t_i,y_i)$ is the input data at $i = 0,1,2,...n$.
 \item[\refstepcounter{acnum} \actheacnum \label{acDegree}:] The user may not want to input the degree of the polynomial for regression and my want it to be computed by \famname{}.
@@ -154,7 +156,7 @@ decisions will be changed.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software. \ms{Not sure if this applies to my software}
+  a source of input data external to the software.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucNonLinear}:] If \famname{} is used with non linear systems, then the results from the software is no longer valid.
 \end{description}
 
@@ -259,7 +261,7 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 \subsubsection{User-program Module (\mref{mControl})}
 
 \begin{description}
-	\item[Secrets:]This module uses the best fit module to use the appropriate service. 
+	\item[Secrets:]This is the user program which is abstracted as a module which uses the best fit module to use the appropriate service. 
 	\item[Services:] NA.
 	\item[Implemented By:] User
 \end{description}
