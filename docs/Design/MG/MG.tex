@@ -168,7 +168,7 @@ actually be implemented.
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
 \item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Behaviour-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mControl}:] User-program Module
 \item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
 
 \item [\refstepcounter{mnum} \mthemnum \label{mBestFit}:] Best fit Module
@@ -196,8 +196,7 @@ Note that \mref{mHH} is a commonly used module and is already implemented by the
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Control\\
-& Input\\
+\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module}& Input\\
 & Best fit\\
 & Output\\
 
@@ -232,11 +231,7 @@ entry is \emph{OS}, this means that the module is provided by the operating
 system or by standard programming language libraries.  Also indicate if the
 module will be implemented specifically for the software.
 
-Only the leaf modules in the
-hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means
-that the module is not a leaf and will not have to be implemented. Whether or
-not this module is implemented depends on the programming language
-selected.
+Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means that the module is not a leaf and will not have to be implemented. Whether or not this module is implemented depends on the programming language selected.
 
 \subsection{Hardware Hiding Modules (\mref{mHH})}
 
@@ -249,7 +244,7 @@ selected.
 \item[Implemented By:] OS
 \end{description}
 
-\subsection{Behaviour-Hiding Module}
+\subsection{Behaviour-Hiding Module (\mref{mBH})}
 
 \begin{description}
 \item[Secrets:]The contents of the required behaviours.
@@ -261,12 +256,12 @@ selected.
 \item[Implemented By:] --
 \end{description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Control Module (\mref{mControl})}
+\subsubsection{User-program Module (\mref{mControl})}
 
 \begin{description}
-	\item[Secrets:]The algorithm for coordinating the running of the program.
-	\item[Services:] Provides the main program.
-	\item[Implemented By:] \famname{}
+	\item[Secrets:]This module uses the best fit module to use the appropriate service. 
+	\item[Services:] NA.
+	\item[Implemented By:] User
 \end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -283,7 +278,7 @@ selected.
 
 \begin{description}
 	\item[Secrets:]The user's choice of best fit method and degree of the fit.
-	\item[Services:] Provides the method to invoke the appropriate method of fit and obtains additional input like degree of the polynomial for regression.
+	\item[Services:] Provides the interface to invoke the appropriate method of fit and obtains additional input like degree of the polynomial for regression.
 	\item[Implemented By:] \famname{}
 \end{description}
 
@@ -300,7 +295,7 @@ selected.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Software Decision Module}
+\subsection{Software Decision Module (\mref{mSD})}
 
 \begin{description}
 \item[Secrets:] The design decision based on mathematical theorems, physical
@@ -323,13 +318,7 @@ selected.
 	\item[Implemented By:] Python
 \end{description} 
 
-\subsubsection{Plot Module (\mref{mPlot})}
 
-\begin{description}
-	\item[Secrets:] The data structures and algorithms for plotting data graphically.
-	\item[Services:] Provides a plot function.
-	\item[Implemented By:] Python
-\end{description}
 
 \subsubsection{Interpolation Module (\mref{mInterp})}
 
@@ -347,6 +336,15 @@ selected.
 	\item[Implemented By:] \famname{}
 \end{description}
 
+
+\subsubsection{Plot Module (\mref{mPlot})}
+
+\begin{description}
+	\item[Secrets:] The data structures and algorithms for plotting data graphically.
+	\item[Services:] Provides a plot function.
+	\item[Implemented By:] Python
+\end{description}
+
 \section{Traceability Matrix} \label{SecTM}
 
 This section shows two traceability matrices: between the modules and the
@@ -360,7 +358,7 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH},\mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer} \\
+R1 & \mref{mHH},\mref{mBH}, \mref{mControl},\mref{mBestFit}, \mref{mInput}, \mref{mSeqSer} \\
 R2 & \mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer}\\
 R3 & \mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer}\\
 R4 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
@@ -368,7 +366,7 @@ R5 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
 R6 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
 R7 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
 R8 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
-R9 & \mref{mBH},\mref{mControl},\mref{mSD}, \mref{mSeqSer}, \mref{mInterp}, \mref{mLinearReg}\\
+R9 & \mref{mControl},\mref{mSD}, \mref{mSeqSer}, \mref{mInterp}, \mref{mLinearReg}\\
 R10 & \mref{mHH},\mref{mBH}, \mref{mOutput}, \mref{mSeqSer}, \mref{mPlot}\\
 
 \bottomrule
