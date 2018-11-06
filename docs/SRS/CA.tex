@@ -180,6 +180,10 @@ The following section provides an overview of the Commonality Analysis (CA) for 
  
 \wss{80 character width for text in tex file, please}
 \ms{Dr.Smith, I already have it set for 80 character width.}
+\wss{I don't think you understand what I'm requesting.  I want a hard wrap at 80
+  characters.  If you look at the tex file your lines are hundreds of characters
+long.  You are probably setting your editor to an 80 character soft wrap.}
+
 \subsection{Purpose of Document}
 The purpose of this document is to analyze the commonalities and variabilities between the family of softwares produced as part of this library. The commonalities are the elements which are true for each member which is a part of this software family. For instance, curve fitting is common for all the softwares of this family. The variabilities are the elements which may vary between each software member of this family. For instance, the technique used to fit the curve such as interpolation, regression, smoothing are examples of variabilities.
 
@@ -240,7 +244,8 @@ flow between the system and its environment.
 
 \subsection{Potential User Characteristics} \label{SecUserCharacteristics}
 
-The end user of \famname{} should have an understanding of undergraduate Level Regression and Interpolation.
+The end user of \famname{} should have an understanding of undergraduate Level
+Regression and Interpolation. \wss{You don't need capitals here.}
 
 \subsection{Potential System Constraints}
 
@@ -248,8 +253,17 @@ Not Applicable.
 
 \section{Commonalities}
 
+\wss{It is good to have text between section headings.  You should put a mini
+  roadmap here explaining the contents of this section.}
+
 \subsection{Background Overview} \label{Sec_Background}
-Curve fitting is the process of constructing a curve, or mathematical function, that has the best fit to a series of data points possibly subject to constraints. The figure below(\ref{Fig_CurveFitEg}) shows the best fit curve through a series of points.
+Curve fitting is the process of constructing a curve, or mathematical function,
+that has the best fit to a series of data points possibly subject to
+constraints. The figure below(\ref{Fig_CurveFitEg}) shows the best fit curve
+through a series of points. \wss{best fit is for regressions.  Interpolation is
+  not a best fit.  Interpolation is the only fit that passess exactly through all of the
+  data points.}
+
 \begin{figure}[h!]
 	\begin{center}
 		%rotatebox{-90}
@@ -313,7 +327,9 @@ data definitions, which in turn will be used to build the instance models.\\
 		\hline
 		SI Units& Not applicable\\
 		\hline
-		Equation & $f(t) = \sum_{j=1}^{n}x_j \Phi_j (t)$ where i $= 1,2,3...m$\\
+		Equation & $f(t) = \sum_{j=1}^{n}x_j \Phi_j (t)$ where $i$ $=
+                           1,2,3...m$ \wss{There is no $i$ in this equation.
+                           Where is the connection to the data?}\\
 		\hline
 		Description & The above equation gives the general form of linear curve fitting where,
 		\begin{itemize}
@@ -346,7 +362,9 @@ data definitions, which in turn will be used to build the instance models.\\
 		Label & \bf Overdetermined Linear Systems\\
 		\hline
 		Equation
-		& For a given set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$ represented in matrix form $Ax = y$ as in \tref{T_LinearEqMatrix}, where $A$ is an m X n matrix with $m > n$ which means there are more equations than unknowns. \\		
+		& For a given set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$
+                  represented in matrix form $Ax = y$ as in
+                  \tref{T_LinearEqMatrix}, where $A$ is an $m \times n$ matrix with $m > n$ which means there are more equations than unknowns. \\		
 		& A solution to the system $x$ can be computed such that the residual vector,
 		\begin{equation*}
 		r = y - Ax
@@ -390,9 +408,9 @@ This section focuses on the general equations that \famname{} is based on.
 		\end{equation*} \\
 		\hline
 		Description & The above equation gives the general form of system of linear equations in matrix vector notation where,\\
-		& A is a $m$ X $n$ matrix\\
-		& y is a m-vector\\
-		& x is an n-vector\\
+		& $A$ is a $m \times n$ matrix\\
+		& $y$ is an $m$-vector\\
+		& $x$ is an $n$-vector\\
 		\hline
 		Source & ~\cite{Health1997}\\
 		
@@ -432,6 +450,8 @@ This section focuses on the general equations that \famname{} is based on.
 		\hline
 	\end{tabular}
 \end{minipage}\\
+\wss{What is the connection between the equation and the description?  Is this a
+  copy and paste error?}
 ~\newline
 
 %%%%%%%%%%%%%%%%%%%%%% T_Interpolation  %%%%%%%%%%%%%%%%%%%%%%%%
@@ -454,7 +474,9 @@ This section focuses on the general equations that \famname{} is based on.
 		\begin{itemize}
 			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
 			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the interpolating function $f$ whose value at a given $t_i$ is $y_i$.
-			\item $x_j$ is the parameters of the best fit.
+			\item $x_j$ is the parameters of the best fit. \wss{The
+                            terminology best fit doesn't make sense here.  Curve
+                            fit would be fine.}
 			\item $y_i$ is the given data point at $t_i$.
 		\end{itemize}\\
 		\hline
@@ -487,7 +509,9 @@ This section focuses on the general equations that \famname{} is based on.
 		f(t_i,x) = x_1 + x_2 t + x_3 t^{2} + ... + x_n t^{n-1}.
 		\end{equation*}
 		~\newline
-		To find $x_i$ using Least squares method as in \tref{T_LeastSquares}\\
+		To find $x_i$ using Least squares method as in
+                          \tref{T_LeastSquares} \wss{I don't see the connection
+                          to T2 as T2 is currently written.}\\ 
 		\hline
 		Description & 
 		The above equation gives the general form of linear regression function and the definition of best fit in least squares method.\\
@@ -1058,7 +1082,9 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
 		Description 
 		& The symbols used in this equation are $P_{n-1}$ which represents the polynomial of degree at the most $n-1$.\\
 		& $(t_i,y_i)$ is the given input data where no two $t_i$ are the same.\\
-		&Polynomial interpolation has different variabilities which are discussed as separate instance models.\\
+		&Polynomial interpolation has different variabilities which are
+                  discussed as separate instance models. \wss{You should make an
+          explicit connection.}\\
 		\hline
 		
 		Sources
@@ -1090,11 +1116,15 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
 		& A set of n data points, $(t_i,y_i)$ i $= {1,2,...n}$ where $x_{i+1} > X_i$.\\		
 		\hline
 		
-		Output& $P(t) = L_i (t)$ is a piecewise linear function where $L_i$ is gievn by the following equation. 
+		Output& $P(t) = L_i (t)$ is a piecewise linear function where
+                        $L_i$ is gievn \wss{spell check} by the following equation. 
 		\begin{equation*}
 		L_i (t) = y_i + \frac{y_{i+1} - y_i}{t_{i+1} - t_i} (t - t_i)
 		\end{equation*}
-		where $i = 1,2,3 ....n$. The degree of the polynomial can be varied as per requirement in each interval.\\
+		where $i = 1,2,3 ....n$. The degree of the polynomial can be
+                        varied as per requirement in each interval. \wss{Where
+                        are the intervals?  I would expect to see the notion of
+                        breakpoints here.}\\
 		\hline
 		
 		Description 
@@ -1461,7 +1491,8 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
 		\hline
 		
 		Input 
-		& A set of data points $(t_i,y_i)$ for i $=1,2,...n$ represented as a overdetrmined system of equations as in \tref{T_LinearEqMatrix}.\\
+		& A set of data points $(t_i,y_i)$ for i $=1,2,...n$ represented
+                  as a overdetrmined \wss{spell check} system of equations as in \tref{T_LinearEqMatrix}.\\
 		& The matrices $A^{T} A$ and $A^{T}$ from \ddref{DD_NormalEquations} and \ddref{DD_MatrixTranspose}\\
 		\hline
 		
@@ -1564,13 +1595,21 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
 
 
 
-
+\wss{The idea of binding time is never mentioned.  Although your implementation
+  will only allow run-time binding, the concept of a program family allows for
+  build time binding.  There could be variabilities associated with the
+  dimension of the interpolation.  It could be fixed at build time.}
 
 
 
 
 
 \subsection{Output} \label{sec_Output}    
+
+\wss{Why aren't there output variabilities?  You could have the output to a file
+  or to the screen or to memory.  You could have output variabilities to include
+  certain data in the output, or not.  For instance, the residual could be part
+  of the output.}
 
 \section{Requirements}
 
@@ -1579,6 +1618,11 @@ software is expected to complete, and the nonfunctional requirements, the
 qualities that the software is expected to exhibit.
 
 \subsection{Functional Requirements}
+
+\wss{You are writing these requirements like you are writing a program, not a
+  library.  You should list the services you will provide.  The user isn't going
+  to provide choices for you to read.  Another program is going to call your
+  services.}
 
 \begin{itemize}
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_IInputs}:] Read the input data $(t_i,y_i)$.
@@ -1597,11 +1641,21 @@ qualities that the software is expected to exhibit.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_Rmethod}:]If regression is chosen in \rref{R_Int_or_Reg}, read user's choice of regression methods between Normal equations(\iref{IM_NormalEquations}), Augmented system(\iref{IM_AugmentedSystem}) and Orthogonal transformations(\iref{IM_OrthogonalTransformation}) and the degree of the polynomial.(\aref{A_Regression})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_ICalculate}:] Compute best fit parameters.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_ICalculate}:] Compute best fit
+  parameters. \wss{How?  You should reference the IMs that tell you how to do this.}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_IOutput}:] Display the plot with data(\rref{R_IInputs}) and best fit result from \rref{R_ICalculate}.
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_IOutput}:] Display the plot
+  with data(\rref{R_IInputs}) and best fit result from
+  \rref{R_ICalculate}. \wss{These are actually part of output variabilities.
+    The calling program might not always need these services.}
 
 \end{itemize}
+
+\wss{I know you wanted to turn the solution of all problems into solving a
+  system of equations, but this doesn't come through very well in your
+  documentation.  You have the matrices, but it wasn't clear that this was a
+  unifying framework.}
+
 \subsection{Nonfunctional Requirements}
 
 \subsubsection{Portability Requirements}
@@ -1612,12 +1666,16 @@ qualities that the software is expected to exhibit.
 
 \subsubsection{Verifiability Requirements}
 \begin{itemize}
-	\item \famname{} should be verifiable, which means the results should be comparable to Matlab.
+	\item \famname{} should be verifiable, which means the results should be
+          comparable to Matlab. \wss{ambiguous.  What results will be compared?
+            You could point to your verification plan here.}
 \end{itemize}
 
 \subsubsection{Maintainability and Support Requirements}
 \begin{itemize}
-	\item \famname{} should be able to accommodate new fitting methods for linear problems. 
+	\item \famname{} should be able to accommodate new fitting methods for
+          linear problems. \wss{What new fitting methods are possible?  How long
+            will it take to add them?}
 \end{itemize}	
 	
 
@@ -1726,6 +1784,7 @@ The traceability matrix between Data definitions and Instance models is represen
 
 \subsection{Symbolic Parameters}
 
+\wss{Either say ``not applicable'' or remove this sections.}
 
 \begin{comment}
 
