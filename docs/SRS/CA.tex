@@ -105,6 +105,7 @@ Oct 12, 2018 & 1.5 & $5^{th}$ Corrections based on feedback from Robert and Dr.S
 Oct 22, 2018 & 1.6 & $6^{th}$ Corrections based on feedback from Dr.Smith\\
 Oct 29, 2018 & 1.7 & $7^{th}$ Corrections after System VnV plan\\
 Nov 2, 2018 & 1.8 & $8^{th}$ Corrections based on feedback from Dr.Smith\\
+Nov 7, 2018 & 1.9 & $9^{th}$ Corrections based on feedback from Dr.Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -183,6 +184,9 @@ The following section provides an overview of the Commonality Analysis (CA) for 
 \wss{I don't think you understand what I'm requesting.  I want a hard wrap at 80
   characters.  If you look at the tex file your lines are hundreds of characters
 long.  You are probably setting your editor to an 80 character soft wrap.}
+\ms{Yes Dr.Smith. I set it to 80 character width soft wrap and now changed it 
+to hard wrap. But I don't see places where it is above 80 characters in a line. 
+Maybe we can discuss this during tomorrow's meeting.}
 
 \subsection{Purpose of Document}
 The purpose of this document is to analyze the commonalities and variabilities between the family of softwares produced as part of this library. The commonalities are the elements which are true for each member which is a part of this software family. For instance, curve fitting is common for all the softwares of this family. The variabilities are the elements which may vary between each software member of this family. For instance, the technique used to fit the curve such as interpolation, regression, smoothing are examples of variabilities.
@@ -245,7 +249,8 @@ flow between the system and its environment.
 \subsection{Potential User Characteristics} \label{SecUserCharacteristics}
 
 The end user of \famname{} should have an understanding of undergraduate Level
-Regression and Interpolation. \wss{You don't need capitals here.}
+regression and interpolation. \wss{You don't need capitals here.}\ms{Changes 
+made}
 
 \subsection{Potential System Constraints}
 
@@ -253,14 +258,23 @@ Not Applicable.
 
 \section{Commonalities}
 
+This section presents the common concepts or the information which is true for 
+both the methods of curve fitting such as regression and interpolation. The 
+background information is available in section \ref{Sec_Background}, followed 
+by important terminologies in section \ref{Sec_Terminologies}. The basic 
+equations and laws used by \famname{} is geven in sections \ref{sec_gendef} and 
+\ref{sec_theoretical}. The data definitions and the goal statements are 
+explained in sections \ref{sec_datadef} and \ref{sec_goals}.
 \wss{It is good to have text between section headings.  You should put a mini
-  roadmap here explaining the contents of this section.}
+  roadmap here explaining the contents of this section.}\ms{Makes sense, 
+  changes made}
 
 \subsection{Background Overview} \label{Sec_Background}
-Curve fitting is the process of constructing a curve, or mathematical function,
-that has the best fit to a series of data points possibly subject to
-constraints. The figure below(\ref{Fig_CurveFitEg}) shows the best fit curve
-through a series of points. \wss{best fit is for regressions.  Interpolation is
+Curve fitting is the process of constructing a curve, or mathematical function, 
+to a series of data points possibly subject to constraints. For regression, the 
+best possible fit is chosen and for interpolation,  The figure 
+below(\ref{Fig_CurveFitEg}) shows the best fit curve through a series of 
+points. \wss{best fit is for regressions.  Interpolation is
   not a best fit.  Interpolation is the only fit that passess exactly through all of the
   data points.}
 
@@ -285,7 +299,7 @@ Smoothing is a process of creating an approximating function that attempts to ca
 \subsubsection{Regression}
 Regression analysis is the process of finding the best fit parameters for a regression model for a given set of data points and thus obtain a curve through a set of data points.
 
-\subsection{Terminology and  Definitions}
+\subsection{Terminology and  Definitions}\label{Sec_Terminologies}
 
 This subsection provides a list of terms that are used in the subsequent
 sections and their meaning, with the purpose of reducing ambiguity and making it
@@ -1015,7 +1029,7 @@ Ref.\ By
 
 
 
-\subsection{Goal Statements}\label{Goals}
+\subsection{Goal Statements}\label{sec_goals}
 
 \noindent Given the set of data points, the choice of software from \famname{} and the variabilities of the software the \famname{} should:
 
