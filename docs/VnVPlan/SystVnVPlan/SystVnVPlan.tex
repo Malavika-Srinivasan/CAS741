@@ -35,7 +35,8 @@
 
 \begin{document}
 
-\title{CFS: System Verification and Validation Plan} 
+\title{CFS: System Verification and Validation Plan \wss{good to see the library
+  name in the title}} 
 \author{Malavika Srinivasan}
 \date{\today}
 	
@@ -79,6 +80,8 @@ Also see the table of symbols in CA at: \url{https://github.com/Malavika-Sriniva
 
 \listoffigures
 
+\wss{if you don't have any figures, you can comment out this heading}
+
 \newpage
 
 \pagenumbering{arabic}
@@ -95,7 +98,11 @@ This section explains the summary of what is being tested in this document, the 
 
 \subsection{Summary}
 
-This document will summarize the plan for verification and validation of \famname{} in compliance with the requirements specified in the CA document found at found at \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf} 
+This document will summarize the plan for verification and validation of
+\famname{} in compliance with the requirements specified in the CA document
+found at found at
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}
+\wss{good to have a link to your repo.}
 The goal statement as found in the CA document is presented below.\\
 \noindent ``Given the set of data points, the choice of software from \famname{} and the variabilities of the software the \famname{} should:
 
@@ -107,17 +114,33 @@ The goal statement as found in the CA document is presented below.\\
 
 \subsection{Objectives}
 
-The goal of verification and validation is to improve the quality of the \famname{} and obtain confidence in the software implementation. There are several standards which define software quality. According to the quality model of ISO 9126,  software quality is described as a structured set of characteristics namely - Functional suitability, Performance, efficiency, Compatibility, Usability,  Reliability, Security, Maintainability and Portability (\cite{ISO9126}). The qualities which are important concerning \famname{} are correctness(functional suitability), maintainability, re-usability and portability. The definitions of the above mentioned qualities are explained below.
+The goal of verification and validation is to improve the quality of the
+\famname{} \wss{I recently modified the blank project template to put the
+  (equivalent of) the famname command in a common file, which can be shared
+  between all your files.  You might want to do the same.}and obtain confidence
+in the software implementation. There are several standards which define
+software quality. According to the quality model of ISO 9126, software quality
+is described as a structured set of characteristics namely - Functional
+suitability, Performance, efficiency, Compatibility, Usability, Reliability,
+Security, Maintainability and Portability (\cite{ISO9126}). The qualities which
+are important concerning \famname{} are correctness(functional suitability),
+maintainability, re-usability and portability. The definitions of the above
+mentioned qualities are explained below.
+
+\wss{You still don't have lines of text that are 80 characters long (separated
+  by hard returns) in the tex file.}
 
 \subsubsection {Functional Suitability}
 
 This characteristic represents the degree to which a product or system provides
 functions that meet stated and implied needs when used under specified
 conditions. It can be further characterized into completeness, correctness and
-appropriateness. In this project, we focus only on correctness which is defined as shown below.
-\paragraph{Correctness }
-The degree to which a product or system provides the correct results with the
-needed degree of precision.
+appropriateness. In this project, we focus only on correctness which is defined
+as shown below.
+
+\paragraph{Correctness } \wss{do you mean for this to be a subsection (not a
+  paragraph), like the other subsections?}  The degree to which a product or
+system provides the correct results with the needed degree of precision.
 
 \subsubsection{Maintainability}
 This characteristic represents the degree of effectiveness and efficiency with
@@ -132,7 +155,8 @@ or usage environment to another.
 
 \subsection{References}
 
-Throughout this document, we refer to the terminologies that have been already explained in the CA document for Program \famname{}.
+Throughout this document, we refer to the terminologies that have been already
+explained in the CA document for Program \famname{}. \wss{Reference your SRS.}
 
 \section{Plan}
 	
@@ -145,20 +169,29 @@ Throughout this document, we refer to the terminologies that have been already e
 
 \subsection{SRS Verification Plan}
 
-The CA document for \famname{} will be reviewed by Dr.Spencer Smith and my classmate Mr.Robert White.
+The CA document for \famname{} will be reviewed by Dr. Spencer Smith
+\wss{\LaTeX{} has a rule that it inserts two spaces at the end of a sentence.
+  It detects a sentence as a period followed by a capital letter.  This comes
+  up, for instance, with Dr. Smith.  Since the period after Dr.\ isn't actually
+  the end of a sentence, you need to tell \LaTeX{} to insert one space.  You do
+  this either by Dr.\ Smith (if you don't mind a line-break between Dr.\ and
+  Smith), or Dr.~Spencer Smith (to force \LaTeX{} to not insert a line break).}
+and my classmate Mr. Robert White.
 
 \subsection{Design Verification Plan}
 
-My design will be verified with the help of my supervisor Dr.Spencer Smith and my classmates Ms.Jennifer Garner and Mr.Brooks MacLachlan.
+My design will be verified with the help of my supervisor Dr. Spencer Smith and
+my classmates Ms. Jennifer Garner and Mr. Brooks MacLachlan. \wss{Good to list
+  the specific people.  You should also split this up between the MG and the MIS.}
 
 \subsection{Implementation Verification Plan}
 
-
-My implementation will be verified by the tests listed in this document and the unitVnVplan document. My classmate Ms.Vajiheh Motamer will help me verify the document.	
+My implementation will be verified by the tests listed in this document and the
+unitVnVplan document. My classmate Ms. Vajiheh Motamer will help me verify the document.	
 
 \subsection{Software Validation Plan}
 
-Not Applicable
+Not Applicable \wss{why not?}
 
 \section{System Test Description}
 
@@ -166,7 +199,13 @@ System testing is a process in which we test the overall working of the system. 
 	
 \subsection{Tests for Functional Requirements}
 
+\wss{It would be nice to have a blurb here to explain why the subsections below
+  cover the requirements.  References to the SRS would be good.}
+
 \subsubsection{Input testing}
+
+\wss{It would be nice to have a blurb here to explain why the subsections below
+  cover the requirements.  References to the SRS would be good.}
 
 \begin{enumerate}
 
@@ -178,12 +217,9 @@ Initial State: NA
 
 Input: t=[1] , y=[2] (length 1)
 
-Output: Error message (``Please enter atleast 2 points'')
+Output: Error message (``Please enter atleast \wss{proof read} 2 points'')
 
 How test will be performed: Pytest
-
-
-
 
 \item{\textbf{T2: Test case for data type mismatch}\\}
 
@@ -196,9 +232,6 @@ Input: t=[1,2,3,4,t] , y=[2,2,3,4,5]
 Output: Error message (``Please enter only numbers'') or TypeError exception
 
 How test will be performed: Pytest
-
-
-
 
 \item{\textbf{T3: Test case for unordered inputs}\\}
 
@@ -218,7 +251,8 @@ How test will be performed: Pytest
 
 %#######################       Monomial    ################################
 
-
+\wss{It would be nice to have a blurb here to explain why the subsections below
+  cover the requirements.  References to the SRS would be good.}
 
 \item{\textbf{T4: $I^{st}$ test case for monomial interpolation} \\}
 
@@ -232,8 +266,8 @@ Output: [0, 1] (Coefficients of t, starting from $t^{0}$.)
 
 How test will be performed: Pyunit\\
 
-
-
+\wss{How did you come up with the output?  How does the reader verify this?  A
+  similar comment applies elsewhere in your documentation.}
 
 \item{\textbf{T5: ${II}^{nd}$ test case for Monomial interpolation}}\\
 
@@ -252,9 +286,11 @@ Test case reference: Page 314, example 7.1 of ~\cite{Health1997}\\
 
 %#######################       Lagrange    ################################
 					
-\item{\textbf{T6: $I^{st}$ test case for Lagrange's interpolation} \\}
-
-Control: Automatic 
+\item{\textbf{T6: $I^{st}$ test case for Lagrange's interpolation} \\} \wss{You
+    list first and second test cases, but why were they selected?  Why does the
+    second test case cover something different from the first?}  
+Control:
+  Automatic
 
 Initial State: NA
 
@@ -262,12 +298,16 @@ Input: Data points t = [0,1,2], y = [0,1,2]
 
 Output: [0, 1] (Coefficients of t, starting from $t^{0}$.)
 
-How test will be performed: Pyunit\\
+How test will be performed: Pyunit \wss{You repeat this same test case several
+  times, but for different algorithms.  This is a good idea, but you should
+  record this in a more efficient way.  You can list the test case once and then
+  reference it in the subsequent cases and simply say that it will be repeated,
+  but for a different algorithm.  You could summarize a much higher number of
+  test cases if you used tables.}\\ 
 
 
 
 \item{\textbf{T7: ${II}^{nd}$ test case for Lagrange's interpolation} \\}
-
 
 Control: Automatic
 
@@ -329,7 +369,7 @@ How test will be performed: Pytest
 
 Test case reference: \cite{HermiteCubic} \\
 
-\item{\textbf{T11: ${II}^{nd}$ test case for hermite cubic interpolation} \\}
+\item{\textbf{T11: ${II}^{nd}$ test case for hermite \wss{Hermite} cubic interpolation} \\}
 
 Control: Automatic 
 
@@ -496,9 +536,16 @@ err = \frac{val_{CFS} - val_{Matlab}}{val_{CFS}}
 err < Admissible\_error
 \end{equation*}
 
-$Admissible\_error$ is available in appendix section.\\
+\wss{good test case}
+
+$Admissible\_error$ is available in appendix section.  \wss{This isn't a good
+symbol.  A constant like this should be in all caps and it won't space out
+properly.  Use something like $\mathit{ADMISS\_ERR}$.}\\
 				
-Output/Result: Pass/Fail
+Output/Result: Pass/Fail \wss{The output should be the expected result.  Since
+  you are summarizing multiple test cases at once, you could think of your
+  output as a table of all of the relative errors, or you could report the
+  maximum relative error (infinity norm.)}
 					
 How test will be performed: Manual
 				
@@ -525,7 +572,7 @@ This will help in accessing the maintainability of the software by measuring the
 ~\newline	
 Output: Pass/ Fail\\
 					
-How test will be performed: Manual
+How test will be performed: Manual \wss{I like this test case experiment.}
 
 
 %#######################################################
@@ -617,6 +664,7 @@ Their values are defined in this section for easy maintenance.
 	\item $Admissible\_error = 1e-1$
 \end{itemize}
 
+\wss{You should write numbers properly $1 \times 10^{-1}$}
 
 %\subsection{Usability Survey Questions?}
 
