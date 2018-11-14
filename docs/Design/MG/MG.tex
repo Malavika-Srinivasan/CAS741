@@ -138,9 +138,16 @@ change.
   hardware on which the software is running. 
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
-\item[\refstepcounter{acnum} \actheacnum \label{acSmoothing}:] The method used to calculate best fit may be smoothing instead of interpolation and regression.
-\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of output data. Instead of best fit coefficients and plot, they may want to obtain the value of `y' at a particular `t' or a series of `t' values where $(t_i,y_i)$ is the input data at $i = 0,1,2,...n$.
-\item[\refstepcounter{acnum} \actheacnum \label{acDegree}:] The user may not want to input the degree of the polynomial for regression and my want it to be computed by \famname{}.
+\item[\refstepcounter{acnum} \actheacnum \label{acSmoothing}:] The method used
+  to calculate best fit may be smoothing instead of interpolation and
+  regression.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of output
+  data. Instead of best fit coefficients and plot, they may want to obtain the
+  value of `y' at a particular `t' or a series of `t' values where $(t_i,y_i)$
+  is the input data at $i = 0,1,2,...n$.
+\item[\refstepcounter{acnum} \actheacnum \label{acDegree}:] The user may not
+  want to input the degree of the polynomial for regression and my want it to be
+  computed by \famname{}.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -156,8 +163,12 @@ decisions will be changed.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucNonLinear}:] If \famname{} is used with non linear systems, then the results from the software is no longer valid.
+  a source of input data external to the software. \wss{I think we should remove
+    this UC.  It still doesn't really make sense to me.  I have removed it from
+    the blank project template.}
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucNonLinear}:] If \famname{} is
+  used with non linear systems, then the results from the software is no longer
+  valid.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -182,11 +193,9 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plot Module
 \end{description}
 
-
-
-Note that \mref{mHH} is a commonly used module and is already implemented by the operating system.  It will not be reimplemented.  Similarly, \mref{mSeqSer} and \mref{mPlot} are already available in Python and will not be reimplemented.
-
-
+Note that \mref{mHH} is a commonly used module and is already implemented by the
+operating system.  It will not be reimplemented.  Similarly, \mref{mSeqSer} and
+\mref{mPlot} are already available in Python and will not be reimplemented.
 
 \begin{table}[h!]
 \centering
@@ -233,7 +242,10 @@ entry is \emph{OS}, this means that the module is provided by the operating
 system or by standard programming language libraries.  Also indicate if the
 module will be implemented specifically for the software.
 
-Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means that the module is not a leaf and will not have to be implemented. Whether or not this module is implemented depends on the programming language selected.
+Only the leaf modules in the hierarchy have to be implemented. If a dash
+(\emph{--}) is shown, this means that the module is not a leaf and will not have
+to be implemented. Whether or not this module is implemented depends on the
+programming language selected.
 
 \subsection{Hardware Hiding Modules (\mref{mHH})}
 
@@ -261,7 +273,10 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 \subsubsection{User-program Module (\mref{mControl})}
 
 \begin{description}
-	\item[Secrets:]This is the user program which is abstracted as a module which uses the best fit module to use the appropriate service. 
+\item[Secrets:]This is the user program which is abstracted as a module which
+  uses the best fit module to use the appropriate service. \wss{This isn't
+    actually a module.  If you want to include it, you should say this.  This is
+    an external program that uses the services provided by the other modules.}
 	\item[Services:] NA.
 	\item[Implemented By:] User
 \end{description}
@@ -271,7 +286,9 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 
 \begin{description}
 	\item[Secrets:]The format and structure of input data.
-	\item[Services:]Converts the input data into the data structure used by other modules and verifies the type of the input. A `TypeError' exception is raised if there is a type mismatch. 
+	\item[Services:]Converts the input data into the data structure used by
+          other modules and verifies the type of the input. A `TypeError'
+          exception is raised if there is a type mismatch.
 	\item[Implemented By:] \famname{}
 \end{description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -280,7 +297,9 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 
 \begin{description}
 	\item[Secrets:]The user's choice of best fit method and degree of the fit.
-	\item[Services:] Provides the interface to invoke the appropriate method of fit and obtains additional input like degree of the polynomial for regression.
+	\item[Services:] Provides the interface to invoke the appropriate method
+          of fit and obtains additional input like degree of the polynomial for
+          regression.
 	\item[Implemented By:] \famname{}
 \end{description}
 
@@ -290,7 +309,8 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 
 \begin{description}
 	\item[Secrets:] The format and structure of the output data.
-	\item[Services:] Outputs the best fit parameters and plots the output along with input data and best fit parameters.
+	\item[Services:] Outputs the best fit parameters and plots the output
+          along with input data and best fit parameters.
 	\item[Implemented By:] \famname{}
 \end{description} 
 
@@ -320,24 +340,22 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash (\emph{
 	\item[Implemented By:] Python
 \end{description} 
 
-
-
 \subsubsection{Interpolation Module (\mref{mInterp})}
 
 \begin{description}
-	\item[Secrets:] The algorithms used for interpolation
-	\item[Services:] Provides the best fit coefficients
+	\item[Secrets:] The algorithms used for interpolation.
+	\item[Services:] Provides the fit coefficients. \wss{I removed the word
+            best.  With interpolation there is only one fit.}
 	\item[Implemented By:] \famname{}
 \end{description}
 
 \subsubsection{Linear Regression (\mref{mLinearReg})}
 
 \begin{description}
-	\item[Secrets:] The algorithm used for linear regression
-	\item[Services:] Provides the best fit coefficients
+	\item[Secrets:] The algorithm used for linear regression.
+	\item[Services:] Provides the best fit coefficients.
 	\item[Implemented By:] \famname{}
 \end{description}
-
 
 \subsubsection{Plot Module (\mref{mPlot})}
 
@@ -413,6 +431,13 @@ because they use modules from the lower levels.
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
+
+\wss{This uses hierarchy is different from the one that I commented on in the
+  issue tracker.  It seems the main difference is the ``best fit'' module.  For
+  both diagrams it would make sense to draw an arrow from the top to input and
+  output.  The user program will use the input and output modules.  This uses
+  relation is covered by transitive closure, but I like it better when it is
+  explicit.}
 
 %\section*{References}
 
