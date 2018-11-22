@@ -106,6 +106,7 @@ Oct 22, 2018 & 1.6 & $6^{th}$ Corrections based on feedback from Dr.Smith\\
 Oct 29, 2018 & 1.7 & $7^{th}$ Corrections after System VnV plan\\
 Nov 2, 2018 & 1.8 & $8^{th}$ Corrections based on feedback from Dr.Smith\\
 Nov 7, 2018 & 1.9 & $9^{th}$ Corrections based on feedback from Dr.Smith\\
+Nov 22, 2018 & 2.0 & $10^{th}$ Corrections based on feedback from Dr.Smith\\
 \bottomrule
 \end{tabularx}
 
@@ -193,7 +194,16 @@ The purpose of this document is to analyze the commonalities and variabilities b
 
 
 \subsection{Scope of the Family}\label{Scope}
-The scope of \famname{} is restricted to finding the best fit parameters of linear systems using methods of interpolation and regression discussed in chapter $3$ and $7$ of ~\cite{Health1997} . To reduce the complexity of \famname{}, we use only polynomials and piecewise polynomials as our basis functions for interpolation. In regression, we restrict ourselves to over determined linear systems and least squares methods to minimize the residual.\\
+The scope of \famname{} is restricted to finding the best fit parameters of 
+linear systems using methods of interpolation and regression discussed in 
+chapter $3$ and $7$ of ~\cite{Health1997} . To reduce the complexity of 
+\famname{}, we use only polynomials and piecewise polynomials as our basis 
+functions for interpolation. In regression, we restrict ourselves to over 
+determined linear systems and least squares methods to minimize the residual.
+This software will allow only run-time binding for the degree of interpolation 
+and regression. There could be also be variabilities associated with the
+dimension of the interpolation which could be fixed at build time but this is 
+out of scope for \famname{}.\\
 
 
  
@@ -341,9 +351,10 @@ data definitions, which in turn will be used to build the instance models.\\
 		\hline
 		SI Units& Not applicable\\
 		\hline
-		Equation & $f(t) = \sum_{j=1}^{n}x_j \Phi_j (t)$ where $i$ $=
+		Equation & $f(t) = \sum_{j=1}^{n}x_j \Phi_j (t)$ where $j$ $=
                            1,2,3...m$ \wss{There is no $i$ in this equation.
-                           Where is the connection to the data?}\\
+                           Where is the connection to the data?}\ms{changed i 
+                           to j}\\
 		\hline
 		Description & The above equation gives the general form of linear curve fitting where,
 		\begin{itemize}
@@ -447,12 +458,17 @@ This section focuses on the general equations that \famname{} is based on.
 		\hline
 		Label&\bf Least Squares method.\\
 		\hline
-		Equation& For a given overdetermined system of equations represented in matrix form as in \tref{T_LinearEqMatrix}, a best fit solution $x$ is found such that,  
+		Equation& For a given overdetermined system of equations represented in 
+		matrix form as in \tref{T_LinearEqMatrix}, a best fit solution $x$ is 
+		found such that, the square of the difference between the actual and 
+		expected output is minimum. This is mathematically represented as shown 
+		below.
 		\begin{equation*}
 		\min_{x}\sum_{i=1}^{m} (y_i - f(t_i,x)) ^2
 		\end{equation*} \\
 		\hline
-		Description & The above equation gives the definition of best fit solution in least squares method.\\
+		Description & The above mathematical expression gives the definition of 
+		best fit solution in least squares method.\\
 		& A is a $m$ X $n$ matrix\\
 		& y is a m-vector\\
 		& x is an n-vector\\
@@ -465,7 +481,8 @@ This section focuses on the general equations that \famname{} is based on.
 	\end{tabular}
 \end{minipage}\\
 \wss{What is the connection between the equation and the description?  Is this a
-  copy and paste error?}
+  copy and paste error?}\ms{Yes, I guess it should say mathematical expression 
+  instead of equation. Changed}
 ~\newline
 
 %%%%%%%%%%%%%%%%%%%%%% T_Interpolation  %%%%%%%%%%%%%%%%%%%%%%%%
@@ -488,9 +505,9 @@ This section focuses on the general equations that \famname{} is based on.
 		\begin{itemize}
 			\item $(t_i,y_i)$ is the given set of data points, where i $= 1,2, 3...m$.
 			\item The functions $\Phi(t), \Phi_1(t), ... \Phi_n(t)$ are basis functions whose linear combination yields the interpolating function $f$ whose value at a given $t_i$ is $y_i$.
-			\item $x_j$ is the parameters of the best fit. \wss{The
+			\item $x_j$ is the parameters of the curve fit. \wss{The
                             terminology best fit doesn't make sense here.  Curve
-                            fit would be fine.}
+                            fit would be fine.}\ms{changed the terminology}
 			\item $y_i$ is the given data point at $t_i$.
 		\end{itemize}\\
 		\hline
@@ -523,9 +540,10 @@ This section focuses on the general equations that \famname{} is based on.
 		f(t_i,x) = x_1 + x_2 t + x_3 t^{2} + ... + x_n t^{n-1}.
 		\end{equation*}
 		~\newline
-		To find $x_i$ using Least squares method as in
-                          \tref{T_LeastSquares} \wss{I don't see the connection
-                          to T2 as T2 is currently written.}\\ 
+		where $x_i$ is the parameters of the curve fit, such that the Least 
+		squares as defined \tref{T_LeastSquares} is minimum. \wss{I don't see 
+		the connection to T2 as T2 is currently written.}\ms{I can see the 
+		disconnection. I changed it now. Can you please review this?}\\ 
 		\hline
 		Description & 
 		The above equation gives the general form of linear regression function and the definition of best fit in least squares method.\\
@@ -1097,8 +1115,10 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
 		& The symbols used in this equation are $P_{n-1}$ which represents the polynomial of degree at the most $n-1$.\\
 		& $(t_i,y_i)$ is the given input data where no two $t_i$ are the same.\\
 		&Polynomial interpolation has different variabilities which are
-                  discussed as separate instance models. \wss{You should make an
-          explicit connection.}\\
+                  discussed in separate instance models \iref{IM_Monomial}, 
+                  \iref{IM_Lagrange} and \iref{IM_Newton}. 
+                  \wss{You should make an explicit connection.}\ms{Changes 
+                  made}\\
 		\hline
 		
 		Sources
@@ -1131,7 +1151,8 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
 		\hline
 		
 		Output& $P(t) = L_i (t)$ is a piecewise linear function where
-                        $L_i$ is gievn \wss{spell check} by the following equation. 
+                        $L_i$ is given \wss{spell check}\ms{changed} by the 
+                        following equation. 
 		\begin{equation*}
 		L_i (t) = y_i + \frac{y_{i+1} - y_i}{t_{i+1} - t_i} (t - t_i)
 		\end{equation*}
@@ -1613,17 +1634,30 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
   will only allow run-time binding, the concept of a program family allows for
   build time binding.  There could be variabilities associated with the
   dimension of the interpolation.  It could be fixed at build time.}
-
+\ms{I understand. I added a note about this in the scope section}
 
 
 
 
 \subsection{Output} \label{sec_Output}    
 
-\wss{Why aren't there output variabilities?  You could have the output to a file
-  or to the screen or to memory.  You could have output variabilities to include
-  certain data in the output, or not.  For instance, the residual could be part
-  of the output.}
+\subsubsection{Plot and coefficients to screen}
+
+The output can just be the plot and the coefficients of the curve fit displayed 
+in the screen. Residual of the fit may be part of the output.
+
+\subsubsection{Plot and coefficients as files}
+
+The output can be written to a file which will include the coefficients of the 
+curve fit and the curve fit plot saved to a specific location. Residual of the 
+fit may be part of the output.
+
+\subsubsection{coefficients to screen}
+The output could be the coefficients displayed in the screen. Residual of the 
+fit may be part of the output.
+
+\ms{While editing, I unintentionally removed your comment. You asked for 
+variabilities in output. Can you please review if the above changes are ok?}
 
 \section{Requirements}
 
@@ -1638,37 +1672,65 @@ qualities that the software is expected to exhibit.
   to provide choices for you to read.  Another program is going to call your
   services.}
 
-\begin{itemize}
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_IInputs}:] Read the input data $(t_i,y_i)$.
+\ms{I can see your point. This needs to be discussed.}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_IverifyIPType}:]Verify the input data to see if only numbers are entered.
+\begin{itemize}
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_IInputs}:] Read the input 
+data $(t_i,y_i)$ and the degree of the polynomial $deg$(Only for regression).
+
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_IverifyIPType}:]Verify the 
+input data to see if only numbers are entered and if regression, verify that 
+the $deg \geq 1$.
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_IverifyIPData}:]Verify the input data to see if \aref{A_data} and \aref{A_dataConstraint} are satisfied.
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Int_or_Reg}:]Read the user's choice of curve fitting method between Interpolation(\tref{T_Interpolation}) or Regression(\tref{T_LinearRegression}).
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Int_or_Reg}:]The following 
+services are provided by \famname{} - Interpolation(\tref{T_Interpolation}) and 
+Regression(\tref{T_LinearRegression}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Imethod}:]If interpolation, is chosen in \rref{R_Int_or_Reg}, read user's choice of basis function between Polynomial(\iref{IM_Polynomial}) or Piecewise(\iref{IM_Piecewise}). (\aref{A_Interpolation})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Imethod}:]In interpolation, 
+two types of services are provided - Polynomial(\iref{IM_Polynomial}) and  
+Piecewise(\iref{IM_Piecewise}). (\aref{A_Interpolation})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Polynomialmethod}:]If Polynomial is chosen in \rref{R_Imethod}, read user's choice of basis functions from Monomial(\iref{IM_Monomial}), Lagrange(\iref{IM_Lagrange}) or Newton(\iref{IM_Newton}).(\aref{A_Interpolation})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Polynomialmethod}:]In 
+Polynomial interpolation, three types of services are provided - 
+Monomial(\iref{IM_Monomial}), Lagrange(\iref{IM_Lagrange}) and 
+Newton(\iref{IM_Newton}).(\aref{A_Interpolation}).
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Piecewisemethod}:]If Piecewise Polynomial is chosen in \rref{R_Imethod}, read user's choice of interpolating method from Hermite cubic(\iref{IM_HermiteCubic}) or B-Splines(\iref{IM_BSpline}).(\aref{A_Interpolation})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Piecewisemethod}:]In 
+Piecewise Polynomial, the following services are provided -  Hermite 
+cubic(\iref{IM_HermiteCubic}) and B-Splines(\iref{IM_BSpline}). 
+(\aref{A_Interpolation})
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Rmethod}:]If regression is chosen in \rref{R_Int_or_Reg}, read user's choice of regression methods between Normal equations(\iref{IM_NormalEquations}), Augmented system(\iref{IM_AugmentedSystem}) and Orthogonal transformations(\iref{IM_OrthogonalTransformation}) and the degree of the polynomial.(\aref{A_Regression})
+\item[R\refstepcounter{reqnum}\thereqnum \label{R_Rmethod}:]In regression, the 
+following services are provided -   Normal 
+equations(\iref{IM_NormalEquations}), Augmented 
+system(\iref{IM_AugmentedSystem}) and Orthogonal 
+transformations(\iref{IM_OrthogonalTransformation}).
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_ICalculate}:] Compute best fit
-  parameters. \wss{How?  You should reference the IMs that tell you how to do this.}
+  parameters. (\iref{IM_Monomial}, \iref{IM_Lagrange}, \iref{IM_Newton}, 
+  \iref{IM_HermiteCubic}, \iref{IM_BSpline},
+  \iref{IM_NormalEquations}, \iref{IM_AugmentedSystem} and 
+  \iref{IM_OrthogonalTransformation}).\wss{How?  You 
+  should reference the IMs that tell you how to do 
+  this.}\ms{Referenced IMs}
 
 \item[R\refstepcounter{reqnum}\thereqnum \label{R_IOutput}:] Display the plot
-  with data(\rref{R_IInputs}) and best fit result from
-  \rref{R_ICalculate}. \wss{These are actually part of output variabilities.
-    The calling program might not always need these services.}
+  with data(\rref{R_IInputs}) or the best fit result from
+  \rref{R_ICalculate} if requested by user program. \wss{These are actually 
+  part of output variabilities.
+    The calling program might not always need these services.}\ms{I added the 
+    clause `if requested by user program}
 
 \end{itemize}
 
 \wss{I know you wanted to turn the solution of all problems into solving a
   system of equations, but this doesn't come through very well in your
   documentation.  You have the matrices, but it wasn't clear that this was a
-  unifying framework.}
+  unifying framework.}\ms{I understand. I did not want to convert everything to 
+  system of equations. Thats how it was discussed in Health1997. But I see that 
+  it is the unifying framework. Should I mention this somewhere?}
 
 \subsection{Nonfunctional Requirements}
 
@@ -1680,16 +1742,23 @@ qualities that the software is expected to exhibit.
 
 \subsubsection{Verifiability Requirements}
 \begin{itemize}
-	\item \famname{} should be verifiable, which means the results should be
-          comparable to Matlab. \wss{ambiguous.  What results will be compared?
-            You could point to your verification plan here.}
+	\item \famname{} should be verifiable. The document System verification and 
+	validation plan lists the plan for verifying \famname{}. The document can 
+	be found at 
+	\url{https://github.com/Malavika-Srinivasan/CAS741/blob/master/docs/VnVPlan/SystVnVPlan/SystVnVPlan.pdf}.
+    \wss{ambiguous.  What results will be compared?
+            You could point to your verification plan here.}\ms{Referenced 
+            SystemVnVPlan}
 \end{itemize}
 
 \subsubsection{Maintainability and Support Requirements}
 \begin{itemize}
-	\item \famname{} should be able to accommodate new fitting methods for
-          linear problems. \wss{What new fitting methods are possible?  How long
-            will it take to add them?}
+	\item \famname{} should be able to accommodate new fitting methods such as 
+	smoothing for linear problems. This addition will involve the creation of 
+	new module to offer the service. However, the output of smoothing function 
+	will be a an array of smoothed values which will require modifications in 
+	the output module. \wss{What new fitting methods are possible?  
+	How long will it take to add them?}\ms{Please review}
 \end{itemize}	
 	
 
@@ -1797,8 +1866,8 @@ The traceability matrix between Data definitions and Instance models is represen
 
 
 \subsection{Symbolic Parameters}
-
-\wss{Either say ``not applicable'' or remove this sections.}
+Not Applicable
+\wss{Either say ``not applicable'' or remove this sections.}\ms{Changes made}
 
 \begin{comment}
 
