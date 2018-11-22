@@ -189,6 +189,11 @@ long.  You are probably setting your editor to an 80 character soft wrap.}
 to hard wrap. But I don't see places where it is above 80 characters in a line. 
 Maybe we can discuss this during tomorrow's meeting.}
 
+\wss{Have a look at your CA.tex file with a web-browser through the GitHub
+  interface
+  (\url{https://github.com/Malavika-Srinivasan/CAS741/blob/master/docs/SRS/CA.tex}).
+You'll see the lines that are longer than 80 characters.}
+
 \subsection{Purpose of Document}
 The purpose of this document is to analyze the commonalities and variabilities between the family of softwares produced as part of this library. The commonalities are the elements which are true for each member which is a part of this software family. For instance, curve fitting is common for all the softwares of this family. The variabilities are the elements which may vary between each software member of this family. For instance, the technique used to fit the curve such as interpolation, regression, smoothing are examples of variabilities.
 
@@ -543,7 +548,12 @@ This section focuses on the general equations that \famname{} is based on.
 		where $x_i$ is the parameters of the curve fit, such that the Least 
 		squares as defined \tref{T_LeastSquares} is minimum. \wss{I don't see 
 		the connection to T2 as T2 is currently written.}\ms{I can see the 
-		disconnection. I changed it now. Can you please review this?}\\ 
+		disconnection. I changed it now. Can you please review this?}
+                          \wss{You are on the right track now.  There are still
+                          some issues with attention to detail, like $f$ is
+                          sometimes a function of one variable and sometimes a
+                          function of two variables, but this is now on the
+                          right track.}\\ 
 		\hline
 		Description & 
 		The above equation gives the general form of linear regression function and the definition of best fit in least squares method.\\
@@ -1159,7 +1169,11 @@ This section transforms the goal of \famname{} defined in the Section~\ref{Goals
 		where $i = 1,2,3 ....n$. The degree of the polynomial can be
                         varied as per requirement in each interval. \wss{Where
                         are the intervals?  I would expect to see the notion of
-                        breakpoints here.}\\
+                        breakpoints here.} \wss{Are you just connecting a line
+                        between each data point?  Piecewise interpolation isn't
+                        a good name in this case.  You would want to call it
+                        piecewise linear.  Either way, you should  put more work
+          into explaining what you are doing here in words.}\\
 		\hline
 		
 		Description 
@@ -1658,6 +1672,7 @@ fit may be part of the output.
 
 \ms{While editing, I unintentionally removed your comment. You asked for 
 variabilities in output. Can you please review if the above changes are ok?}
+\wss{The current ideas are an improvement.}
 
 \section{Requirements}
 
@@ -1730,7 +1745,7 @@ transformations(\iref{IM_OrthogonalTransformation}).
   documentation.  You have the matrices, but it wasn't clear that this was a
   unifying framework.}\ms{I understand. I did not want to convert everything to 
   system of equations. Thats how it was discussed in Health1997. But I see that 
-  it is the unifying framework. Should I mention this somewhere?}
+  it is the unifying framework. Should I mention this somewhere?} \wss{Yes}
 
 \subsection{Nonfunctional Requirements}
 
@@ -1758,7 +1773,11 @@ transformations(\iref{IM_OrthogonalTransformation}).
 	new module to offer the service. However, the output of smoothing function 
 	will be a an array of smoothed values which will require modifications in 
 	the output module. \wss{What new fitting methods are possible?  
-	How long will it take to add them?}\ms{Please review}
+	How long will it take to add them?}\ms{Please review} \wss{This is still
+        ambiguous.  How do I measure this?  How do I know if you are successful?
+        The changes come from your list of likely changes and the time to make
+        the changes should be some fraction (specified by you) of the original
+        development time.}
 \end{itemize}	
 	
 
