@@ -1,5 +1,7 @@
-# Module Interface Specification #
+This folder contains the Module Interface Specification for the SWHS software.
 
-Suggest following something like the example used in Lab 11 (Box 3D).
+The Module Interface Specification outlines details of the interface for each
+module in the program.
 
-Use doxygen (or equivalent) to document the interface for your modules.
+It is intended to ease navigation through the program for design and maintenance
+purposes.
