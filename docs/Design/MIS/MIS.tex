@@ -1,0 +1,1119 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{amsmath, mathtools}
+
+\usepackage[round]{natbib}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fullpage}
+\usepackage{comment}
+
+
+\hypersetup{
+bookmarks=true,     % show bookmarks bar?
+colorlinks=true,       % false: boxed links; true: colored links
+linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+citecolor=blue,      % color of links to bibliography
+filecolor=magenta,  % color of file links
+urlcolor=cyan          % color of external links
+}
+
+\usepackage{array}
+
+\externaldocument{../../SRS/CA}
+
+\input{../../Comments}
+
+\newcommand{\progname}{CFS}
+
+\begin{document}
+
+\title{Module Interface Specification for \progname}
+
+\author{Malavika Srinivasan}
+
+\date{\today}
+
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+Nov 10, 2018 & 1.0 & First draft by Malavika\\
+Nov 21, 2018 & 1.1 & Corrections based on presentation by Malavika\\
+Nov 24, 2018 & 1.2 & MIS submission draft by Malavika\\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+See CA Documentation at 
+\url{https://github.com/Malavika-Srinivasan/CAS741/blob/master/docs/SRS/CA.pdf}
+
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+The following document details the Module Interface Specifications for 
+\progname(Curve Fitting Software). The goal of \progname{} is to find the 
+parameters of the curve which is the best possible fit through the given set of 
+`n' data points, where $n >= 2$.
+
+Complementary documents include the Commonality Analysis and Module Guide. The 
+full documentation and implementation can be found at the repository 
+\url{https://github.com/Malavika-Srinivasan/CAS741}.
+
+\section{Notation}
+
+The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+with the addition that template modules have been adapted from
+\cite{GhezziEtAl2003}. The mathematical notation comes from Chapter 3 of
+\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+multiple assignment statement and conditional rules follow the form $(c_1
+\Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
+
+
+
+The following table summarizes the primitive data types used by \progname. 
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\noindent 
+\begin{tabular}{l l p{7.5cm}} 
+\toprule 
+\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
+\midrule
+character & char & a single symbol or digit\\
+integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
+natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+\bottomrule
+\end{tabular} 
+\end{center}
+
+\noindent
+The specification of \progname \ uses some derived data types: sequences, strings, and
+tuples. Sequences are lists filled with elements of the same data type. Strings
+are sequences of characters. Tuples contain a list of values, potentially of
+different types. In addition, \progname \ uses functions, which
+are defined by the data types of their inputs and outputs. Local functions are
+described by giving their type signature followed by their specification.
+
+\section{Module Decomposition}
+\ms{Needs to be changed in MG based on Dr.Smith's suggestion}
+The following table is taken directly from the Module Guide document for this project.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+		\toprule
+		\textbf{Level 1} & \textbf{Level 2}\\
+		\midrule
+		
+		{Hardware-Hiding Module} & ~ \\
+		\midrule
+		
+		\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module}& Input\\
+		& Output\\
+		
+		\midrule
+		
+		\multirow{3}{0.3\textwidth}{Software Decision Module} & Sequence 
+		Services\\
+		& Interpolation\\
+		& Regression\\
+		& Plot\\
+		\bottomrule
+		
+	\end{tabular}
+	\caption{Module Hierarchy}
+	\label{TblMH}
+\end{table}
+
+\newpage
+~\newpage
+\section{MIS of Input module} \label{mInput}
+
+This module corresponds to R\ref{R_IInputs}, R\ref{R_IverifyIPType} and 
+R\ref{R_IverifyIPData} in the CA document. The secrets of 
+this module are how the data points are input and how they are verified.  The 
+load and verify secrets are isolated to their own access programs.
+
+\subsection{Module}
+
+input
+
+\subsection{Uses}
+
+\subsection{Syntax}
+
+\begin{tabular}{p{3cm} p{3cm} p{1cm} >{\raggedright\arraybackslash}p{9cm}}
+	\toprule
+	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+	\midrule
+	loadInput & string & - &  FileError \\
+	verifyInput & - & - & ValueError,TypeError  \\
+	verifyDegree & - & - & ValueError\\
+
+	\midrule
+	
+	
+	\bottomrule
+\end{tabular}
+
+
+\subsubsection{Exported Constants}
+NA
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		verifyDegree &  &  $\mathbb{N}$  & ValueError \\
+		\hline
+	\end{tabular}
+\end{center}
+\ms{I need the verifyInput as an exported access program because I will be 
+verifying the degree input from regression module.}
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable*}[l]{l} 
+	\# From R\ref{R_IInputs} in CA\\
+	$t$: $\mathbb{R}^n$ \\
+	$y$: $\mathbb{R}^n$ \\
+	$degVerify$: $boolean$\\ \ms{This will say if the degree input to 
+	regression module has been verified 
+	or not}
+	
+	
+\end{longtable*}
+
+
+\subsubsection{Environment Variables}
+
+
+inputFile: sequence of string
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	
+	\item The loadInput will be called before the calling the verifyInput 
+	method.
+	\item Regression module will be called before calling verifyDegree method.
+	\item The loadInput will be called before the values of any state variables 
+	will be accessed.
+	
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+
+\noindent \textbf{input.$t$:}
+\begin{itemize}
+	\item transition: NA 	
+	\item output: \textit{out} := $t$
+	\item exception: None
+\end{itemize}
+
+\noindent \textbf{input.$y$:}
+\begin{itemize}
+	\item transition: NA 	
+	\item output: \textit{out} := $y$
+	\item exception: None
+\end{itemize}
+
+\noindent \textbf{input.$degVerify$:}
+\begin{itemize}
+	\item transition: NA 	
+	\item output: \textit{out} := $degVerify$
+	\item exception: None
+\end{itemize}
+
+\noindent \textbf{loadInput($s$):}
+\begin{itemize}
+	\item transition: {inputFile} is used to modify the state variables using 
+	the following procedural specification:
+	
+	\begin{enumerate}
+		
+		\item Read data sequentially from inputFile to populate the state 
+		variables $t$ and $y$ .
+		
+		\item verifyInput()
+		
+	\end{enumerate}
+	\item output: NA
+	\item exception: exc := a file name $s$ cannot be found OR the format of
+	inputFile is incorrect $\Rightarrow$ FileError.
+	
+\end{itemize}
+
+\noindent \textbf{verifyInput():}
+\begin{itemize}
+\item transition:NA
+\item output: NA
+\item exception: exc := 
+\end{itemize}
+
+\begin{tabular}{p{12cm} p{4.75cm}}
+	
+	\toprule
+	\textbf{Name}&\textbf{Exception}\\
+	\midrule
+
+
+$ (|t| \leq 1 \lor |y| \leq 1)$ & $\Rightarrow$ LengthError\\
+$ (|t| \neq |y|)$ & $\Rightarrow$ LengthMismatchError\\
+$ (\forall x \in t \land  x \notin \mathbb{R} )$ & $\Rightarrow$ TypeError\\
+$ (\forall x \in y \land  x \notin \mathbb{R} )$ & $\Rightarrow$ TypeError\\
+
+
+\bottomrule
+\end{tabular}\\
+
+~\newline
+\noindent \textbf{verifyDegree():}
+\begin{itemize}
+	\item transition: 
+	\begin{itemize}
+		
+		\item $(deg > 0 \land deg \in \mathbb{N})\Longrightarrow degVerify = 
+		True$
+	\end{itemize}
+	\item output: 
+	\item exception: exc := 
+\end{itemize}
+
+\begin{tabular}{p{12cm} p{4.75cm}}
+	
+	\toprule
+	\textbf{Name}&\textbf{Exception}\\
+	\midrule
+	
+	
+	$ (deg \leq 0 \lor deg \notin \mathbb{N})$ & $\Rightarrow$ ValueError\\
+
+	
+	\bottomrule
+\end{tabular}
+
+
+\subsubsection{Local Functions}
+
+NA
+
+
+%###########################################################################
+
+
+~\newpage
+
+\section{MIS of Interpolation module} \label{mInterp}
+
+This module corresponds to R\ref{R_Int_or_Reg}, R\ref{R_Imethod}, 
+R\ref{R_Polynomialmethod}, R\ref{R_Piecewisemethod} and R\ref{R_ICalculate}
+in section \ref{FReq} of CA document.
+
+
+\subsection{Module}
+
+interp
+
+\subsection{Uses}
+
+\ref{mInput}, \ref{mOutput} 
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+
+NA
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{3cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+interpMonomial & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$  & - & - \\
+interpLagrange & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & - \\
+interpNewton & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & - \\
+interpHermiteCubic & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & 
+- \\
+interpBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & - \\
+
+evalMonomial & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$  & - \\
+evalLagrange & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
+evalNewton & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
+evalHermiteCubic & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - 
+\\
+evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+	\item x:$\mathbb{R}^{n-1 X m}$, \text{Where m = degree of polynomial + 1 
+	and n is the number of data points.}\\
+	
+	\item interval:$\mathbb{R}^k$, \text{Where k is the number of sections} \\
+	
+\end{itemize}
+
+
+
+
+\subsubsection{Environment Variables}
+
+NA
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	\item evalMonomial() will be called after interpMonomial().
+	\item evalLagrange() will be called after interpLagrange().
+	\item evalNewton() will be called after interpNewton().
+	\item evalHermiteCubic() will be called after interpHermiteCubic.
+	\item evalBSpline() will be called after interpBSpline().
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+
+\noindent \textbf{interp.$x$:}
+\begin{itemize}
+	\item transition: NA	
+	\item output: \textit{out} := $x$
+	\item exception: None
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+~\newline
+\noindent \textbf{interpMonomial($t$,$y$):}
+\begin{itemize}
+\item transition: 
+\begin{itemize}
+	\item 
+	\begin{enumerate}
+	\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. This is 
+	necessary as all the methods will be using the same state variable.
+	
+	\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using the 
+	equation below.
+	
+	\begin{equation*}
+	\begin{bmatrix}
+	1 & t_{1} & t_{1} ^2 & \dots & t_{1} ^{n-1} \\
+	1 & t_{2} & t_{2} ^2 & \dots & t_{2} ^{n-1} \\
+	\vdots & \vdots & \vdots & \vdots \\
+	1 & t_{n} & t_{n} ^2 & \dots & t_{n} ^{n-1} \\
+	\end{bmatrix}
+	\begin{bmatrix}
+	x_1  \\
+	x_2 \\
+	\vdots \\
+	x_n \\
+	\end{bmatrix} = 
+	\begin{bmatrix}
+	y_1  \\
+	y_2 \\
+	\vdots \\
+	y_n \\
+	\end{bmatrix}
+	\end{equation*}\\ 
+	\end{enumerate}
+	\item interval: $\mathbb{R}^{k} = t[0] $ , this is initialized to starting 
+	point for non piecewise functions.
+\end{itemize}
+  
+\item output: NA
+ 
+\item exception: NA
+\end{itemize}
+
+
+\noindent \textbf{evalMonomial($t$,$y$):}
+\begin{itemize}
+	\item transition: NA
+	
+	\item output:  \textit{out} := $yNew$
+	
+	$\forall t_i \in t$, yNew.append(y1) where y1 is obtained as shown below.
+	\begin{equation*}
+	y1 = x_1 + x_2 t_i + x_3 t_i ^2 + x_4 t_i ^3 + ... x_n t_i ^{n-1}  
+	\end{equation*}
+	
+	\item exception: NA
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent \textbf{interpLagrange($t$,$y$):}
+\begin{itemize}
+	\item transition:
+	\begin{itemize}
+		\item 
+		\begin{enumerate}
+			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			This is necessary as all the methods will be using the same state 
+			variable.
+			
+			\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using 
+			the equation below.
+			
+			\begin{equation*}
+			\begin{bmatrix}
+			1 & 0 & 0 & \dots & 0 \\
+			0 & 1 & 0 & \dots & 0 \\
+			\vdots & \vdots & \vdots & \vdots \\
+			0 & 0 & 0 & \dots & 1 \\
+			\end{bmatrix}
+			\begin{bmatrix}
+			x_1  \\
+			x_2 \\
+			\vdots \\
+			x_n \\
+			\end{bmatrix} = 
+			\begin{bmatrix}
+			y_1  \\
+			y_2 \\
+			\vdots \\
+			y_n \\
+			\end{bmatrix}
+			\end{equation*}\\ \\ 
+		\end{enumerate}
+		\item interval: $\mathbb{R}^{k} = t[0] $ , this is initialized to 
+		starting point for non piecewise functions.
+	\end{itemize}	
+	\item output: NA 
+	
+	\item exception: NA
+\end{itemize}
+
+\noindent \textbf{evalLagrange($t$,$y$):}
+\begin{itemize}
+	\item transition: NA
+	
+	\item output:  \textit{out} := $yNew$
+	
+	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	below.
+	
+	\begin{equation*}
+	y_0 = y_1 l_1 (t) + y_2 l_2(t) + \dots y_n l_n (t).
+	\end{equation*}
+	where $l_j (t)$ is given by,
+	
+	
+	\begin{equation*}
+	l_j (t) =  \frac{ \Pi _{k=1, k\neq j} ^n (t - t_k)} {\Pi _{k=1,k \neq j} ^n 
+		(t_j - t_k)}
+	\end{equation*}
+	\item exception: NA
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+~\newline
+~\newline
+
+\noindent \textbf{interpNewton($t$,$y$):}
+\begin{itemize}
+	\item transition: 
+	\begin{itemize}
+		\item 
+		\begin{enumerate}
+			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			This is necessary as all the methods will be using the same state 
+			variable.
+			
+			\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using 
+			the equation below.
+			\begin{equation*}
+			\begin{bmatrix}
+			\pi_0 (t_0) & 0           & 0            & \dots         & 0 \\
+			\pi_0 (t_1) & \pi_1 (t_1) & 0            & \dots         & 0 \\
+			\vdots      & \vdots      & \vdots       &\ddots         & 0 \\
+			\pi_0 (t_n) & \pi_1 (t_n) & \pi_2 (t_n)  & \dots         & \pi_n 
+			(t_n) \\
+			\end{bmatrix}
+			\begin{bmatrix}
+			x_1  \\
+			x_2 \\
+			\vdots \\
+			x_n \\
+			\end{bmatrix} = 
+			\begin{bmatrix}
+			y_1  \\
+			y_2 \\
+			\vdots \\
+			y_n \\
+			\end{bmatrix} 
+			\end{equation*}\\ 
+			
+			where,
+			
+			$i < j$ $\implies$ $\pi_j (t) = 0$, 
+			$i \geq j$  $\implies$  $\pi(t) = \Pi_{k=1}^{j-1} (t - t_k)$  
+			
+			When the limits make it vacuous, the product is taken to be 1.\\
+			\ms{work on vacuous}
+		\end{enumerate}
+		\item interval: $\mathbb{R}^{k} = t[0] $ , this is initialized to 
+		starting point for non piecewise functions.
+	\end{itemize}	
+	\item output: NA	
+\item exception: NA
+\end{itemize}
+
+
+
+
+\noindent \textbf{evalNewton($t$,$y$):}
+\begin{itemize}
+	\item transition: NA
+	
+	\item output:  \textit{out} := $yNew$
+	
+	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	below.
+	
+	\begin{equation*}
+	y_0 = x_1 + x_2(t-t_1) + x_3(t-t_1)(t-t_2) + ... 
+	x_n(t-t_1)(t-t_2)...(t-t_{n-1})
+	\end{equation*}
+
+	\item exception: NA
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent \textbf{interpHermiteCubic($t$,$y$):}
+\begin{itemize}
+	\item transition: 
+	
+	\begin{itemize}
+		\item 
+		\begin{enumerate}
+			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			This is necessary as all the methods will be using the same state 
+			variable.
+			
+			\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using 
+			the equation below.
+		\begin{equation*}
+		\begin{bmatrix}
+		1          & t_0       & t_0 ^{2}         & t_0 ^{3}         \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		1          & t_n       & t_n ^{2}         & t_n ^{3}          \\
+		0          & 1         & 2 t_0            & 3 t_0 ^{2}         \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 1         & 2 t_n            & 3 t_n ^{2}          \\
+		0          & 0         & 2                & 6 t_0              \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 0         & 2                & 6 t_n           \\
+		0          & 0         & 0                & 6                 \\
+		\vdots     & \vdots    & \vdots           & \vdots            \\
+		0          & 0         & 0                & 6               \\
+		\end{bmatrix}
+		\begin{bmatrix}
+		x_1  \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		\vdots \\
+		
+		x_{n(m+1)} \\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+		y_0  \\
+		\vdots \\
+		y_0 ^{(1)} \\
+		y_1 ^{(1)} \\
+		\vdots \\
+		y_n ^{(1)} \\
+		y_1 ^{(2)} \\
+		\vdots \\
+		y_n ^{(2)} \\  
+		y_1 ^{(3)} \\
+		\vdots \\
+		y_n ^{(3)} \\ 
+		\end{bmatrix}
+		\end{equation*}\\ 
+		
+		\end{enumerate}
+		\item interval: $\mathbb{R}^{k} = t[0] $ to $t[n-2]$, by default we 
+		make each point a breakpoint and hence there is a piecewise polynomial 
+		between [$t_{i-1},t_i$).
+	\end{itemize}	
+	
+	\item output: NA.	
+	
+\item exception: NA 
+\end{itemize}
+
+
+
+\noindent \textbf{evalHermiteCubic($t$,$y$):}
+\begin{itemize}
+	\item transition: 
+		
+	\item output:  \textit{out} := $yNew$
+	
+	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	below.
+	
+	\begin{equation*}
+	y_0 = x_{k0} + x_{k1} t + x_{k2} t^{2} + x_{k3} t^{3}\ \ for\ k = 0\ to\ n-2
+	\end{equation*}
+	
+	\item exception: NA
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\noindent \textbf{interpBSpline($t$,$y$):}
+\begin{itemize}
+	\item transition: 
+	
+		\begin{itemize}
+		\item 
+		\begin{enumerate}
+			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			This is necessary as all the methods will be using the same state 
+			variable.
+			
+			\item x: obtained by using the formula below.
+			
+			for $k>0$.
+			\begin{equation*}
+			x = v_i ^k = \frac{t-t_i}{t_{i+k} - t_i}
+			\end{equation*}
+			
+			\ms{BSpline gives the v values which will be used recursively in 
+			formula 
+				defined in IM\ref{IM_BSpline} of the CA document}
+			
+		\end{enumerate}
+		\item interval: $\mathbb{R}^{k} = t[0] $ to $t[n-2]$, by default we 
+		make each point a breakpoint and hence there is a piecewise polynomial 
+		between [$t_{i-1},t_i$).
+	\end{itemize}
+	
+	
+	 
+	\item output: NA 	
+	 
+	\item exception: NA 
+\end{itemize}
+
+
+\noindent \textbf{evalBSpline($t$,$y$):}
+\begin{itemize}
+	\item transition: 
+	
+	\item output:  \textit{out} := $yNew$
+	
+	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	below.
+	
+	\begin{equation*}
+	y_0 = B_i ^k (t) = v_i ^k (t) B_i ^{k-1} (t) + (1 - v_{i+1} ^k (t))B_{i+1} 
+	^{k-1} 
+	(t)
+	\end{equation*} 
+	for $k>0$.\\
+	\ms{I want the notation of `B' so that it is easy to understand the 
+	coefficients, thats why I have $y_0 = B...$}
+	\item exception: NA
+\end{itemize}
+
+
+\subsubsection{Local Functions}
+
+NA
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+
+\section{MIS of Regression module} \label{mReg}
+
+This module corresponds to R\ref{R_Int_or_Reg}, R\ref{R_Rmethod} and 
+R\ref{R_ICalculate} in section \ref{FReq} of CA document.
+
+
+\subsection{Module}
+
+reg
+
+\subsection{Uses}
+
+\ref{mInput}, \ref{mOutput} 
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+
+NA
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{4cm} p{4cm} p{4cm} p{1cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		regNormalEq & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$, deg:$\mathbb{N}$  & 
+		- & - \\
+		regAugSys & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$, deg:$\mathbb{N}$ & -
+		& - \\
+		regOrthogonalTn & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,  
+		deg:$\mathbb{N}$ & -
+		& - \\
+		evalReg & t:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
+		
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+
+\item x: $\mathbb{R}^m$\\
+\end{itemize}
+
+
+
+\subsubsection{Environment Variables}
+
+NA
+
+\subsubsection{Assumptions}
+\begin{itemize}
+\item input.verifyDegree() will be called before any of the access programs 
+will be used.
+\item evalReg() will be called after calling (regNormalEq() $\lor$  
+regAugSys() $\lor$ regOrthogonalTn()).
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+\noindent reg.$x$:
+\begin{itemize}
+	\item transition: NA	
+	\item output: \textit{out} := $x$
+	\item exception: None
+\end{itemize}
+
+~\newline
+~\newline
+\noindent \textbf{regNormalEq($t$,$y$,$deg$):}
+\begin{itemize}
+	\item transition: 
+	\begin{itemize}
+		\item degVerify = verifyDegree($deg$)
+		\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
+		initialization with maximum length possible. For a data of length n, 
+		you can maximum get n coefficients in the polynomial.}
+		\item $x ^ m = \mathbb{R}^m$, obtained by solving for $x$ in the 
+		equation below.\ms{m is the degree of the coefficients of the 
+		polynomial.}
+		\begin{equation*}
+		A^{T} Ax = A^{T}y
+		\end{equation*}  
+	\end{itemize} 
+	\item output: NA
+	\item exception: NA
+\end{itemize}
+
+~\newline
+~\newline
+
+\noindent \textbf{regAugSys($t$,$y$,$deg$):}
+\begin{itemize}
+\item transition: 
+\begin{itemize}
+	\item degVerify = verifyDegree($deg$)
+	\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
+		initialization with maximum length possible. For a data of length n, 
+		you can maximum get n coefficients in the polynomial.}
+	\item $x ^ m = \mathbb{R}^m$, obtained by solving for $x$ in the 
+	equation below.\ms{m is the degree of the coefficients of the 
+		polynomial.}
+		\begin{equation*}
+		r + Ax = y
+		\end{equation*}
+		\begin{equation*}
+		A^{T} r = 0
+		\end{equation*}
+		\text{Where $r$ is the residual vector.}
+	\end{itemize}	
+	\item output: NA 
+		
+	\item exception: NA
+\end{itemize}
+
+
+~\newline
+~\newline
+
+\noindent \textbf{regOrthogonalTn($t$,$y$,$deg$):}
+\begin{itemize}
+\item transition: 
+\begin{itemize}
+	\item degVerify = verifyDegree($deg$)
+	\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
+		initialization with maximum length possible. For a data of length n, 
+		you can maximum get n coefficients in the polynomial.}
+	\item $x ^ m = \mathbb{R}^m$, obtained by solving for $x$ in the 
+	equation below.\ms{m is the degree of the coefficients of the 
+		polynomial.}
+		\begin{equation*}
+		Ax = Py
+		\end{equation*}\\
+		\text{Where $P$ is the orthogonality matrix.}
+	\end{itemize}	
+	\item output: NA
+	
+	
+	\item exception: NA
+\end{itemize}
+
+
+\noindent \textbf{evalReg($t$):}
+\begin{itemize}
+	\item transition: NA
+	\item output: \textit{out} := $yNew$, where
+	$ \forall\ t_i\ \in\ t$,  
+	\begin{equation*}
+	ynew.append(np.poly1d(x)(t_i))
+	\end{equation*}
+	\item exception: NA
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+NA
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{MIS of Output module} \label{mOutput}
+
+This module corresponds to R\ref{R_IOutput} in the CA document. The secrets of 
+this module are how the output is given to user program.
+
+\subsection{Module}
+
+output
+
+\subsection{Uses}
+
+matplotlib(Python)
+
+\subsection{Syntax}
+
+\begin{tabular}{p{3cm} p{3cm} p{4cm} >{\raggedright\arraybackslash}p{5cm}}
+	\toprule
+	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+	\midrule
+	
+	plotDataFit & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ &  & -  \\
+	
+	coeffPlotScreen & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,x:$\mathbb{R}^m$ & 
+	x:$\mathbb{R}^m$, plot &  -\\
+	
+	coeffFile& x:$\mathbb{R}^m$,t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & 
+	x:$\mathbb{R}^m$
+	& - \\
+	
+	\midrule
+	
+	
+	\bottomrule
+\end{tabular}
+
+
+\subsubsection{Exported Constants}
+NA
+
+\subsubsection{Exported Access Programs}
+\begin{tabular}{p{3cm} p{3cm} p{4cm} >{\raggedright\arraybackslash}p{5cm}}
+	\toprule
+	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+	\midrule
+	
+	plotDataFit & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ &  & -  \\
+	
+	coeffPlotScreen & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,x:$\mathbb{R}^m$ & 
+	x:$\mathbb{R}^m$, plot &  -\\
+	
+	coeffFile& x:$\mathbb{R}^m$,t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & 
+	x:$\mathbb{R}^m$
+	& - \\
+	
+	\midrule
+	
+	
+	\bottomrule
+\end{tabular}
+
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+NA
+
+
+\subsubsection{Environment Variables}
+
+
+OutputFile: Results.csv
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+	
+	\item The interpolation or the regression module will be called before the 
+	output module.
+	
+\end{itemize}
+\subsubsection{Access Routine Semantics}
+
+
+
+\noindent \textbf{plotDataFit($t$,$y$):}
+\begin{itemize}
+	\item transition: 
+	\begin{itemize}
+		\item Call the appropriate evaluate method from the interpolation or 
+		regression module as shown below..
+		
+		\begin{enumerate}
+			
+			\item $yNew = $\ interp.evalMonomial($t$,$y$) $\lor$ 
+			interp.evalLagrange($t$,$y$) $\lor$
+			interp.evalNewton($t$,$y$) $\lor$
+			interp.evalHermiteCubic($t$,$y$) $\lor$
+			interp.evalBSpline($t$,$y$) $\lor$
+			reg.evalReg($t$)
+			
+			\item plot(t,y) and plot(t,$yNew$)
+\end{enumerate}	
+	\end{itemize}
+
+	\item output: \text{Out:=} plot
+	
+	\item exception: NA
+\end{itemize}
+
+\noindent \textbf{coeffPlotScreen($t$,$y$):}
+\begin{itemize}
+	\item transition :
+	\begin{itemize}
+		\item plotDataFit($t$,$y$)
+	\end{itemize}
+	\item output: \text{Out:= $interp.x \lor reg.x$, plot  } 
+	\item exception: NA
+\end{itemize}
+
+
+~\newline
+\noindent \textbf{coeffFile():}
+\begin{itemize}
+	\item transition: 
+	\begin{itemize}
+		
+		\item Create a csv file named `Result'
+		\item write interp.x $\lor$ reg.x
+	\end{itemize}
+	\item output: NA
+	\item exception: NA 
+\end{itemize}
+
+
+
+
+\subsubsection{Local Functions}
+
+NA
+
+
+
+
+
+
+\newpage
+
+
+
+
+\bibliographystyle {plainnat}
+\bibliography {../../../ReferenceMaterial/References}
+
+\newpage
+
+
+
+\section{Appendix} \label{Appendix}
+
+\wss{Extra information if required}
+
+\end{document}
