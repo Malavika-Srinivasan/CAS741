@@ -113,6 +113,8 @@ character & char & a single symbol or digit\\
 integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+
+boolean & $\mathbb{B}$ & a value from the set\ \{$True$,$False$\}\\
 \bottomrule
 \end{tabular} 
 \end{center}
@@ -169,7 +171,9 @@ load and verify secrets are isolated to their own access programs.
 
 input
 
-\subsection{Uses}
+\subsection{Uses} 
+
+\ref{seqSer}\ms{Sequence services}
 
 \subsection{Syntax}
 
@@ -177,7 +181,7 @@ input
 	\toprule
 	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 	\midrule
-	loadInput & string & - &  FileError \\
+	loadInput & inFile : string & - &  FileError \\
 	verifyInput & - & - & ValueError,TypeError  \\
 	verifyDegree & - & - & ValueError\\
 
@@ -203,7 +207,7 @@ NA
 	\end{tabular}
 \end{center}
 \ms{I need the verifyInput as an exported access program because I will be 
-verifying the degree input from regression module.}
+verifying the degree input from regression module if necessary.}
 \subsection{Semantics}
 
 \subsubsection{State Variables}
@@ -214,8 +218,8 @@ verifying the degree input from regression module.}
 	$t$: $\mathbb{R}^n$ \\
 	$y$: $\mathbb{R}^n$ \\
 	$degVerify$: $boolean$\\ \ms{This will say if the degree input to 
-	regression module has been verified 
-	or not}
+	regression module has been verified or not. This may be changed after 
+	implementation.}
 	
 	
 \end{longtable*}
@@ -224,7 +228,7 @@ verifying the degree input from regression module.}
 \subsubsection{Environment Variables}
 
 
-inputFile: sequence of string
+inFile: sequence of string
 
 \subsubsection{Assumptions}
 
@@ -275,8 +279,10 @@ inputFile: sequence of string
 		
 	\end{enumerate}
 	\item output: NA
-	\item exception: exc := a file name $s$ cannot be found OR the format of
-	inputFile is incorrect $\Rightarrow$ FileError.
+	\item exception: exc := a file name $s$ cannot be found $\lor$ the format of
+	inFile is incorrect $\Rightarrow$ FileError.\ms{I am yet to decide if the 
+	library will take a .txt and .csv or both. This specification will become 
+	formal once we decide the type of the input file.}
 	
 \end{itemize}
 
@@ -353,7 +359,7 @@ interp
 
 \subsection{Uses}
 
-\ref{mInput}, \ref{mOutput} 
+\ref{mInput}, \ref{mOutput}, \ref{seqSer}\ms{Sequence services}
 
 
 \subsection{Syntax}
