@@ -81,9 +81,9 @@ See CA Documentation at
 \section{Introduction}
 
 The following document details the Module Interface Specifications for 
-\progname(Curve Fitting Software). The goal of \progname{} is to find the 
+\progname{} (Curve Fitting Software). The goal of \progname{} is to find the 
 parameters of the curve which is the best possible fit through the given set of 
-`n' data points, where $n >= 2$.
+`$n$' data points, where $n >= 2$.
 
 Complementary documents include the Commonality Analysis and Module Guide. The 
 full documentation and implementation can be found at the repository 
@@ -116,6 +116,7 @@ real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 
 boolean & $\mathbb{B}$ & a value from the set\ \{$True$,$False$\}\\
 \bottomrule
+\\
 \end{tabular} 
 \end{center}
 
@@ -177,17 +178,13 @@ input
 
 \subsection{Syntax}
 
-\begin{tabular}{p{3cm} p{3cm} p{1cm} >{\raggedright\arraybackslash}p{9cm}}
+\begin{tabular}{p{3cm} p{3cm} p{4cm} >{\raggedright\arraybackslash}p{5cm}}
 	\toprule
 	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 	\midrule
 	loadInput & inFile : string & - &  FileError \\
 	verifyInput & - & - & ValueError,TypeError  \\
-	verifyDegree & - & - & ValueError\\
-
-	\midrule
-	
-	
+	verifyDegree & degree:$\mathbb{N}$ & $degVerify$:$\mathbb{B}$ & ValueError\\
 	\bottomrule
 \end{tabular}
 
@@ -202,11 +199,12 @@ NA
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		verifyDegree &  &  $\mathbb{N}$  & ValueError \\
+		verifyDegree & degree:$\mathbb{N}$ &  $degVerify$:$\mathbb{B}$  & 
+		ValueError \\
 		\hline
 	\end{tabular}
 \end{center}
-\ms{I need the verifyInput as an exported access program because I will be 
+\ms{I need the verifyDegree as an exported access program because I will be 
 verifying the degree input from regression module if necessary.}
 \subsection{Semantics}
 
@@ -216,11 +214,7 @@ verifying the degree input from regression module if necessary.}
 \begin{longtable*}[l]{l} 
 	\# From R\ref{R_IInputs} in CA\\
 	$t$: $\mathbb{R}^n$ \\
-	$y$: $\mathbb{R}^n$ \\
-	$degVerify$: $boolean$\\ \ms{This will say if the degree input to 
-	regression module has been verified or not. This may be changed after 
-	implementation.}
-	
+	$y$: $\mathbb{R}^n$ \\	
 	
 \end{longtable*}
 
@@ -228,13 +222,18 @@ verifying the degree input from regression module if necessary.}
 \subsubsection{Environment Variables}
 
 
-inFile: sequence of string
+inFile: sequence of string \ms{I am leaving it as sequence of strings because 
+sometimes, you may want to append a file name to a path name.}
+\ms{Also, I am thinking if I really need a file input. I think this should be 
+the user program's responsibility. My access programs do not have an interface 
+to accept filename. They will accept only x and y arrays. This needs to be 
+discussed. }
 
 \subsubsection{Assumptions}
 
 \begin{itemize}
 	
-	\item The loadInput will be called before the calling the verifyInput 
+	\item The loadInput will be called before calling the verifyInput 
 	method.
 	\item Regression module will be called before calling verifyDegree method.
 	\item The loadInput will be called before the values of any state variables 
@@ -248,39 +247,40 @@ inFile: sequence of string
 \begin{itemize}
 	\item transition: NA 	
 	\item output: \textit{out} := $t$
-	\item exception: None
+	\item exception: NA
 \end{itemize}
 
 \noindent \textbf{input.$y$:}
 \begin{itemize}
 	\item transition: NA 	
 	\item output: \textit{out} := $y$
-	\item exception: None
+	\item exception: NA
 \end{itemize}
 
 \noindent \textbf{input.$degVerify$:}
 \begin{itemize}
 	\item transition: NA 	
 	\item output: \textit{out} := $degVerify$
-	\item exception: None
+	\item exception: NA
 \end{itemize}
 
 \noindent \textbf{loadInput($s$):}
 \begin{itemize}
-	\item transition: {inputFile} is used to modify the state variables using 
+	\item transition: {inFile} is used to modify the state variables using 
 	the following procedural specification:
 	
 	\begin{enumerate}
 		
 		\item Read data sequentially from inputFile to populate the state 
-		variables $t$ and $y$ .
+		variables $t$ and $y$.
 		
 		\item verifyInput()
 		
 	\end{enumerate}
 	\item output: NA
-	\item exception: exc := a file name $s$ cannot be found $\lor$ the format of
-	inFile is incorrect $\Rightarrow$ FileError.\ms{I am yet to decide if the 
+	\item exception: $exc$ := a file name $s$ cannot be found $\lor$ the format 
+	of inFile is incorrect $\Rightarrow$ FileError.\ms{I am yet to decide if 
+	the 
 	library will take a .txt and .csv or both. This specification will become 
 	formal once we decide the type of the input file.}
 	
@@ -290,7 +290,7 @@ inFile: sequence of string
 \begin{itemize}
 \item transition:NA
 \item output: NA
-\item exception: exc := 
+\item exception: $exc$ := 
 \end{itemize}
 
 \begin{tabular}{p{12cm} p{4.75cm}}
@@ -315,11 +315,11 @@ $ (\forall x \in y \land  x \notin \mathbb{R} )$ & $\Rightarrow$ TypeError\\
 	\item transition: 
 	\begin{itemize}
 		
-		\item $(deg > 0 \land deg \in \mathbb{N})\Longrightarrow degVerify = 
+		\item $(deg \in \mathbb{N})\Longrightarrow $degVerify$ = 
 		True$
 	\end{itemize}
 	\item output: 
-	\item exception: exc := 
+	\item exception: $exc$ := 
 \end{itemize}
 
 \begin{tabular}{p{12cm} p{4.75cm}}
@@ -329,7 +329,7 @@ $ (\forall x \in y \land  x \notin \mathbb{R} )$ & $\Rightarrow$ TypeError\\
 	\midrule
 	
 	
-	$ (deg \leq 0 \lor deg \notin \mathbb{N})$ & $\Rightarrow$ ValueError\\
+	$ (deg \notin \mathbb{N})$ & $\Rightarrow$ ValueError\\
 
 	
 	\bottomrule
@@ -397,10 +397,10 @@ evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
 
 \subsubsection{State Variables}
 \begin{itemize}
-	\item x:$\mathbb{R}^{n-1 X m}$, \text{Where m = degree of polynomial + 1 
-	and n is the number of data points.}\\
+	\item x:$\mathbb{R}^{m X n}$, \text{where $n$ is the number of data points 
+	and $m$ is the number of sections.}\\
 	
-	\item interval:$\mathbb{R}^k$, \text{Where k is the number of sections} \\
+	\item interval:$\mathbb{R}^m$, \text{$m$ is the number of sections} \\
 	
 \end{itemize}
 
@@ -428,7 +428,7 @@ NA
 \begin{itemize}
 	\item transition: NA	
 	\item output: \textit{out} := $x$
-	\item exception: None
+	\item exception: NA
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ~\newline
@@ -439,10 +439,10 @@ NA
 \begin{itemize}
 	\item 
 	\begin{enumerate}
-	\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. This is 
+	\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. This is 
 	necessary as all the methods will be using the same state variable.
 	
-	\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using the 
+	\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using the 
 	equation below.
 	
 	\begin{equation*}
@@ -464,10 +464,10 @@ NA
 	\vdots \\
 	y_n \\
 	\end{bmatrix}
-	\end{equation*}\\ 
+	\end{equation*}\\
 	\end{enumerate}
-	\item interval: $\mathbb{R}^{k} = t[0] $ , this is initialized to starting 
-	point for non piecewise functions.
+	\item $interval[0] \coloneqq t[0] $ , this is initialized to 
+	starting point for non piecewise functions.
 \end{itemize}
   
 \item output: NA
@@ -498,11 +498,11 @@ NA
 	\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using 
+			\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using 
 			the equation below.
 			
 			\begin{equation*}
@@ -526,7 +526,7 @@ NA
 			\end{bmatrix}
 			\end{equation*}\\ \\ 
 		\end{enumerate}
-		\item interval: $\mathbb{R}^{k} = t[0] $ , this is initialized to 
+		\item $interval[0] \coloneqq t[0] $ , this is initialized to 
 		starting point for non piecewise functions.
 	\end{itemize}	
 	\item output: NA 
@@ -567,11 +567,11 @@ NA
 	\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using 
+			\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using 
 			the equation below.
 			\begin{equation*}
 			\begin{bmatrix}
@@ -603,7 +603,7 @@ NA
 			%When the limits make it vacuous, the product is taken to be 1.\\
 			%\ms{work on vacuous}
 		\end{enumerate}
-		\item interval: $\mathbb{R}^{k} = t[0] $ , this is initialized to 
+		\item $interval[0] \coloneqq t[0] $ , this is initialized to 
 		starting point for non piecewise functions.
 	\end{itemize}	
 	\item output: NA	
@@ -640,11 +640,11 @@ NA
 	\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: $\mathbb{R}^{n-1 X m}$ obtained by solving for $x$ using 
+			\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using 
 			the equation below.
 		\begin{equation*}
 		\begin{bmatrix}
@@ -732,20 +732,19 @@ NA
 		\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{n-1 X m} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: obtained by using the formula below.
+			\item x: $\mathbb{R}^{m X n}$ obtained by using the formula below.
 			
-			for $k>0$.
+			For $k>0$ to $n$, where $n$ is the number of data points
 			\begin{equation*}
 			x = v_i ^k = \frac{t-t_i}{t_{i+k} - t_i}
 			\end{equation*}
 			
 			\ms{BSpline gives the v values which will be used recursively in 
-			formula 
-				defined in IM\ref{IM_BSpline} of the CA document}
+			formula defined in IM\ref{IM_BSpline} of the CA document}
 			
 		\end{enumerate}
 		\item interval: $\mathbb{R}^{k} = t[0] $ to $t[n-2]$, by default we 
@@ -860,7 +859,7 @@ regAugSys() $\lor$ regOrthogonalTn()).
 \begin{itemize}
 	\item transition: NA	
 	\item output: \textit{out} := $x$
-	\item exception: None
+	\item exception: NA
 \end{itemize}
 
 ~\newline
@@ -869,7 +868,7 @@ regAugSys() $\lor$ regOrthogonalTn()).
 \begin{itemize}
 	\item transition: 
 	\begin{itemize}
-		\item degVerify = verifyDegree($deg$)
+		\item $degVerify$ = verifyDegree($deg$)
 		\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
 		initialization with maximum length possible. For a data of length n, 
 		you can maximum get n coefficients in the polynomial.}
@@ -891,7 +890,7 @@ regAugSys() $\lor$ regOrthogonalTn()).
 \begin{itemize}
 \item transition: 
 \begin{itemize}
-	\item degVerify = verifyDegree($deg$)
+	\item $degVerify$ = verifyDegree($deg$)
 	\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
 		initialization with maximum length possible. For a data of length n, 
 		you can maximum get n coefficients in the polynomial.}
@@ -919,7 +918,7 @@ regAugSys() $\lor$ regOrthogonalTn()).
 \begin{itemize}
 \item transition: 
 \begin{itemize}
-	\item degVerify = verifyDegree($deg$)
+	\item $degVerify$ = verifyDegree($deg$)
 	\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
 		initialization with maximum length possible. For a data of length n, 
 		you can maximum get n coefficients in the polynomial.}
@@ -944,7 +943,7 @@ regAugSys() $\lor$ regOrthogonalTn()).
 	\item output: \textit{out} := $yNew$, where
 	$ \forall\ t_i\ \in\ t$,  
 	\begin{equation*}
-	ynew.append(np.poly1d(x)(t_i))
+	yNew.append(np.poly1d(x)(t_i))
 	\end{equation*}
 	\item exception: NA
 \end{itemize}
@@ -964,7 +963,7 @@ NA
 \section{MIS of Output module} \label{mOutput}
 
 This module corresponds to R\ref{R_IOutput} in the CA document. The secrets of 
-this module are how the output is given to user program.
+this module are how the output is given to the user program.
 
 \subsection{Module}
 
@@ -990,9 +989,6 @@ matplotlib(Python)
 	x:$\mathbb{R}^m$
 	& - \\
 	
-	\midrule
-	
-	
 	\bottomrule
 \end{tabular}
 
@@ -1014,10 +1010,7 @@ NA
 	coeffFile& x:$\mathbb{R}^m$,t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & 
 	x:$\mathbb{R}^m$
 	& - \\
-	
-	\midrule
-	
-	
+		
 	\bottomrule
 \end{tabular}
 
@@ -1061,11 +1054,11 @@ OutputFile: Results.csv
 			interp.evalBSpline($t$,$y$) $\lor$
 			reg.evalReg($t$)
 			
-			\item plot(t,y) and plot(t,$yNew$)
+			\item plot($t,y$) and plot($t$,$yNew$)
 \end{enumerate}	
 	\end{itemize}
 
-	\item output: \text{Out:=} plot
+	\item output: \text{out:=} plot
 	
 	\item exception: NA
 \end{itemize}
@@ -1118,8 +1111,8 @@ NA
 
 
 
-\section{Appendix} \label{Appendix}
+%\section{Appendix} \label{Appendix}
 
-\wss{Extra information if required}
+%\wss{Extra information if required}
 
 \end{document}
