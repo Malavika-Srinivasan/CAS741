@@ -1047,11 +1047,11 @@ OutputFile: Results.csv
 		
 		\begin{enumerate}
 			
-			\item $yNew = $\ interp.evalMonomial($t$,$y$) $\lor$ 
-			interp.evalLagrange($t$,$y$) $\lor$
-			interp.evalNewton($t$,$y$) $\lor$
-			interp.evalHermiteCubic($t$,$y$) $\lor$
-			interp.evalBSpline($t$,$y$) $\lor$
+			\item $yNew = $\ interp.evalMonomial($t$,$y$) or
+			interp.evalLagrange($t$,$y$) or
+			interp.evalNewton($t$,$y$) or
+			interp.evalHermiteCubic($t$,$y$) or
+			interp.evalBSpline($t$,$y$) or
 			reg.evalReg($t$)
 			
 			\item plot($t,y$) and plot($t$,$yNew$)
@@ -1069,7 +1069,7 @@ OutputFile: Results.csv
 	\begin{itemize}
 		\item plotDataFit($t$,$y$)
 	\end{itemize}
-	\item output: \text{Out:= $interp.x \lor reg.x$, plot  } 
+	\item output: \text{Out:= $interp.x\ \text{or}\ reg.x$, plot  } 
 	\item exception: NA
 \end{itemize}
 
@@ -1081,7 +1081,7 @@ OutputFile: Results.csv
 	\begin{itemize}
 		
 		\item Create a csv file named `Result'
-		\item write interp.x $\lor$ reg.x
+		\item write $interp.x\ \text{or}\ reg.x$
 	\end{itemize}
 	\item output: NA
 	\item exception: NA 
