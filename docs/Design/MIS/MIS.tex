@@ -174,7 +174,7 @@ input
 
 \subsection{Uses} 
 
-\ref{seqSer}\ms{Sequence services}
+Sequence services(\ref{seqSer})
 
 \subsection{Syntax}
 
@@ -359,7 +359,7 @@ interp
 
 \subsection{Uses}
 
-\ref{mInput}, \ref{mOutput}, \ref{seqSer}\ms{Sequence services}
+Input(\ref{mInput}), Output(\ref{mOutput}), Sequence services(\ref{seqSer})
 
 
 \subsection{Syntax}
@@ -802,7 +802,7 @@ reg
 
 \subsection{Uses}
 
-\ref{mInput}, \ref{mOutput} 
+Input(\ref{mInput}), Output(\ref{mOutput}), Sequence services(\ref{seqSer})
 
 
 \subsection{Syntax}
@@ -971,7 +971,7 @@ output
 
 \subsection{Uses}
 
-matplotlib(Python)
+Plot(\ref{plot}), Sequence services(\ref{seqSer})
 
 \subsection{Syntax}
 
@@ -1087,17 +1087,143 @@ OutputFile: Results.csv
 	\item exception: NA 
 \end{itemize}
 
-
-
-
 \subsubsection{Local Functions}
 
 NA
 
 
+%####################################################################
+
+\section{MIS of Sequence Services} \label{seqSer} 
+
+\subsection{Module}
+
+seqSer \ms{Provided by numpy Python}
+
+\subsection{Uses} 
+NA
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+NA
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		isAscending & $arr: \mathbb{R}^n$ & $\mathbb{B}$ & -\\
+		unique & $arr: \mathbb{R}^n$ & $uniArr: \mathbb{R}^m$ & -\\
+		array\_equal & $arr1: \mathbb{R}^n$,$arr2: \mathbb{R}^n$ & $\mathbb{B}$ 
+		& - \\ 
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+NA
+
+\subsubsection{Environment Variables}
+
+NA
+\subsubsection{Assumptions}
+
+NA
+
+\subsubsection{Access Routine Semantics}
+
+\noindent unique($arr$):
+\begin{itemize}
+	\item transition: NA
+	\item output: $out := uniArr: \mathbb{R}^m$ where $uniArr$ is given by,
+	\begin{enumerate}
+	\item $arr[i]\neq arr[j],\forall i,j \in [(0\ \text{to}\ (|arr|-1)] \land 
+	j \neq i \Longrightarrow\\ \forall i\in[0\ \text{to}\ |arr|-1], uniArr[i] 
+	\coloneqq arr[i]$
+	\end{enumerate}
+	
+	\item exception: NA
+\end{itemize}
+
+
+\noindent isAscending($arr$)
+\begin{itemize}
+	\item transition:NA
+	\item output: $out := \neg \exists(i | i \in [0..|arr|-2] : arr_{i+1} < 
+	arr_i)$
+	\item exception: NA
+\end{itemize}
 
 
 
+\noindent array\_equal($arr1$,$arr2$):
+\begin{itemize}
+	\item transition: NA
+	\item output: $out := (|arr1| == |arr2|) \land (\forall i \in [0\ 
+	\text{to}\ |arr1|-1], arr1[i] == arr2[i]) \Longrightarrow True $
+	
+	\item exception: NA
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+NA
+
+\subsubsection{Considerations}
+This module is provided by numpy in Python.
+
+
+\section{MIS of Plot Module} \label{plot}
+
+\subsection{Module}
+
+plot
+
+\subsection{Uses}
+
+NA
+
+\subsection{Syntax}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+	\begin{tabular}{p{2cm} p{8cm} p{2cm} p{2cm}}
+		\hline
+		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+		\hline
+		Plot & $X: \mathbb{R}^n, Y: \mathbb{R}^n$ & ~ & SeqSizeMismatch\\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+NA
+
+\subsubsection{Environment Variables}
+
+win: 2D sequence of pixels displayed on the screen\\
+
+\subsubsection{Assumptions}
+
+NA
+
+\subsubsection{Access Routine Semantics}
+
+\noindent Plot($X, Y$)
+\begin{itemize}
+	\item transition: modify win so that it displays an x-y graph of the data 
+	points showing X and the corresponding Y values.  X is the independent 
+	variable and Y as the dependent variable.
+	\item exception: $( |X| \neq |Y| \Rightarrow \mbox{SeqSizeMismatch})$
+\end{itemize}
 
 \newpage
 
