@@ -100,7 +100,7 @@ This section explains the summary of what is being tested in this document, the 
 
 This document will summarize the plan for verification and validation of
 \famname{} in compliance with the requirements specified in the CA document
-found at found at
+found at
 \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}
 \wss{good to have a link to your repo.}
 The goal statement as found in the CA document is presented below.\\
@@ -197,19 +197,19 @@ Not Applicable \wss{why not?}
 
 System testing is a process in which we test the overall working of the system. The instance models in CA document will be tested here. This does not test the individual units or modules of the system. It is a black box testing approach.
 	
-\subsection{Tests for Functional Requirements}
+\subsection{Tests for Functional Requirements}\label{FuncReq}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.}
 
-\subsubsection{Input testing}
+\subsubsection{Input testing}\label{InputTesting}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.}
 
 \begin{enumerate}
 
-\item{\textbf{T1: Test case for inputs with less than 2 points}\\}
+\item{\textbf{T1: Test case for inputs with less than 2 points}\\}\label{{T1}}
 
 Control: Automatic
 
@@ -217,7 +217,8 @@ Initial State: NA
 
 Input: t=[1] , y=[2] (length 1)
 
-Output: Error message (``Please enter atleast \wss{proof read} 2 points'')
+Output: Error message (``Please enter at least \wss{proof read}\ms{Corrected} 2 
+points'')
 
 How test will be performed: Pytest
 
@@ -247,7 +248,7 @@ How test will be performed: Pytest
 
 
 
-\subsubsection{Interpolation Testing}
+\subsubsection{Interpolation Testing}\label{InterpolationTesting}
 
 %#######################       Monomial    ################################
 

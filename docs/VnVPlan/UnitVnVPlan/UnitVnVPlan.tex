@@ -1,5 +1,6 @@
 \documentclass[12pt, titlepage]{article}
-
+\usepackage{amsmath, mathtools}
+\usepackage{comment}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
@@ -10,14 +11,23 @@
     linkcolor=red,
     urlcolor=blue
 }
-\usepackage[round]{natbib}
+%\usepackage{zref-xr}
+%\zxrsetup{toltxlabel}
+%\zexternaldocument*{../SystVnVPlan/SystVnVPlan}
 
+\usepackage{xr}
+%\zxrsetup{toltxlabel}
+\externaldocument{../SystVnVPlan/SystVnVPlan}
+\usepackage[round]{natbib}
+%\externaldocument{../SystVnVPlan/SystVnVPlan}
 \input{../../Comments}
+\input{../../Common}
+
 
 \begin{document}
 
-\title{Project Title: Unit Verification and Validation Plan} 
-\author{Author Name}
+\title{CFS: Unit Verification and Validation Plan for \famname{}} 
+\author{Malavika Srinivasan}
 \date{\today}
 	
 \maketitle
@@ -29,125 +39,466 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Dec 4, 2018 & 1.0 & First draft by Malavika\\
+
 \bottomrule
 \end{tabularx}
 
 ~\newpage
 
+\tableofcontents
+
+%\listoftables
+
+%\wss{Do not include if not relevant}
+
+%\listoffigures
+
+%\wss{Do not include if not relevant}
+
+\newpage
+
 \section{Symbols, Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
+	\toprule		
+	\textbf{symbol} & \textbf{description}\\
+	\midrule 
+	T & Test\\
+	\bottomrule
 \end{tabular}\\
+\\
 
-\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
 
-\newpage
 
-\tableofcontents
+Also, see the table of symbols in CA at: 
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}
+\\
 
-\listoftables
-
-\listoffigures
 
 \newpage
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  unit V\&V plan}
+
+This document explains the unit verification and validation plan to improve the 
+quality of \famname{}. It is organized into different sections which gives a 
+detailed description of the \famname{} in terms of its goals, objectives, 
+essential qualities and test cases to verify each module listed in the MG. 
+
+
 
 \section{General Information}
 
+This section explains the summary of what is being tested in this document, the 
+objectives of this document and references for this document. 
+
+
 \subsection{Purpose}
+
+This document will summarize the plan for verification and validation of
+of the modules of \famname{} in compliance with their functions mentioned in 
+the MIS document found at 
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/MIS/MIS.pdf}
+
+The goal statement as found in the CA document is presented below.\\
+\noindent ``Given the set of data points, the choice of software from 
+\famname{} and the variabilities of the software the \famname{} should:
+
+\begin{enumerate}
+	
+	\item Compute the parameters of the curve which is the best possible fit 
+	through the set of data points.	''
+\end{enumerate}
+
 
 \subsection{Scope}
 
-\subsection{Overview of Document}
+Some of the modules such as sequence services and plot module are not 
+implemented by \famname{} but are a part of it. The services offered by these 
+modules are implemented by python and testing them are out of scope for this 
+project.
 
 \section{Plan}
+
+This section represents the planning phase for unit verification and validation 
+plan in terms of people, tasks and tools involved in this process.
 	
-\subsection{Software Description}
+\subsection{Verification and Validation Team}
 
-\subsection{Test Team}
+The verification and validation team for \famname{} includes the following 
+people.
+\begin{itemize}
+	\item Malavika Srinivasan (Primary tester)
+	\item Dr.Spencer Smith (Verification of this document)
+	\item Hanane Zlitni (Verification of this document)
+\end{itemize}
 
-\wss{Probably just you.  :-)}
+\subsection{Automated Testing and Verification Tools}
 
-\subsection{Automated Testing Approach}
+In this project, we will be using Pytest to verify the modules of \famname{}. 
+It is a testing framework available in python. The results of the test 
+including the code coverage metrics will be presented in the test report. We 
+will be using cov package which gives the code coverage metrics.
 
-\subsection{Verification Tools}
 
-\wss{Thoughts on what tools to use, such as the following: unit testing
-  framework, valgrind, static analyzer, make, continuous integration, test
-  coverage tool, etc.}
-
-% \subsection{Testing Schedule}
-		
-% See Gantt Chart at the following url ...
 
 \subsection{Non-Testing Based Verification}
 
-\wss{List any approaches like code inspection, code walkthrough, symbolic
-  execution etc.  Enter not applicable if that is the case.}
+NA
 
-\section{System Test Description}
-	
+\section{Unit Test Description}
+
+The test cases presented here will verify the access programs of the modules 
+listed in MIS. Usually, each access method will have a test case associated 
+with it. If not, the reason for why the method does not have an associated test 
+case is explained.
+The MIS can be found at 
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/
+	MIS/MIS.pdf}
+
+
+
+
 \subsection{Tests for Functional Requirements}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+NA
+
+\wss{Most of the verification will be through automated unit testing.  If
+  appropriate specific modules can be verified by a non-testing based
+  technique.  That can also be documented in this section.}
+\ms{I have parallel testing, which makes sense as a system test. But not for 
+unit test.}
+\subsubsection {Input Module}
+
+In this section , we will present the test cases for each access method. Since 
+all the access methods are tested, the entire module will be tested. The test 
+cases for this module are selected based on the constraints for the input data. 
+The typical constraints on the input data for \famname{} is given by the data 
+type, length. Some of the inputs such as the degree of the polynomial have 
+mathematical restrictions of being a natural number. The test cases listed 
+below are designed to check whether the input data to \famname{} violates these 
+constraints.  
+
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{\textbf{T1: Test case for verify input - One data point}}\\
+Please refer to test case T1 in section \ref{InputTesting} in System 
+verification and validation plan.
+\begin{comment}
+Type:  Automatic
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+Initial State: NA
 
-Type: Functional, Dynamic, Manual, Static etc.
+Input: t=[1] , y=[2] (length 1)
+
+Output: Error message (``Please enter at least \wss{proof read}\ms{Corrected} 2 
+points'')
+
+How test will be performed: Pytest
+\end{comment}					
+
+Test Case Derivation: We need at least two points to draw a straight line which 
+is the lowest order polynomial. Only one data point does not need a curve or 
+numbers to represent itself. The coordinates would be sufficient. Hence, 
+\famname{} should throw an exception.
+
+How test will be performed: Pytest
 					
-Initial State: 
+\item{\textbf{T2: Test case for verify input - Length mismatch}}
+
+Type: Automatic
 					
-Input: 
+Initial State: NA 
 					
-Output: 
+Input: t=[1,2,3] , y=[2,4] (length mismatch)
 					
-How test will be performed: 
+Output: Exception message (``t and y array must have same length.'')
+
+Test Case Derivation: Basic mathematics rule for curve fitting \ms{Not sure 
+what to write here?}
+
+How test will be performed: Pytest
+
+
+\item{\textbf{T3: Test case for verify input - Type error}}\\
+Please refer T2 in section \ref{InputTesting} in System verification and 
+validation plan.
+					
+
+Test Case Derivation: It is necessary that the input arrays contains only 
+numbers.
+
+How test will be performed: Pytest
+
+
+\item{\textbf{T4: Test case for verify degree - value error}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: deg = 1.5 
+
+Output: Exception message (``Degree cannot be a real number'')
+
+Test Case Derivation: Basic mathematics rule for curve fitting \ms{Not sure 
+	what to write here too?}
+
+How test will be performed: Pytest
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+    
+\subsubsection{Interpolation module}
+
+In this section, we will represent the test cases for each access program 
+present in the interpolation module. This module has access programs to find 
+the coefficients of the interpolated curve through a set of points $(t_i,y_i)$ 
+for $i = 0\ \text{to}\ n$ and find the value of the interpolating polynomial at 
+a given $t$ value.
+
+\item{\textbf{T5: Test case for interpMonomial}}
+
+Please refer to test cases T4 and T5 in section \ref{InterpolationTesting} in 
+System verification 
+and 
+validation plan.
+
+
+\item{\textbf{T6: Test case for interpLagrange}}
+
+Please refer to test cases T6 and T7 in section \ref{InterpolationTesting} in 
+System verification 
+and 
+validation plan.
+
+
+\item{\textbf{T7: Test case for interpNewton}}
+
+Please refer to test cases T8 and T9 in section \ref{InterpolationTesting} in 
+System verification 
+and 
+validation plan.
+
+\item{\textbf{T8: Test case for interpHermiteCubic}}
+
+Please refer to test cases T10 and T11 in section \ref{InterpolationTesting} in 
+System verification and validation plan.
+
+
+\item{\textbf{T9: Test case for interpBSpline}}
+
+Please refer to test case T12 in section \ref{InterpolationTesting} in System 
+verification and validation plan.
+
+
+\item{\textbf{T10: Test case $1$ for evalMonomial}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [0,1], 2 
+
+Output: 2
+
+Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
+System verification and validation plan. 
+
+How test will be performed: Pytest
+
+
+
+\item{\textbf{T11: Test case $2$ for evalMonomial}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [-1, 5, 4], -2 
+
+Output: -27
+
+Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
+
+How test will be performed: Pytest
+
+
+
+\item{\textbf{T12: Test case $1$ for evalLagrange}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [0,1,2], 1 
+
+Output: 1
+
+Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
+System verification and validation plan.
+
+How test will be performed: Pytest
+
+\item{\textbf{T13: Test case $2$ for evalLagrange}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [-27,-1,0], -2 
+
+Output: -27
+
+Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
+
+How test will be performed: Pytest
+
+\item{\textbf{T14: Test case $1$ for evalNewton}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [0,1], 2 
+
+Output: 2
+
+Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
+System verification and validation plan. 
+
+How test will be performed: Pytest
+
+\item{\textbf{T15: Test case $2$ for evalNewton}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [-1, 5, 4], -2 
+
+Output: -27
+
+Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
+
+How test will be performed: Pytest
+
+
+
+\item{\textbf{T16: Test case $1$ for evalHermiteCubic}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: ~\newline 
+$[1,-5.75, 9.5, 2]$, [1,3]\ms{Interval to be read as 1 to 3}, [1,3]\ms{Input x 
+values}						
+
+Output: [2,1]\ms{Output for each x value}
+
+Test Case Derivation: \cite{HermiteCubic2}
+
+How test will be performed: Pytest
+
+\item{\textbf{T17: Test case $2$ for evalHermiteCubic}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: ~\newline 
+$[[1.0,1.0, 1.38888889, 2.0]$\\
+$[4.0, 4.0, 1.0, 1.0]$\\
+$[3.0, 3.61111111, 4.0, 4.0]]$, [1,2,4,5]\ms{Interval to be read as 1 to 2, 2 
+to 4 and 4 to 5}, [1,2,4,5]	\ms{Input x values}				
+
+Output: [2, 1, 4, 3]\ms{Output for each x value}
+
+Test Case Derivation: \cite{HermiteCubic2}
+
+How test will be performed: Pytest
+
+\item{\textbf{T18: Test case for evalBSpline}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [[-5.62048630e-18, 2.98780300e+00, -5.74472095e-01,  1.46700914e+01,
+-1.03253068e+01,  3.10000000e+00,  0.00000000e+00,  0.00000000e+00,
+0.00000000e+00,  0.00000000e+00,  0.00000000e+00]], t = [ 0.0, 1.2,  1.9,  
+3.2,  4.0,  6.5] 
+
+Output: [ 0.0,  2.3,  3.0,  4.3,  2.9,  3.1]
+
+Test Case Derivation: \cite{BSpline}
+
+How test will be performed: Pytest
+
 
 \end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Area of Testing2}
+\subsubsection{Regression module}
 
-...
+In this section, we will represent the test cases for each access program 
+present in the regression module. This module has access programs to find 
+the parameters of the best fit curve through a set of points $(t_i,y_i)$ 
+for $i = 0\ \text{to}\ n$ and find the value of the polynomial at a given $t$ 
+value.
+
+\item{\textbf{T13: $I^{st}$ test case for regression using normal equations} \\}
+
+Control: Automatic
+
+Initial State: NA
+
+Input: t = [0,1,2,3,4,5,6,7,8,9,10], y = [0,1,2,3,4,5,6,7,8,9,10], deg = 1 
+
+Output: 0,1 (Coefficients of t, starting from $t^{0}$.)
+
+How test will be performed: Pytest\\
+
+%#######################################################
+
+\item{\textbf{T14: ${II}^{nd}$ test case for regression using normal 
+equations}\\}
+
+Control: Automatic
+
+Initial State: NA
+
+Input: Data points t = [1,2,3], y = [1,3,7], deg = 1
+
+Output: -2.33333333333, 3 (Coefficients of t, starting from $t^{0}$.)
+
+How test will be performed: Pytest
+
+Test case reference: ~\cite{RegNormal}\\
+
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\wss{If there is a module that needs to be independently assessed for
+  performance, those test cases can go here.  In some projects, planning for
+  nonfunctional tests of units will not be that relevant.}
 
+\wss{These tests may involve collecting performance data from previously
+  mentioned functional tests.}
+
+\subsubsection{Module ?}
+		
 \begin{enumerate}
 
 \item{test-id1\\}
 
-Type: 
+Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
+  be automatic}
 					
 Initial State: 
 					
@@ -171,54 +522,13 @@ How test will be performed:
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Module ?}
 
 ...
 
-\subsection{Traceability Between Test Cases and Requirements}
+\subsection{Traceability Between Test Cases and Modules}
 
-% \section{Tests for Proof of Concept}
-
-% \subsection{Area of Testing1}
-		
-% \paragraph{Title for Test}
-
-% \begin{enumerate}
-
-% \item{test-id1\\}
-
-% Type: Functional, Dynamic, Manual, Static etc.
-					
-% Initial State: 
-					
-% Input: 
-					
-% Output: 
-					
-% How test will be performed: 
-					
-% \item{test-id2\\}
-
-% Type: Functional, Dynamic, Manual, Static etc.
-					
-% Initial State: 
-					
-% Input: 
-					
-% Output: 
-					
-% How test will be performed: 
-
-% \end{enumerate}
-
-% \subsection{Area of Testing2}
-
-% ...
-				
-\section{Unit Testing Plan}
-		
-\wss{Unit testing plans for internal functions and, if appropriate, output
-  files}
+\wss{Provide evidence that all of the modules have been considered.}
 
 \bibliographystyle{plainnat}
 
@@ -228,15 +538,16 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
+\wss{This is where you can place additional information, as appropriate}
 
 \subsection{Symbolic Parameters}
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+\wss{The definition of the test cases may call for SYMBOLIC\_CONSTANTS.
+Their values are defined in this section for easy maintenance.}
 
-\subsection{Usability Survey Questions?}
 
-This is a section that would be appropriate for some teams.
+\bibliographystyle {plainnat}
+\bibliography {../../../ReferenceMaterial/References}
+
 
 \end{document}
