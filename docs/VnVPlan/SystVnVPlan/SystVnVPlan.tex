@@ -202,7 +202,7 @@ System testing is a process in which we test the overall working of the system. 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.}
 
-\subsubsection{Input testing}\label{InputTesting}
+\subsubsection{Input Testing}\label{InputTesting}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.}
@@ -408,13 +408,164 @@ How test will be performed: Pytest
 
 Test case reference: \cite{BSpline}
 
+
+
+\item{\textbf{T13: Test case $1$ for evalMonomial}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [0,1], 2 
+
+Output: 2
+
+Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
+System verification and validation plan. 
+
+How test will be performed: Pytest
+
+
+
+\item{\textbf{T14: Test case $2$ for evalMonomial}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [-1, 5, 4], -2 
+
+Output: -27
+
+Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
+
+How test will be performed: Pytest
+
+
+
+\item{\textbf{T15: Test case $1$ for evalLagrange}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [0,1,2], 1 
+
+Output: 1
+
+Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
+System verification and validation plan.
+
+How test will be performed: Pytest
+
+\item{\textbf{T16: Test case $2$ for evalLagrange}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [-27,-1,0], -2 
+
+Output: -27
+
+Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
+
+How test will be performed: Pytest
+
+\item{\textbf{T17: Test case $1$ for evalNewton}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [0,1], 2 
+
+Output: 2
+
+Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
+System verification and validation plan. 
+
+How test will be performed: Pytest
+
+\item{\textbf{T18: Test case $2$ for evalNewton}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [-1, 5, 4], -2 
+
+Output: -27
+
+Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
+
+How test will be performed: Pytest
+
+
+
+\item{\textbf{T19: Test case $1$ for evalHermiteCubic}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: ~\newline 
+$[1,-5.75, 9.5, 2]$, [1,3]\ms{Interval to be read as 1 to 3}, [1,3]\ms{Input x 
+	values}						
+
+Output: [2,1]\ms{Output for each x value}
+
+Test Case Derivation: \cite{HermiteCubic2}
+
+How test will be performed: Pytest
+
+\item{\textbf{T20: Test case $2$ for evalHermiteCubic}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: ~\newline 
+$[[1.0,1.0, 1.38888889, 2.0]$\\
+$[4.0, 4.0, 1.0, 1.0]$\\
+$[3.0, 3.61111111, 4.0, 4.0]]$, [1,2,4,5]\ms{Interval to be read as 1 to 2, 2 
+	to 4 and 4 to 5}, [1,2,4,5]	\ms{Input x values}				
+
+Output: [2, 1, 4, 3]\ms{Output for each x value}
+
+Test Case Derivation: \cite{HermiteCubic2}
+
+How test will be performed: Pytest
+
+\item{\textbf{T21: Test case for evalBSpline}}
+
+Type: Automatic
+
+Initial State: NA 
+
+Input: [[-5.62048630e-18, 2.98780300e+00, -5.74472095e-01,  1.46700914e+01,
+-1.03253068e+01,  3.10000000e+00,  0.00000000e+00,  0.00000000e+00,
+0.00000000e+00,  0.00000000e+00,  0.00000000e+00]], t = [ 0.0, 1.2,  1.9,  
+3.2,  4.0,  6.5] 
+
+Output: [ 0.0,  2.3,  3.0,  4.3,  2.9,  3.1]
+
+Test Case Derivation: \cite{BSpline}
+
+How test will be performed: Pytest
+
+
+
+
+
+
 %#######################################################
 
-\subsubsection{Regression}
+\subsubsection{Regression Testing}\label{ResgressionTesting}
 
 
 
-\item{\textbf{T13: $I^{st}$ test case for regression using normal equations} \\}
+\item{\textbf{T22: $I^{st}$ test case for regression using normal equations} \\}
 
 Control: Automatic
 
@@ -428,7 +579,8 @@ How test will be performed: Pytest\\
 
 %#######################################################
 
-\item{\textbf{T14: ${II}^{nd}$ test case for regression using normal equations}\\}
+\item{\textbf{T23: ${II}^{nd}$ test case for regression using normal 
+equations}\\}
 
 Control: Automatic
 
@@ -444,7 +596,8 @@ Test case reference: ~\cite{RegNormal}\\
 
 %#######################################################
 
-\item{\textbf{T15: ${III}^{rd}$ test case for regression using normal equations }\\}
+\item{\textbf{T24: ${III}^{rd}$ test case for regression using normal equations 
+}\\}
 
 Control: Automatic
 
@@ -461,7 +614,7 @@ Test case reference:~\cite{RegNormal}\\
 %#######################################################
 
 
-\item{\textbf{T16: $I^{st}$ test case for regression using augmented systems}\\}
+\item{\textbf{T25: $I^{st}$ test case for regression using augmented systems}\\}
 
 Control: Automatic
 
@@ -473,7 +626,8 @@ Output: 0,1 (Coefficients of t, starting from $t^{0}$.)
 
 How test will be performed: Pytest\\
 
-\item{\textbf{T17: ${II}^{nd}$ test case for regression using augmented systems}\\}
+\item{\textbf{T26: ${II}^{nd}$ test case for regression using augmented 
+systems}\\}
 
 Control: Automatic
 
@@ -488,7 +642,8 @@ How test will be performed: Pytest
 Test case reference: \cite{RegAugmented}\\
 
 
-\item{\textbf{T18: ${II}^{nd}$ test case for regression using orthogonal transformations}\\}
+\item{\textbf{T27: ${I}^{st}$ test case for regression using orthogonal 
+transformations}\\}
 
 Control: Automatic
 
@@ -501,7 +656,8 @@ Output: 0,1 (Coefficients of t, starting from $t^{0}$.)
 How test will be performed: Pytest\\
 
 
-\item{\textbf{T19: ${II}^{nd}$ test case for regression using orthogonal transformations}\\}
+\item{\textbf{T28: ${II}^{nd}$ test case for regression using orthogonal 
+transformations}\\}
 
 Control: Automatic
 
@@ -515,9 +671,23 @@ How test will be performed: Pytest
 
 Test case reference: Page $4$ and $5$ of \cite{RegOrthogonal}\\
 
+\item{\textbf{T29: Test case for evalReg}}
+
+Control: Automatic
+
+Initial State: NA
+
+Input: [-8, 4, 7],-2
+
+Output: 12
+
+How test will be performed: Pytest
+
+Test case reference: \cite{RegAugmented}\\
 
 
-\subsection{Tests for Nonfunctional Requirements}
+
+\subsection{Tests for Nonfunctional Requirements}\label{NFRTesting}
 
 
 
@@ -539,7 +709,7 @@ err < Admissible\_error
 
 \wss{good test case}
 
-$Admissible\_error$ is available in appendix section.  \wss{This isn't a good
+$ADMISS\_ERR$ is available in appendix section.  \wss{This isn't a good
 symbol.  A constant like this should be in all caps and it won't space out
 properly.  Use something like $\mathit{ADMISS\_ERR}$.}\\
 				
@@ -662,10 +832,10 @@ Code walkthrough and inspection will be used to verify the implementation.
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 \begin{itemize}
-	\item $Admissible\_error = 1e-1$
+	\item $ADMISS\_ERR = 1 \times 10^{-1}$
 \end{itemize}
 
-\wss{You should write numbers properly $1 \times 10^{-1}$}
+\wss{You should write numbers properly $1 \times 10^{-1}$}\ms{Changed}
 
 %\subsection{Usability Survey Questions?}
 

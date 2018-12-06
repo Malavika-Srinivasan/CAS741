@@ -1,4 +1,8 @@
 \documentclass[12pt, titlepage]{article}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{float}
+\usepackage{caption}
 \usepackage{amsmath, mathtools}
 \usepackage{comment}
 \usepackage{booktabs}
@@ -119,6 +123,9 @@ Some of the modules such as sequence services and plot module are not
 implemented by \famname{} but are a part of it. The services offered by these 
 modules are implemented by python and testing them are out of scope for this 
 project.
+The output module of \famname{} does not compute anything. It essentially gives 
+the output from the modules to the user program. Hence, it is excluded from the 
+scope of this document.
 
 \section{Plan}
 
@@ -153,8 +160,7 @@ NA
 The test cases presented here will verify the access programs of the modules 
 listed in MIS. Usually, each access method will have a test case associated 
 with it. If not, the reason for why the method does not have an associated test 
-case is explained.
-The MIS can be found at 
+case is explained. The MIS can be found at 
 \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/
 	MIS/MIS.pdf}
 
@@ -163,7 +169,6 @@ The MIS can be found at
 
 \subsection{Tests for Functional Requirements}
 
-NA
 
 \wss{Most of the verification will be through automated unit testing.  If
   appropriate specific modules can be verified by a non-testing based
@@ -187,25 +192,13 @@ constraints.
 \item{\textbf{T1: Test case for verify input - One data point}}\\
 Please refer to test case T1 in section \ref{InputTesting} in System 
 verification and validation plan.
-\begin{comment}
-Type:  Automatic
-
-Initial State: NA
-
-Input: t=[1] , y=[2] (length 1)
-
-Output: Error message (``Please enter at least \wss{proof read}\ms{Corrected} 2 
-points'')
-
-How test will be performed: Pytest
-\end{comment}					
-
+				
 Test Case Derivation: We need at least two points to draw a straight line which 
 is the lowest order polynomial. Only one data point does not need a curve or 
 numbers to represent itself. The coordinates would be sufficient. Hence, 
 \famname{} should throw an exception.
 
-How test will be performed: Pytest
+
 					
 \item{\textbf{T2: Test case for verify input - Length mismatch}}
 
@@ -231,7 +224,6 @@ validation plan.
 Test Case Derivation: It is necessary that the input arrays contains only 
 numbers.
 
-How test will be performed: Pytest
 
 
 \item{\textbf{T4: Test case for verify degree - value error}}
@@ -297,150 +289,41 @@ verification and validation plan.
 
 \item{\textbf{T10: Test case $1$ for evalMonomial}}
 
-Type: Automatic
-
-Initial State: NA 
-
-Input: [0,1], 2 
-
-Output: 2
-
-Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
-System verification and validation plan. 
-
-How test will be performed: Pytest
-
-
-
-\item{\textbf{T11: Test case $2$ for evalMonomial}}
-
-Type: Automatic
-
-Initial State: NA 
-
-Input: [-1, 5, 4], -2 
-
-Output: -27
-
-Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
-
-How test will be performed: Pytest
-
-
-
-\item{\textbf{T12: Test case $1$ for evalLagrange}}
-
-Type: Automatic
-
-Initial State: NA 
-
-Input: [0,1,2], 1 
-
-Output: 1
-
-Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
+Please refer to test case T13 and T14 in section \ref{InterpolationTesting} in 
 System verification and validation plan.
 
-How test will be performed: Pytest
 
-\item{\textbf{T13: Test case $2$ for evalLagrange}}
 
-Type: Automatic
+\item{\textbf{T11: Test case $1$ for evalLagrange}}
 
-Initial State: NA 
 
-Input: [-27,-1,0], -2 
+Please refer to test case T15 and T16 in section \ref{InterpolationTesting} in 
+System 
+verification and validation plan.
 
-Output: -27
 
-Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
+\item{\textbf{T12: Test case $2$ for evalNewton}}
 
-How test will be performed: Pytest
+Please refer to test case T17 and T18 in section \ref{InterpolationTesting} in 
+System 
+verification and validation plan.
 
-\item{\textbf{T14: Test case $1$ for evalNewton}}
 
-Type: Automatic
+\item{\textbf{T13: Test case $2$ for evalHermiteCubic}}
 
-Initial State: NA 
+Please refer to test case T19 and T20 in section \ref{InterpolationTesting} in 
+System 
+verification and validation plan.
 
-Input: [0,1], 2 
 
-Output: 2
+\item{\textbf{T14: Test case for evalBSpline}}
 
-Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
-System verification and validation plan. 
-
-How test will be performed: Pytest
-
-\item{\textbf{T15: Test case $2$ for evalNewton}}
-
-Type: Automatic
-
-Initial State: NA 
-
-Input: [-1, 5, 4], -2 
-
-Output: -27
-
-Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}. 
-
-How test will be performed: Pytest
+Please refer to test case T21 in section \ref{InterpolationTesting} in System 
+verification and validation plan.
 
 
 
-\item{\textbf{T16: Test case $1$ for evalHermiteCubic}}
 
-Type: Automatic
-
-Initial State: NA 
-
-Input: ~\newline 
-$[1,-5.75, 9.5, 2]$, [1,3]\ms{Interval to be read as 1 to 3}, [1,3]\ms{Input x 
-values}						
-
-Output: [2,1]\ms{Output for each x value}
-
-Test Case Derivation: \cite{HermiteCubic2}
-
-How test will be performed: Pytest
-
-\item{\textbf{T17: Test case $2$ for evalHermiteCubic}}
-
-Type: Automatic
-
-Initial State: NA 
-
-Input: ~\newline 
-$[[1.0,1.0, 1.38888889, 2.0]$\\
-$[4.0, 4.0, 1.0, 1.0]$\\
-$[3.0, 3.61111111, 4.0, 4.0]]$, [1,2,4,5]\ms{Interval to be read as 1 to 2, 2 
-to 4 and 4 to 5}, [1,2,4,5]	\ms{Input x values}				
-
-Output: [2, 1, 4, 3]\ms{Output for each x value}
-
-Test Case Derivation: \cite{HermiteCubic2}
-
-How test will be performed: Pytest
-
-\item{\textbf{T18: Test case for evalBSpline}}
-
-Type: Automatic
-
-Initial State: NA 
-
-Input: [[-5.62048630e-18, 2.98780300e+00, -5.74472095e-01,  1.46700914e+01,
--1.03253068e+01,  3.10000000e+00,  0.00000000e+00,  0.00000000e+00,
-0.00000000e+00,  0.00000000e+00,  0.00000000e+00]], t = [ 0.0, 1.2,  1.9,  
-3.2,  4.0,  6.5] 
-
-Output: [ 0.0,  2.3,  3.0,  4.3,  2.9,  3.1]
-
-Test Case Derivation: \cite{BSpline}
-
-How test will be performed: Pytest
-
-
-\end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Regression module}
@@ -451,84 +334,87 @@ the parameters of the best fit curve through a set of points $(t_i,y_i)$
 for $i = 0\ \text{to}\ n$ and find the value of the polynomial at a given $t$ 
 value.
 
-\item{\textbf{T13: $I^{st}$ test case for regression using normal equations} \\}
 
-Control: Automatic
 
-Initial State: NA
+\item{\textbf{T15: Test case for regNormalEq}}
 
-Input: t = [0,1,2,3,4,5,6,7,8,9,10], y = [0,1,2,3,4,5,6,7,8,9,10], deg = 1 
+Please refer to test cases T22, T23 and T24 in section \ref{ResgressionTesting} 
+in 
+System verification 
+and 
+validation plan.
 
-Output: 0,1 (Coefficients of t, starting from $t^{0}$.)
 
-How test will be performed: Pytest\\
+\item{\textbf{T16: Test case for regAugSys}}
+
+Please refer to test cases T25 and T26 in section \ref{ResgressionTesting} in 
+System verification 
+and 
+validation plan.
+
+
+\item{\textbf{T17: Test case for regOrthogonalTrans}}
+
+Please refer to test cases T27 and T28 in section \ref{ResgressionTesting} in 
+System verification 
+and 
+validation plan.
+
+\item{\textbf{T18: Test case for evalReg}}
+
+Please refer to test case T29 in section \ref{ResgressionTesting} in System 
+verification and validation plan.
+
 
 %#######################################################
-
-\item{\textbf{T14: ${II}^{nd}$ test case for regression using normal 
-equations}\\}
-
-Control: Automatic
-
-Initial State: NA
-
-Input: Data points t = [1,2,3], y = [1,3,7], deg = 1
-
-Output: -2.33333333333, 3 (Coefficients of t, starting from $t^{0}$.)
-
-How test will be performed: Pytest
-
-Test case reference: ~\cite{RegNormal}\\
 
 
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
-
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
-
-\subsubsection{Module ?}
-		
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsubsection{Module ?}
-
-...
+Please see section \ref{NFRTesting} in System verification and validation plan.
 
 \subsection{Traceability Between Test Cases and Modules}
 
-\wss{Provide evidence that all of the modules have been considered.}
+
+The following table shows the traceability mapping for test cases and the 
+modules. All the modules except the ones listed as out of scope are covered and 
+every access program in the module is tested. This may be considered as a proof 
+for coverage of modules.
+
+\begin{table} [H]
+	\caption{Modules Traceability Matrix}
+	\label{Table:Table_Traceability}  
+	\begin{tabular}{|c|p{5cm}|}
+		\hline	
+		\textbf{Test Number} & \textbf{Modules} \\
+		\hline 
+		T1&  M1      \\ \hline
+		T2&   M1      \\ \hline
+		T3&   M1     \\ \hline
+		T4&   M1     \\ \hline
+		T5&   M2      \\ \hline
+		T6&   M2     \\ \hline
+		T7&   M2     \\ \hline
+		T8&   M2      \\ \hline
+		T9&   M2     \\ \hline
+		T10&  M2      \\ \hline
+		T11&   M2      \\ \hline
+		T12&   M2     \\ \hline
+		T13&   M2     \\ \hline
+		T14&   M2      \\ \hline
+		T15&   M3     \\ \hline
+		T16&   M3     \\ \hline
+		T17&   M3      \\ \hline
+		
+	\end{tabular}\\
+\end{table}
+
+
+
+
+
+
 
 \bibliographystyle{plainnat}
 
@@ -538,16 +424,13 @@ How test will be performed:
 
 \section{Appendix}
 
-\wss{This is where you can place additional information, as appropriate}
+NA
 
 \subsection{Symbolic Parameters}
 
-\wss{The definition of the test cases may call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
+NA
 
 
-\bibliographystyle {plainnat}
-\bibliography {../../../ReferenceMaterial/References}
-
+\end{enumerate}
 
 \end{document}
