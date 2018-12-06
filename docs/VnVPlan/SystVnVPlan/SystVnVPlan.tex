@@ -1,10 +1,17 @@
 \documentclass[12pt, titlepage]{article}
 \newcommand{\famname}{CFS} % PUT YOUR PROGRAM NAME HERE
+
+
+\usepackage[hyphens]{url}
+
+
+\usepackage{lipsum}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
 \hypersetup{
-    colorlinks,
+    colorlinks = true,
+    breaklinks = true,
     citecolor=black,
     filecolor=black,
     linkcolor=red,
@@ -28,15 +35,16 @@
 \usepackage{afterpage}
 \usepackage{comment}
 \input{../../Comments}
-
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
 
 \usepackage{titlesec}
 
 
 \begin{document}
 
-\title{CFS: System Verification and Validation Plan \wss{good to see the library
-  name in the title}} 
+\title{CFS: System Verification and Validation Plan
+\wss{good to see the library name in the title}}\ms{Thank you :)} 
 \author{Malavika Srinivasan}
 \date{\today}
 	
@@ -52,6 +60,7 @@
 \midrule
 Oct 16, 2018 & 1.0 & First draft by Malavika\\
 Oct 23, 2018 & 2.0 & Second draft by Malavika\\
+Dec 6, 2018 & 3.0 & Third draft based on suggestions from Dr.Smith.\\
 
 \bottomrule
 \end{tabularx}
@@ -59,17 +68,19 @@ Oct 23, 2018 & 2.0 & Second draft by Malavika\\
 ~\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
-
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
+	\toprule		
+	\textbf{symbol} & \textbf{description}\\
+	\midrule 
+	T & Test\\
+	MG & Module Guide\\
+	MIS & Module Interface Specification\\
+	\bottomrule
 \end{tabular}\\
 \\
-Also see the table of symbols in CA at: \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}\\
+Also see the table of symbols in CA at: 
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}\\
 
 
 \newpage
@@ -78,22 +89,41 @@ Also see the table of symbols in CA at: \url{https://github.com/Malavika-Sriniva
 
 \listoftables
 
-\listoffigures
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+	\toprule		
+	\textbf{Table name} & \textbf{description}\\
+	\midrule 
+	Table 1 & Requirement Traceability matrix\\
+	\bottomrule
+\end{tabular}\\
 
-\wss{if you don't have any figures, you can comment out this heading}
+
+
+
+%\listoffigures
+
+\wss{if you don't have any figures, you can comment out this heading}\ms{I 
+commented out listoffigures}
 
 \newpage
 
 \pagenumbering{arabic}
 
 
-This document explains the verification and validation plan to improve the quality of \famname{}. It is organized into different sections which gives a detailed description of the \famname{} in terms of its goals, objectives, essential qualities and test cases for the functional and non functional requirements as mentioned in the CA document.
+This document explains the verification and validation plan to improve the 
+quality of \famname{}. It is organized into different sections which gives a 
+detailed description of the \famname{}, in terms of its goals, objectives, 
+essential qualities and test cases for the functional and non functional 
+requirements as mentioned in the CA document.
 
 
 
 \section{General Information}
 
-This section explains the summary of what is being tested in this document, the objectives of this document and references for this document. 
+This section explains the summary of what is being tested in this document, the 
+objectives of verification and validation process and the references which are 
+necessary to read this document.
 
 
 \subsection{Summary}
@@ -101,14 +131,17 @@ This section explains the summary of what is being tested in this document, the 
 This document will summarize the plan for verification and validation of
 \famname{} in compliance with the requirements specified in the CA document
 found at
+\sloppy
 \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}
-\wss{good to have a link to your repo.}
+\wss{good to have a link to your repo.}\ms{Thank you :)}
+
 The goal statement as found in the CA document is presented below.\\
 \noindent ``Given the set of data points, the choice of software from \famname{} and the variabilities of the software the \famname{} should:
 
 \begin{enumerate}
 	
-	\item Compute the parameters of the curve which is the best possible fit through the set of data points.	''
+	\item Compute the parameters of the curve which is the best possible fit 
+	through the set of data points.''
 \end{enumerate}
 
 
@@ -117,18 +150,24 @@ The goal statement as found in the CA document is presented below.\\
 The goal of verification and validation is to improve the quality of the
 \famname{} \wss{I recently modified the blank project template to put the
   (equivalent of) the famname command in a common file, which can be shared
-  between all your files.  You might want to do the same.}and obtain confidence
-in the software implementation. There are several standards which define
-software quality. According to the quality model of ISO 9126, software quality
-is described as a structured set of characteristics namely - Functional
-suitability, Performance, efficiency, Compatibility, Usability, Reliability,
-Security, Maintainability and Portability (\cite{ISO9126}). The qualities which
-are important concerning \famname{} are correctness(functional suitability),
-maintainability, re-usability and portability. The definitions of the above
-mentioned qualities are explained below.
+  between all your files.  You might want to do the same.}\ms{Yes, using 
+  it. Thanks.}and obtain confidence in the software implementation. There are 
+several standards which define software quality. According to the quality model 
+of ISO 9126, software quality is described as a structured set of 
+characteristics namely - Functional suitability, Performance, Efficiency, 
+Compatibility, Usability, Reliability, Security, Maintainability and 
+Portability (\cite{ISO9126}). The qualities which are important concerning 
+\famname{} are correctness(functional suitability), maintainability, 
+reusability and portability. The definitions of the above mentioned qualities 
+are explained below.
 
 \wss{You still don't have lines of text that are 80 characters long (separated
-  by hard returns) in the tex file.}
+  by hard returns) in the tex file.}\ms{I am so sorry, but I changed the 
+  setting to hard return after you mentioned. It does go to the next line when 
+  my typing reached 80 column width. I am really not sure why this happens. I 
+  forgot to discuss this 
+  during today's meeting. Please let me know if it still happens, I will drop 
+  by sometime and see what is wrong.}
 
 \subsubsection {Functional Suitability}
 
@@ -139,7 +178,10 @@ appropriateness. In this project, we focus only on correctness which is defined
 as shown below.
 
 \paragraph{Correctness } \wss{do you mean for this to be a subsection (not a
-  paragraph), like the other subsections?}  The degree to which a product or
+  paragraph), like the other subsections?}\ms{I want to be a sub characteristic 
+  under correctness. I did not want to alter the sec depth as it would be 
+  modifying the structure, so I used paragraph. But it was intended to be 
+  subsubsubsection.}  The degree to which a product or
 system provides the correct results with the needed degree of precision.
 
 \subsubsection{Maintainability}
@@ -156,7 +198,12 @@ or usage environment to another.
 \subsection{References}
 
 Throughout this document, we refer to the terminologies that have been already
-explained in the CA document for Program \famname{}. \wss{Reference your SRS.}
+explained in the CA document for Program \famname{}. The CA document can be
+found at
+\sloppy
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf} 
+\wss{Reference your 
+SRS.}\ms{Yes, done.}
 
 \section{Plan}
 	
@@ -164,34 +211,40 @@ explained in the CA document for Program \famname{}. \wss{Reference your SRS.}
 
 \begin{enumerate}
 	\item Malavika srinivasan
+	\item Dr.\ Spencer Smith
+	\item Hanane Zlitni
 \end{enumerate}
 
 
 \subsection{SRS Verification Plan}
 
-The CA document for \famname{} will be reviewed by Dr. Spencer Smith
+The CA document for \famname{} will be reviewed by Dr.\ Spencer Smith
 \wss{\LaTeX{} has a rule that it inserts two spaces at the end of a sentence.
   It detects a sentence as a period followed by a capital letter.  This comes
   up, for instance, with Dr. Smith.  Since the period after Dr.\ isn't actually
   the end of a sentence, you need to tell \LaTeX{} to insert one space.  You do
   this either by Dr.\ Smith (if you don't mind a line-break between Dr.\ and
   Smith), or Dr.~Spencer Smith (to force \LaTeX{} to not insert a line break).}
-and my classmate Mr. Robert White.
+and my classmate Robert White.
 
 \subsection{Design Verification Plan}
 
-My design will be verified with the help of my supervisor Dr. Spencer Smith and
-my classmates Ms. Jennifer Garner and Mr. Brooks MacLachlan. \wss{Good to list
-  the specific people.  You should also split this up between the MG and the MIS.}
+My design will be verified with the help of my supervisor Dr.\ Spencer Smith and
+my classmates. My MG (Module Guide) will be verified by Jennifer Garner and my 
+MIS (Module Interface Specification) will be verified by Brooks MacLachlan.
+ \wss{Good to list
+  the specific people.  You should also split this up between the MG and the 
+  MIS.}\ms{Thank you. Changes done.}
 
 \subsection{Implementation Verification Plan}
 
-My implementation will be verified by the tests listed in this document and the
-unitVnVplan document. My classmate Ms. Vajiheh Motamer will help me verify the document.	
+My implementation will be verified against the tests listed in this document 
+and the Unit Verification and Validation plan document. 
 
 \subsection{Software Validation Plan}
 
-Not Applicable \wss{why not?}
+Not Applicable \wss{why not?}\ms{I think my software can be validated against 
+the content in chapter 3 and 7 of Health1997. Is that ok to write?}
 
 \section{System Test Description}
 
@@ -199,10 +252,26 @@ System testing is a process in which we test the overall working of the system. 
 	
 \subsection{Tests for Functional Requirements}\label{FuncReq}
 
+In this section, we present the test cases which are related to the functional 
+requirements of \famname{}. The functional requirements can be found at \sloppy
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf} 
+The test cases below are aimed at testing the overall working of the system 
+which is represented by the functional requirements. 
 \wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good.}
+  cover the requirements.  References to the SRS would be good.}\ms{Added}
 
 \subsubsection{Input Testing}\label{InputTesting}
+
+In this section, we will present the test cases for the input to \famname{}. 
+The test cases are selected based on the constraints for the input data 
+which is recorded as assumptions in the CA document found at  \sloppy
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf} 
+\\
+The typical constraints on the input data for \famname{} is associated with the 
+data type and length of the input data. Some of the inputs such as the degree 
+of the polynomial have mathematical restrictions of being a natural number. The 
+test cases listed below are designed to ensure that the input data to 
+\famname{} does not violate these constraints.  
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.}
@@ -250,12 +319,19 @@ How test will be performed: Pytest
 
 \subsubsection{Interpolation Testing}\label{InterpolationTesting}
 
+In this section, we will represent the test cases for each access program 
+present in the interpolation module. This module has access programs to find 
+the coefficients of the interpolated curve through a set of points $(t_i,y_i)$ 
+for $i = 0\ \text{to}\ n$ and find the value of the interpolating polynomial at 
+a given `$t$' value.
+
+
 %#######################       Monomial    ################################
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good.}
 
-\item{\textbf{T4: $I^{st}$ test case for monomial interpolation} \\}
+\item{\textbf{T4: $I^{st}$ test case for Monomial interpolation} \\}
 
 Control: Automatic 
 
@@ -266,6 +342,8 @@ Input: Data points t = [0,1,2], y = [0,1,2]
 Output: [0, 1] (Coefficients of t, starting from $t^{0}$.)
 
 How test will be performed: Pyunit\\
+
+Test case derivation: 
 
 \wss{How did you come up with the output?  How does the reader verify this?  A
   similar comment applies elsewhere in your documentation.}
@@ -355,7 +433,7 @@ Test case reference: Page 314, example 7.1 of \cite{Health1997}\\
 
 %#######################       Hermite Cubic     ################
 
-\item{\textbf{T10: $I^{st}$ test case for hermite cubic interpolation }\\}
+\item{\textbf{T10: $I^{st}$ test case for Hermite cubic interpolation }\\}
 
 Control: Automatic 
 
@@ -370,7 +448,9 @@ How test will be performed: Pytest
 
 Test case reference: \cite{HermiteCubic} \\
 
-\item{\textbf{T11: ${II}^{nd}$ test case for hermite \wss{Hermite} cubic interpolation} \\}
+\item{\textbf{T11: ${II}^{nd}$ test case for Hermite \wss{Hermite}\ms{Changed} 
+cubic 
+interpolation} \\}
 
 Control: Automatic 
 
@@ -410,7 +490,7 @@ Test case reference: \cite{BSpline}
 
 
 
-\item{\textbf{T13: Test case $1$ for evalMonomial}}
+\item{\textbf{T13: $I^{st}$ test case for evaluating Monomial interpolation}}
 
 Type: Automatic
 
@@ -427,7 +507,7 @@ How test will be performed: Pytest
 
 
 
-\item{\textbf{T14: Test case $2$ for evalMonomial}}
+\item{\textbf{T14: ${II}^{nd}$ test case for evaluating Monomial interpolation}}
 
 Type: Automatic
 
@@ -443,7 +523,7 @@ How test will be performed: Pytest
 
 
 
-\item{\textbf{T15: Test case $1$ for evalLagrange}}
+\item{\textbf{T15: $I^{st}$ test case for evaluating Lagrange's interpolation}}
 
 Type: Automatic
 
@@ -458,7 +538,8 @@ System verification and validation plan.
 
 How test will be performed: Pytest
 
-\item{\textbf{T16: Test case $2$ for evalLagrange}}
+\item{\textbf{T16: ${II}^{nd}$ test case for evaluating Lagrange's 
+interpolation}}
 
 Type: Automatic
 
@@ -472,7 +553,7 @@ Test Case Derivation: Page 314, example 7.1 of \cite{Health1997}.
 
 How test will be performed: Pytest
 
-\item{\textbf{T17: Test case $1$ for evalNewton}}
+\item{\textbf{T17: $I^{st}$ test case for evaluating Newton's interpolation}}
 
 Type: Automatic
 
@@ -487,7 +568,7 @@ System verification and validation plan.
 
 How test will be performed: Pytest
 
-\item{\textbf{T18: Test case $2$ for evalNewton}}
+\item{\textbf{T18: ${II}^{nd}$ test case for evaluating Newton's interpolation}}
 
 Type: Automatic
 
@@ -503,7 +584,8 @@ How test will be performed: Pytest
 
 
 
-\item{\textbf{T19: Test case $1$ for evalHermiteCubic}}
+\item{\textbf{T19: $I^{st}$ test case for evaluating Hermite cubic 
+interpolation}}
 
 Type: Automatic
 
@@ -519,7 +601,8 @@ Test Case Derivation: \cite{HermiteCubic2}
 
 How test will be performed: Pytest
 
-\item{\textbf{T20: Test case $2$ for evalHermiteCubic}}
+\item{\textbf{T20: ${II}^{nd}$ test case for evaluating Hermite cubic 
+interpolation}}
 
 Type: Automatic
 
@@ -537,7 +620,7 @@ Test Case Derivation: \cite{HermiteCubic2}
 
 How test will be performed: Pytest
 
-\item{\textbf{T21: Test case for evalBSpline}}
+\item{\textbf{T21: Test case for evaluating BSplines}}
 
 Type: Automatic
 
@@ -671,7 +754,7 @@ How test will be performed: Pytest
 
 Test case reference: Page $4$ and $5$ of \cite{RegOrthogonal}\\
 
-\item{\textbf{T29: Test case for evalReg}}
+\item{\textbf{T29: Test case for evaluating Regression}}
 
 Control: Automatic
 
