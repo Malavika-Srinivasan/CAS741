@@ -86,46 +86,52 @@ Also, see the table of symbols in CA at:
 \pagenumbering{arabic}
 
 
-This document explains the unit verification and validation plan to improve the 
-quality of \famname{}. It is organized into different sections which gives a 
-detailed description of the \famname{} in terms of its goals, objectives, 
-essential qualities and test cases to verify each module listed in the MG. 
+This document explains the unit verification and validation plan, which aims at 
+verifying the modules of \famname{} to improve the qualities such as 
+reliability and correctness. It is organized into different 
+sections giving a detailed description of the \famname{} in terms of its 
+goals, objectives, essential qualities and test cases to verify each module 
+listed in the MG. 
 
 
 
 \section{General Information}
 
 This section explains the summary of what is being tested in this document, the 
-objectives of this document and references for this document. 
+objectives of this document and references for this document. The qualities 
+which are essential for \famname{} are correctness, reliability, 
+maintainability, testability and portability.
 
 
 \subsection{Purpose}
 
 This document will summarize the plan for verification and validation of
-of the modules of \famname{} in compliance with their functions mentioned in 
-the MIS document found at 
+of the modules of \famname{} in compliance with their functions and semantics 
+mentioned in the MIS document found at 
 \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/MIS/MIS.pdf}
 
-The goal statement as found in the CA document is presented below.\\
+The goal statement from the CA document is presented below.\\
 \noindent ``Given the set of data points, the choice of software from 
-\famname{} and the variabilities of the software the \famname{} should:
+\famname{} and the variabilities of the software, the \famname{} should:
 
 \begin{enumerate}
 	
 	\item Compute the parameters of the curve which is the best possible fit 
-	through the set of data points.	''
+	through the set of data points''.
 \end{enumerate}
 
 
 \subsection{Scope}
 
 Some of the modules such as sequence services and plot module are not 
-implemented by \famname{} but are a part of it. The services offered by these 
-modules are implemented by python and testing them are out of scope for this 
+implemented by \famname{}, but are a part of it. The services offered by these 
+modules, are implemented by python and testing them are out of scope for this 
 project.
 The output module of \famname{} does not compute anything. It essentially gives 
-the output from the modules to the user program. Hence, it is excluded from the 
-scope of this document.
+the output from the modules to the user program by using access methods from 
+interpolation or regression module. It uses plot module for plotting the 
+results. Hence, the testing of output module is covered by the test cases of 
+interpolation and regression module.
 
 \section{Plan}
 
@@ -137,18 +143,17 @@ plan in terms of people, tasks and tools involved in this process.
 The verification and validation team for \famname{} includes the following 
 people.
 \begin{itemize}
-	\item Malavika Srinivasan (Primary tester)
-	\item Dr.Spencer Smith (Verification of this document)
-	\item Hanane Zlitni (Verification of this document)
+	\item Malavika Srinivasan 
+	\item Dr.Spencer Smith 
+	\item Hanane Zlitni
 \end{itemize}
 
 \subsection{Automated Testing and Verification Tools}
 
-In this project, we will be using Pytest to verify the modules of \famname{}. 
+In this project, we will be using pytest to verify the modules of \famname{}. 
 It is a testing framework available in python. The results of the test 
 including the code coverage metrics will be presented in the test report. We 
 will be using cov package which gives the code coverage metrics.
-
 
 
 \subsection{Non-Testing Based Verification}
@@ -169,7 +174,10 @@ case is explained. The MIS can be found at
 
 \subsection{Tests for Functional Requirements}
 
-
+In this section, we present the test cases which are related to the functional 
+requirements of \famname{}. The functional requirements can be found at 
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}
+ 
 \wss{Most of the verification will be through automated unit testing.  If
   appropriate specific modules can be verified by a non-testing based
   technique.  That can also be documented in this section.}
@@ -177,14 +185,15 @@ case is explained. The MIS can be found at
 unit test.}
 \subsubsection {Input Module}
 
-In this section , we will present the test cases for each access method. Since 
-all the access methods are tested, the entire module will be tested. The test 
-cases for this module are selected based on the constraints for the input data. 
-The typical constraints on the input data for \famname{} is given by the data 
-type, length. Some of the inputs such as the degree of the polynomial have 
-mathematical restrictions of being a natural number. The test cases listed 
-below are designed to check whether the input data to \famname{} violates these 
-constraints.  
+In this section, we will present the test cases for each access method of the 
+input module. Since all the access methods are tested, the entire module will 
+be tested. The test cases for this module are selected based on the constraints 
+for the input data. \\
+The typical constraints on the input data for \famname{} is associated with the 
+data type and length of the input data. Some of the inputs such as the degree 
+of the polynomial have mathematical restrictions of being a natural number. The 
+test cases listed below are designed to ensure that the input data to 
+\famname{} does not violate these constraints.  
 
 
 \begin{enumerate}
@@ -194,9 +203,8 @@ Please refer to test case T1 in section \ref{InputTesting} in System
 verification and validation plan.
 				
 Test Case Derivation: We need at least two points to draw a straight line which 
-is the lowest order polynomial. Only one data point does not need a curve or 
-numbers to represent itself. The coordinates would be sufficient. Hence, 
-\famname{} should throw an exception.
+is the lowest order polynomial. Only one data point does not need a curve to be 
+represented. Hence, \famname{} should throw an exception.
 
 
 					
@@ -210,8 +218,7 @@ Input: t=[1,2,3] , y=[2,4] (length mismatch)
 					
 Output: Exception message (``t and y array must have same length.'')
 
-Test Case Derivation: Basic mathematics rule for curve fitting \ms{Not sure 
-what to write here?}
+Test Case Derivation: NA
 
 How test will be performed: Pytest
 
@@ -236,8 +243,7 @@ Input: deg = 1.5
 
 Output: Exception message (``Degree cannot be a real number'')
 
-Test Case Derivation: Basic mathematics rule for curve fitting \ms{Not sure 
-	what to write here too?}
+Test Case Derivation: NA
 
 How test will be performed: Pytest
 
@@ -250,7 +256,7 @@ In this section, we will represent the test cases for each access program
 present in the interpolation module. This module has access programs to find 
 the coefficients of the interpolated curve through a set of points $(t_i,y_i)$ 
 for $i = 0\ \text{to}\ n$ and find the value of the interpolating polynomial at 
-a given $t$ value.
+a given `$t$' value.
 
 \item{\textbf{T5: Test case for interpMonomial}}
 
@@ -287,14 +293,14 @@ Please refer to test case T12 in section \ref{InterpolationTesting} in System
 verification and validation plan.
 
 
-\item{\textbf{T10: Test case $1$ for evalMonomial}}
+\item{\textbf{T10: Test case for evalMonomial}}
 
 Please refer to test case T13 and T14 in section \ref{InterpolationTesting} in 
 System verification and validation plan.
 
 
 
-\item{\textbf{T11: Test case $1$ for evalLagrange}}
+\item{\textbf{T11: Test case for evalLagrange}}
 
 
 Please refer to test case T15 and T16 in section \ref{InterpolationTesting} in 
@@ -302,14 +308,14 @@ System
 verification and validation plan.
 
 
-\item{\textbf{T12: Test case $2$ for evalNewton}}
+\item{\textbf{T12: Test case for evalNewton}}
 
 Please refer to test case T17 and T18 in section \ref{InterpolationTesting} in 
 System 
 verification and validation plan.
 
 
-\item{\textbf{T13: Test case $2$ for evalHermiteCubic}}
+\item{\textbf{T13: Test case for evalHermiteCubic}}
 
 Please refer to test case T19 and T20 in section \ref{InterpolationTesting} in 
 System 
@@ -326,12 +332,12 @@ verification and validation plan.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Regression module}
+\subsubsection{Regression Module}
 
 In this section, we will represent the test cases for each access program 
 present in the regression module. This module has access programs to find 
 the parameters of the best fit curve through a set of points $(t_i,y_i)$ 
-for $i = 0\ \text{to}\ n$ and find the value of the polynomial at a given $t$ 
+for $i = 0\ \text{to}\ n$ and find the value of the polynomial at a given `$t$' 
 value.
 
 
