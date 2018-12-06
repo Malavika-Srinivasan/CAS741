@@ -1,6 +1,6 @@
 \documentclass[12pt, titlepage]{article}
 \newcommand{\famname}{CFS} % PUT YOUR PROGRAM NAME HERE
-
+\usepackage{varwidth}
 
 \usepackage[hyphens]{url}
 
@@ -44,7 +44,7 @@
 \begin{document}
 
 \title{CFS: System Verification and Validation Plan
-\wss{good to see the library name in the title}}\ms{Thank you :)} 
+\wss{good to see the library name in the title}\ms{Thank you :)}} 
 \author{Malavika Srinivasan}
 \date{\today}
 	
@@ -225,7 +225,8 @@ The CA document for \famname{} will be reviewed by Dr.\ Spencer Smith
   the end of a sentence, you need to tell \LaTeX{} to insert one space.  You do
   this either by Dr.\ Smith (if you don't mind a line-break between Dr.\ and
   Smith), or Dr.~Spencer Smith (to force \LaTeX{} to not insert a line break).}
-and my classmate Robert White.
+and my classmate Robert White.\ms{Thank you for the advice. I will keep this in 
+mind for future.}
 
 \subsection{Design Verification Plan}
 
@@ -274,7 +275,8 @@ test cases listed below are designed to ensure that the input data to
 \famname{} does not violate these constraints.  
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good.}
+  cover the requirements.  References to the SRS would be good.}\ms{Added 
+  introductory blurb.}
 
 \begin{enumerate}
 
@@ -325,28 +327,52 @@ the coefficients of the interpolated curve through a set of points $(t_i,y_i)$
 for $i = 0\ \text{to}\ n$ and find the value of the interpolating polynomial at 
 a given `$t$' value.
 
+In order to carry out system testing, the general test case below will be used 
+by different algorithms.
+
+\fbox{\begin{varwidth}{\textwidth}
+\textbf{General test case} \\ \\
+Control: Automatic\\ \\
+Initial State: NA\\ \\
+Input: Data points t = [0,1,2], y = [0,1,2]\\ \\
+Output: [0, 1] (Coefficients of t, starting from $t^{0}$.)\\ \\
+How test will be performed: Pyunit\\ \\
+Test case derivation: \\
+
+To obtain a straight line between two pints, the general formula is \\
+$y = mx + c$ where $m$ is the slope of the line and $c$ is the constant.\\
+To compute `m', the formula below is used,\\
+\begin{equation}
+m = \frac{y_2-y_1}{x_2-x_1}\\
+\end{equation}
+
+Here, $(x_1,y_1)\ =\ (0,0),\ (x_2,y_2)\ =\ (1,1),\ (x_3,y_3)\ =\ (2,2)$\\
+
+Hence applying the values of $x_1,\ x_2,\ y_1\ and\ y_2$, we get $m\ =\ 1$.\\
+
+Applying, $m=1$, the equation ($1$), $c = 0$.\\
+
+Therefore, the coefficients of the straight line is $[0,1]$.
+
+
+
+
+\end{varwidth} }
+
+
+
 
 %#######################       Monomial    ################################
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good.}
+  cover the requirements.  References to the SRS would be good.}\ms{Added 
+  introductory blurb.}
 
 \item{\textbf{T4: $I^{st}$ test case for Monomial interpolation} \\}
 
-Control: Automatic 
+Please refer to the general test case presented in section 
+\ref{InterpolationTesting}.
 
-Initial State: NA
-
-Input: Data points t = [0,1,2], y = [0,1,2]
-
-Output: [0, 1] (Coefficients of t, starting from $t^{0}$.)
-
-How test will be performed: Pyunit\\
-
-Test case derivation: 
-
-\wss{How did you come up with the output?  How does the reader verify this?  A
-  similar comment applies elsewhere in your documentation.}
 
 \item{\textbf{T5: ${II}^{nd}$ test case for Monomial interpolation}}\\
 
@@ -367,22 +393,21 @@ Test case reference: Page 314, example 7.1 of ~\cite{Health1997}\\
 					
 \item{\textbf{T6: $I^{st}$ test case for Lagrange's interpolation} \\} \wss{You
     list first and second test cases, but why were they selected?  Why does the
-    second test case cover something different from the first?}  
-Control:
-  Automatic
+    second test case cover something different from the first?}  \ms{The first 
+    test case is for a straight line which is trivial, a line passing through 
+    origin. The second test case is the one which will deal with polynomials. 
+    The reason why I chose first test case was, I wanted a common test case for 
+    all the approaches, I just liked the idea.}
+Please refer to the general test case presented in section 
+\ref{InterpolationTesting}.
 
-Initial State: NA
-
-Input: Data points t = [0,1,2], y = [0,1,2]
-
-Output: [0, 1] (Coefficients of t, starting from $t^{0}$.)
-
-How test will be performed: Pyunit \wss{You repeat this same test case several
+\wss{You repeat this same test case several
   times, but for different algorithms.  This is a good idea, but you should
   record this in a more efficient way.  You can list the test case once and then
   reference it in the subsequent cases and simply say that it will be repeated,
   but for a different algorithm.  You could summarize a much higher number of
-  test cases if you used tables.}\\ 
+  test cases if you used tables.}\ms{Thanks, good idea. I listed this test 
+  case as general test case and using references to point to them.}\\ 
 
 
 
@@ -404,15 +429,8 @@ Test case reference: Page 314, example 7.1 of  ~\cite{Health1997}\\
 
 \item{\textbf{T8: $I^{st}$ test case1 for Newton's interpolation} \\}
 
-Control: Automatic 
-
-Initial State: NA
-
-Input: Data points t = [0,1,2], y = [0,1,2]
-
-Output: [0, 1] (Coefficients of t, starting from $t^{0}$.)
-
-How test will be performed: Pyunit\\
+Please refer to the general test case presented in section 
+\ref{InterpolationTesting}.
 
 
 \item{\textbf{T9: ${II}^{nd}$ test case for Newton's interpolation} \\}
@@ -501,7 +519,12 @@ Input: [0,1], 2
 Output: 2
 
 Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
-System verification and validation plan. 
+System verification and validation plan. The output of T4 is the coefficients 
+of the polynomial, which is the input here and one of the input data point from 
+`t' is chosen to be the input. I am using the same test case because this 
+provides completeness in the sense that from the input, we obtained the 
+coefficients of the polynomial and from the polynomial coefficients we obtained 
+our input.
 
 How test will be performed: Pytest
 
@@ -529,12 +552,17 @@ Type: Automatic
 
 Initial State: NA 
 
-Input: [0,1,2], 1 
+Input: [0,1], 1 
 
 Output: 1
 
 Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
-System verification and validation plan.
+System verification and validation plan. The output of T4 is the coefficients 
+of the polynomial, which is the input here and one of the input data point from 
+`t' is chosen to be the input. I am using the same test case because this 
+provides completeness in the sense that from the input, we obtained the 
+coefficients of the polynomial and from the polynomial coefficients we obtained 
+our input.
 
 How test will be performed: Pytest
 
@@ -564,7 +592,12 @@ Input: [0,1], 2
 Output: 2
 
 Test Case Derivation: Please see inputs of T4 in section \ref{InputTesting} in 
-System verification and validation plan. 
+System verification and validation plan. The output of T4 is the coefficients 
+of the polynomial, which is the input here and one of the input data point from 
+`t' is chosen to be the input. I am using the same test case because this 
+provides completeness in the sense that from the input, we obtained the 
+coefficients of the polynomial and from the polynomial coefficients we obtained 
+our input. 
 
 How test will be performed: Pytest
 
@@ -780,7 +813,11 @@ Type: Nonfunctional, Manual, Parallel testing
 					
 Initial State: NA
 					
-Input/Condition: Results from Matlab for T4, T6, T9, T10, T12, T14, T16 and T19 will be manually compared using relative error by the formula below.
+Input/Condition: Results from Matlab or Python libraries for T4,T5,T6 ... T29 
+will be manually compared using relative error by the formula below. \ms{I am 
+saying python libraries because most of them are implemented from scratch. For 
+some of them, I may be writing a wrapper, for which I will use matlab for 
+comparison.}
 
 \begin{equation*}
 err = \frac{val_{CFS} - val_{Matlab}}{val_{CFS}}
@@ -790,16 +827,18 @@ err = \frac{val_{CFS} - val_{Matlab}}{val_{CFS}}
 err < Admissible\_error
 \end{equation*}
 
-\wss{good test case}
+\wss{good test case}\ms{Thank you :)}
 
 $ADMISS\_ERR$ is available in appendix section.  \wss{This isn't a good
 symbol.  A constant like this should be in all caps and it won't space out
-properly.  Use something like $\mathit{ADMISS\_ERR}$.}\\
+properly.  Use something like $\mathit{ADMISS\_ERR}$.}\ms{Changes made.}\\
 				
-Output/Result: Pass/Fail \wss{The output should be the expected result.  Since
-  you are summarizing multiple test cases at once, you could think of your
+Output/Result: The output will be the maximum relative error of all the teest 
+cases.
+\wss{The output should be the expected result. Since you are summarizing 
+multiple test cases at once, you could think of your
   output as a table of all of the relative errors, or you could report the
-  maximum relative error (infinity norm.)}
+  maximum relative error (infinity norm.)}\ms{Changes made.}
 					
 How test will be performed: Manual
 				
@@ -826,7 +865,8 @@ This will help in accessing the maintainability of the software by measuring the
 ~\newline	
 Output: Pass/ Fail\\
 					
-How test will be performed: Manual \wss{I like this test case experiment.}
+How test will be performed: Manual \wss{I like this test case 
+experiment.}\ms{Thank you :). } 
 
 
 %#######################################################
@@ -900,7 +940,8 @@ The following table shows the traceability mapping for test cases, instance mode
 
 \section{Static Verification Techniques}
 
-Code walkthrough and inspection will be used to verify the implementation.
+Code walkthrough and inspection will be used to verify the implementation. My 
+classmates will help me to conduct this inspection.
 				
 
 
