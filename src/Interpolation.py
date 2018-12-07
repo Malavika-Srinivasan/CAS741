@@ -1,16 +1,14 @@
 from Input import *
 import numpy as np
-
+from scipy.interpolate import *
 class Interpolation:
+
     global x, y
 
     def __init__(self,t,y):
         print('I am at Interpolation init')
         input = Input(t, y)
         input.verifyInput()
-
-
-
 
     def interpMonomial(self, x, y):
         x = np.array(x)
@@ -63,13 +61,16 @@ class Interpolation:
         print(np.poly1d(s)) #To check working - Can be removed later.
         return (s)
 
-    # Evaluate polynomial at given xarray
     def evalLagrange(self, s, x, xnew):
         # This basically deals with computing the basis function for lagrange
         yfit = []
         sum = 0
-        if type(xnew==int):
-            xnew = [xnew]
+        if type(x==list):
+            x = np.array(x)
+        if type(xnew)==list :
+            xnew = np.array(xnew)
+        if  type(xnew)==int or type(xnew) == float:
+            xnew = np.array([xnew])
         for k in range(0, len(xnew)):
             sum = 0
             each = xnew[k]
@@ -120,12 +121,52 @@ class Interpolation:
         print(np.poly1d(s))
         return s
 
-    # **********************************************
-
-    def evalNewton(self, s, x, xnew, ):
-
+    def evalNewton(self, s, x, xnew):
+        if type(x==list):
+            x = np.array(x)
+        if type(xnew)==list :
+            xnew = np.array(xnew)
+        if  type(xnew)==int or type(xnew) == float:
+            xnew = np.array([xnew])
         n = len(x) - 1  # Degree of polynomial
         p = s[n]
         for k in range(1, n + 1):
             p = s[n - k] + (xnew - x[n - k]) * p
         return p
+
+    def interpHermiteCubic(self, x, y):
+        x = np.array(x)
+        y = np.array(y)
+        hCubObj = PchipInterpolator(x, y)
+        print('-----------------------------------------------')
+        print('Hermite Cubic interpolation')
+        print(hCubObj)
+        return (hCubObj)
+
+    def evalHermiteCubic(self, hCubObj,xnew):
+        if type(xnew)==list :
+            xnew = np.array(xnew)
+        if  type(xnew)==int or type(xnew) == float:
+            xnew = np.array([xnew])
+        yfit = hCubObj(xnew)
+        return yfit
+
+
+    def interpBSpline(self, x, y):
+
+        x = np.array(x)
+        y = np.array(y)
+        t,c,k = splrep(x,y,s=0,k=4)
+        splObj = BSpline(t,c,k, extrapolate=False)
+        print('-----------------------------------------------')
+        print('BSpline t,c,k')
+        print(splObj)
+        return (splObj)
+
+    def evalBSpline(self, splObj,xnew):
+        if type(xnew)==list :
+            xnew = np.array(xnew)
+        if  type(xnew)==int or type(xnew) == float:
+            xnew = np.array([xnew])
+        yfit = splev(xnew,splObj)
+        return yfit
