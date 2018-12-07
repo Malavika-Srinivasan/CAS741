@@ -129,7 +129,7 @@ are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
 
 \section{Module Decomposition}
-\ms{Needs to be changed in MG based on Dr.Smith's suggestion}
+\ms{Needs to be changed in MG based on Dr.\ Smith's suggestion}
 The following table is taken directly from the Module Guide document for this project.
 
 \begin{table}[h!]
@@ -183,13 +183,13 @@ Sequence services(\ref{seqSer})
 	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 	\midrule
 	loadInput & inFile : string & - &  FileError \\
-	verifyInput & - & - & ValueError,TypeError  \\
+	verifyInput & - & - & ValueError, TypeError  \\
 	verifyDegree & degree:$\mathbb{N}$ & $degVerify$:$\mathbb{B}$ & ValueError\\
 	\bottomrule
 \end{tabular}
 
-
 \subsubsection{Exported Constants}
+
 NA
 
 \subsubsection{Exported Access Programs}
@@ -204,8 +204,13 @@ NA
 		\hline
 	\end{tabular}
 \end{center}
+
 \ms{I need the verifyDegree as an exported access program because I will be 
 verifying the degree input from regression module if necessary.}
+
+\wss{You don't have a Syntax section and an Exported Access Programs.  The
+  syntax section is already listing all access programs that are exported.}
+
 \subsection{Semantics}
 
 \subsubsection{State Variables}
@@ -218,7 +223,6 @@ verifying the degree input from regression module if necessary.}
 	
 \end{longtable*}
 
-
 \subsubsection{Environment Variables}
 
 
@@ -227,7 +231,16 @@ sometimes, you may want to append a file name to a path name.}
 \ms{Also, I am thinking if I really need a file input. I think this should be 
 the user program's responsibility. My access programs do not have an interface 
 to accept filename. They will accept only x and y arrays. This needs to be 
-discussed. }
+discussed. } 
+
+\wss{The environment variable for a file is not the name of the file, but the
+  contents of the file.  You need to decide what your design is.  I see the
+  input module as providing services that you can use.  Since your module has
+  state information, you need a way to get this state information into the
+  module.  A file is a logical choice.}
+\wss{You cannot use the same name for your environment variable as you use for
+  the first field of your loadInput method.  It is confusing.  I think this
+  might be part of why you are confusing the file name and the file contents.}
 
 \subsubsection{Assumptions}
 
@@ -243,14 +256,17 @@ discussed. }
 \subsubsection{Access Routine Semantics}
 
 
-\noindent \textbf{input.$t$:}
+\noindent \textbf{input.$t$:} \wss{You don't actually list an access program
+  with this name?}
+
 \begin{itemize}
 	\item transition: NA 	
 	\item output: \textit{out} := $t$
 	\item exception: NA
 \end{itemize}
 
-\noindent \textbf{input.$y$:}
+\noindent \textbf{input.$y$:} \wss{You don't actually list an access program
+  with this name?}
 \begin{itemize}
 	\item transition: NA 	
 	\item output: \textit{out} := $y$
@@ -386,6 +402,10 @@ evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
 \end{tabular}
 \end{center}
 
+\wss{Your input module has state information, yet you are explicitly providing
+  inputs of this same information.  You need to decide what your design is and
+  stick to it.}
+
 \subsection{Semantics}
 
 \subsubsection{State Variables}
@@ -397,8 +417,15 @@ evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
 	
 \end{itemize}
 
-
-
+\wss{Why do you have a state variable?  The connection between your inputs and
+  your outputs is unclear.  Is the state variable keeping the information that
+  you need for evaluation?  That would make sense.  I think your design would
+  make more sense if you followed the design we used for SFS.  You can have one
+  interpolating polynomial object and the specific method it uses to build its
+  state variables comes as an input parameter.  This would be similar to the
+  2AA4/2ME3 assignment I showed in class, where the order of interpolation was a
+  parameter.  This would mean that you only needed one eval.  The object itself
+  would know how to interpret eval}
 
 \subsubsection{Environment Variables}
 
@@ -467,7 +494,6 @@ NA
  
 \item exception: NA
 \end{itemize}
-
 
 \noindent \textbf{evalMonomial($t$,$y$):}
 \begin{itemize}
@@ -778,16 +804,12 @@ NA
 
 NA
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-
-
 
 \section{MIS of Regression module} \label{mReg}
 
 This module corresponds to R\ref{R_Int_or_Reg}, R\ref{R_Rmethod} and 
 R\ref{R_ICalculate} in section \ref{FReq} of CA document.
-
 
 \subsection{Module}
 
@@ -797,11 +819,9 @@ reg
 
 Input(\ref{mInput}), Output(\ref{mOutput}), Sequence services(\ref{seqSer})
 
-
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-
 
 NA
 
@@ -825,6 +845,9 @@ NA
 	\end{tabular}
 \end{center}
 
+\wss{Again, it is unclear why you have an input parameters module with state
+  information if you aren't going to use that state information.}
+
 \subsection{Semantics}
 
 \subsubsection{State Variables}
@@ -833,7 +856,8 @@ NA
 \item x: $\mathbb{R}^m$\\
 \end{itemize}
 
-
+\wss{You should give a clue on how to interpret this state variable.  Is it the
+  coefficients for the polynomial?}
 
 \subsubsection{Environment Variables}
 
@@ -903,7 +927,6 @@ regAugSys() $\lor$ regOrthogonalTn()).
 	\item exception: NA
 \end{itemize}
 
-
 ~\newline
 ~\newline
 
@@ -929,7 +952,6 @@ regAugSys() $\lor$ regOrthogonalTn()).
 	\item exception: NA
 \end{itemize}
 
-
 \noindent \textbf{evalReg($t$):}
 \begin{itemize}
 	\item transition: NA
@@ -941,17 +963,14 @@ regAugSys() $\lor$ regOrthogonalTn()).
 	\item exception: NA
 \end{itemize}
 
+\wss{Is this connected to the state variable? I think so?}  \wss{You should use
+  calls to Python in your specification.  Say things mathematically.}
+
 \subsubsection{Local Functions}
 
 NA
 
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 \section{MIS of Output module} \label{mOutput}
 
@@ -1202,7 +1221,7 @@ NA
 
 \subsubsection{Environment Variables}
 
-win: 2D sequence of pixels displayed on the screen\\
+win: 2D sequence of pixels displayed on the screen\\ \wss{good}
 
 \subsubsection{Assumptions}
 
