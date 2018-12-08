@@ -49,7 +49,13 @@ deg = 1
 x = [-2,0,1]
 y = [-27,-1,0]
 deg = 2
+
 reg = Regression(x,y,deg)
 s = reg.regNormalEq(x,y,deg)
+yfit = reg.evalReg(s,[-2,0])
+print(yfit)
+
+reg = Regression(x,y,deg)
+s = reg.regAugSys(x,y,deg)
 yfit = reg.evalReg(s,[-2,0])
 print(yfit)
