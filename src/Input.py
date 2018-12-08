@@ -39,3 +39,8 @@ class Input(object):
             else:
                 raise Exception('Type mismatch, Please enter only numbers')
 
+    def verifyDegree(self, deg):
+        if deg > 0 and type(deg)==int:
+            pass
+        else:
+            raise Exception('Value Error, Degree can only be a natural number')
