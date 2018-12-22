@@ -1,37 +1,37 @@
+## @file Interpolation.py
+#  @author Malavika Srinivasan
+#  @brief This module handles the variailities in interpolation
+#  @date Dec 21, 2018
+
 from Input import *
 import numpy as np
 from scipy.interpolate import *
-import sympy
 class Interpolation:
 
-    global x, y
-
     def __init__(self,t,y):
-        print('I am at Interpolation init')
-        input = Input(t, y)
-        input.verifyInput()
+        input = Input()
+        input.verifyInput(t,y)
 
     def interpMonomial(self, x, y):
         x = np.array(x)
         y = np.array(y)
-        print('I am at Monomial')
         SIZE = len(x)
+
         # Initializing matrix with zeros
         A = np.zeros([SIZE, SIZE])
 
         # Providing values for matrix A to convert it to Ax = b form
         for i in range(SIZE):
             A[::, i] = np.power(x.T, i)  # [Doing 1 t t2...]
+
         b = y  # Initializing b = y
 
         # Solve Ax=b using python solver - Need to ask if solver has to be implemented.
         s = np.linalg.solve(A, b)
+
         # x = coeffs of polynomial starting from constant
         # Flip polynomial coeffs - Doing this so that I can see the polynomial if is right or wrong
         s = np.flip(s, axis=0)
-        print('-----------------------------------------------')
-        print('Monomial Coefficients')
-        print(np.poly1d(s))
         return s
 
     def evalMonomial(self, s, xnew):
@@ -39,11 +39,10 @@ class Interpolation:
         return yfit
 
     def interpLagrange(self, x, y):
-
         x = np.array(x)
         y = np.array(y)
-
         SIZE = len(x)
+
         # Initializing matrix with zeros
         A = np.zeros([SIZE, SIZE])
 
@@ -54,12 +53,6 @@ class Interpolation:
 
         # Solve Ax=b using python solver - Need to ask if solver has to be implemented.
         s = np.linalg.solve(A, b)
-        # numpy.linalg.inv()
-        # Print polynomial coeffs
-        # print (s)
-        print('-----------------------------------------------')
-        print('Lagrange Coefficients')
-        print(np.poly1d(s)) #To check working - Can be removed later.
         return (s)
 
     def evalLagrange(self, s, x, xnew):
@@ -90,15 +83,13 @@ class Interpolation:
         x = np.array(x)
         y = np.array(y)
         SIZE = len(x)
+
         for i in range(SIZE):
             a.append(y[i])
 
         for j in range(1, SIZE):
             for i in range(SIZE - 1, j - 1, -1):
                 a[i] = float(a[i] - a[i - 1]) / float(x[i] - x[i - j])
-        print('-----------------------------------------------')
-        print('Newton Coefficients')
-        print(np.poly1d(a))
         return a
 
     def evalNewton(self, a, x, xnew):
@@ -109,7 +100,6 @@ class Interpolation:
             xnew = np.array(xnew)
         if  type(xnew)==int or type(xnew) == float:
             xnew = np.array([xnew])
-
         for each in xnew:
             n = len(a) - 1
             temp = a[n]
@@ -122,9 +112,6 @@ class Interpolation:
         x = np.array(x)
         y = np.array(y)
         hCubObj = PchipInterpolator(x, y)
-        print('-----------------------------------------------')
-        print('Hermite Cubic interpolation')
-        #print(hCubObj)
         return (hCubObj)
 
     def evalHermiteCubic(self, hCubObj,xnew):
@@ -137,14 +124,10 @@ class Interpolation:
 
 
     def interpBSpline(self, x, y):
-
         x = np.array(x)
         y = np.array(y)
         t,c,k = splrep(x,y,s=0,k=4)
         splObj = BSpline(t,c,k, extrapolate=False)
-        print('-----------------------------------------------')
-        print('BSpline t,c,k')
-        print(splObj)
         return (splObj)
 
     def evalBSpline(self, splObj,xnew):

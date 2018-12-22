@@ -6,34 +6,32 @@
 import numpy as np
 import warnings
 
-class Input(object):
-    global t,y
-    def __init__(self, t, y):
-        print('I am at Input init')
-        self.t = t
-        self.y = y
+class Input:
+    def __init__(self):
+        return None
 
-    def verifyInput(self):
+    def verifyInput(self,t,y):
         #To verify if len(t) == len(y)
-        if (len(self.t) == len(self.y)):
+        if (len(t) == len(y)):
             pass
         else:
             raise Exception('Length mismatch, len of input arrays must be same.')
 
         #To verify if len(t) > 1
-        if (len(self.t) > 1):
+        if (len(t) > 1):
             pass
         else:
             raise Exception('Length mismatch, Please enter atleast two numbers.')
 
         #To verify if there is an wrong type of data in t array
-        for each in self.t:
+        for each in t:
             if (type(each)==float or type(each)==int):
                 pass
             else:
                 raise Exception('Type mismatch, Please enter only numbers')
+
         # To verify if there is an wrong type of data in t array
-        for each in self.y:
+        for each in y:
             if (type(each)==float or type(each)==int):
                 pass
             else:

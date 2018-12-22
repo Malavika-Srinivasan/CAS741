@@ -2,23 +2,26 @@ import numpy as np
 from Interpolation import Interpolation
 from Regression import Regression
 from Input import *
+from Output import Output
+output = Output()
 
-
-#t = [1,2,3,4,5]
-#y = [1,2,3,4,5]
 t = [-2,0,1]
 y = [-27,-1,0]
 interp = Interpolation(t,y)
 s = interp.interpMonomial(t,y)
-yfit = interp.evalMonomial(s,[5,10])
+yfit = interp.evalMonomial(s,t)
 print(yfit)
+output.plotDataFit(t,y,yfit)
+
 
 s = interp.interpLagrange(t,y)
-yfit = interp.evalLagrange(s,t,[5,10])
+yfit = interp.evalLagrange(s,t,t)
 print(yfit)
+output.plotDataFit(t,y,yfit)
+
 
 s = interp.interpNewton(t,y)
-yfit = interp.evalNewton(s,t,[5,10])
+yfit = interp.evalNewton(s,t,t)
 print(yfit)
 
 t = [1,2,4,5]
@@ -38,24 +41,37 @@ print(yfit)
 
 #Regression
 
-x = [0,1,2,3,4,5,6,7,8,9,10]
-y = [0,1,2,3,4,5,6,7,8,9,10]
-deg = 1
 
 x = [1,2,3]
 y = [1,3,7]
-deg = 1
-
+deg = 2
+'''
 x = [-2,0,1]
 y = [-27,-1,0]
 deg = 2
 
+x = [0,1,2,3,4,5,6,7,8,9,10]
+y = [0,1,2,3,4,5,6,7,8,9,10]
+deg = 1
+'''
+print('Normal equn')
 reg = Regression(x,y,deg)
 s = reg.regNormalEq(x,y,deg)
-yfit = reg.evalReg(s,[-2,0])
-print(yfit)
+yfit = reg.evalReg(s,x)
+#print(yfit)
+output.coeffPlotScreen(x,y,yfit,s)
 
+
+print('Aug sys')
 reg = Regression(x,y,deg)
 s = reg.regAugSys(x,y,deg)
-yfit = reg.evalReg(s,[-2,0])
+yfit = reg.evalReg(s,[2,3])
 print(yfit)
+
+
+print('QR')
+reg = Regression(x,y,deg)
+s = reg.regOrthogonalTn(x,y,deg)
+yfit = reg.evalReg(s,[2,3])
+print(yfit)
+output.coeffFile(s)
