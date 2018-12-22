@@ -133,6 +133,8 @@ interpolation or regression module. It uses plot module for plotting the
 results. Hence, the testing of output module is covered by the test cases of 
 interpolation and regression module.
 
+\wss{What modules are you testing?}
+
 \section{Plan}
 
 This section represents the planning phase for unit verification and validation 
@@ -144,7 +146,7 @@ The verification and validation team for \famname{} includes the following
 people.
 \begin{itemize}
 	\item Malavika Srinivasan 
-	\item Dr.Spencer Smith 
+	\item Dr.Spencer Smith \wss{missing a space}
 	\item Hanane Zlitni
 \end{itemize}
 
@@ -155,10 +157,11 @@ It is a testing framework available in python. The results of the test
 including the code coverage metrics will be presented in the test report. We 
 will be using cov package which gives the code coverage metrics.
 
-
 \subsection{Non-Testing Based Verification}
 
-NA
+NA \wss{why is this not applicable?  You don't have to do inspections, code
+  walkthroughs etc, but you should say what it isn't applicable.  If the reason
+  is a lack of time, that can be the reason you give.}
 
 \section{Unit Test Description}
 
@@ -168,9 +171,6 @@ with it. If not, the reason for why the method does not have an associated test
 case is explained. The MIS can be found at 
 \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/
 	MIS/MIS.pdf}
-
-
-
 
 \subsection{Tests for Functional Requirements}
 
@@ -183,6 +183,7 @@ requirements of \famname{}. The functional requirements can be found at
   technique.  That can also be documented in this section.}
 \ms{I have parallel testing, which makes sense as a system test. But not for 
 unit test.}
+
 \subsubsection {Input Module}
 
 In this section, we will present the test cases for each access method of the 
@@ -205,8 +206,6 @@ verification and validation plan.
 Test Case Derivation: We need at least two points to draw a straight line which 
 is the lowest order polynomial. Only one data point does not need a curve to be 
 represented. Hence, \famname{} should throw an exception.
-
-
 					
 \item{\textbf{T2: Test case for verify input - Length mismatch}}
 
@@ -416,7 +415,8 @@ for coverage of modules.
 	\end{tabular}\\
 \end{table}
 
-
+\wss{Please give the names of the modules so that they can be compared to the
+  information (which you will add) in the Scope section.}
 
 
 
