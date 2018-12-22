@@ -26,22 +26,17 @@ print(yfit)
 
 t = [1,2,4,5]
 y = [2,1,4,3]
-hCubObj = interp.interpHermiteCubic(t,y)
-print(hCubObj.c)
-yfit = interp.evalHermiteCubic(hCubObj,1)
+hCubObj,interval = interp.interpHermiteCubic(t,y)
+yfit = interp.evalHermiteCubic(hCubObj,t)
 print(yfit)
 
 t = [0, 1.2, 1.9, 3.2, 4, 6.5]
 y = [0, 2.3, 3.0, 4.3,2.9,3.1]
-
-splObj = interp.interpBSpline(t,y)
-print(splObj.c)
-yfit = interp.evalBSpline(splObj,10)
+splObj,coeff = interp.interpBSpline(t,y)
+yfit = interp.evalBSpline(splObj,t)
 print(yfit)
 
 #Regression
-
-
 x = [1,2,3]
 y = [1,3,7]
 deg = 2

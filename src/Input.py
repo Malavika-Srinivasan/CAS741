@@ -15,7 +15,7 @@ class Input:
         if (len(t) == len(y)):
             pass
         else:
-            raise Exception('Length mismatch, len of input arrays must be same.')
+            raise Exception('Length mismatch, Length of input arrays must be same....')
 
         #To verify if len(t) > 1
         if (len(t) > 1):
@@ -36,6 +36,14 @@ class Input:
                 pass
             else:
                 raise Exception('Type mismatch, Please enter only numbers')
+
+        # To verify if t array is ascending
+        b = np.array(np.sort(t))
+        if np.array_equal(b,t):
+            pass
+        else:
+            raise Exception('x array must be sorted')
+
 
     def verifyDegree(self, deg):
         if deg > 0 and type(deg)==int:

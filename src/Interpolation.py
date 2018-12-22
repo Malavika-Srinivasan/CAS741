@@ -2,8 +2,8 @@
 #  @author Malavika Srinivasan
 #  @brief This module handles the variailities in interpolation
 #  @date Dec 21, 2018
-
-from Input import *
+from src.Input import Input
+#from Input import *
 import numpy as np
 from scipy.interpolate import *
 class Interpolation:
@@ -112,7 +112,7 @@ class Interpolation:
         x = np.array(x)
         y = np.array(y)
         hCubObj = PchipInterpolator(x, y)
-        return (hCubObj)
+        return (hCubObj,x)
 
     def evalHermiteCubic(self, hCubObj,xnew):
         if type(xnew)==list :
@@ -126,9 +126,9 @@ class Interpolation:
     def interpBSpline(self, x, y):
         x = np.array(x)
         y = np.array(y)
-        t,c,k = splrep(x,y,s=0,k=4)
-        splObj = BSpline(t,c,k, extrapolate=False)
-        return (splObj)
+        tck = splrep(x,y,s=0,k=4)
+        splObj = BSpline(tck[0],tck[1],tck[2], extrapolate=False)
+        return (splObj,tck[1])
 
     def evalBSpline(self, splObj,xnew):
         if type(xnew)==list :
