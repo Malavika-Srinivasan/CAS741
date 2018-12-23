@@ -9,7 +9,10 @@ from src.Regression import Regression
 from src.Input import Input
 ADMISS_REL_ERR = 1e-2
 
-
+t = [1,2,3,4]
+y = [5,3,2,1]
+deg = 3
+reg = Regression(t, y, deg)
 
 ## @brief This method takes care of division by zero
 #  @details If denominator is 0, we assue div(a/b) = 0
@@ -133,5 +136,18 @@ class Test_Regression:
         for i in range(0,len(act_coeff)):
             a = exp_coeff[i] - act_coeff[i]
             b = exp_coeff[i]
+            assert (div(a,b) <= ADMISS_REL_ERR)
+
+
+    ## @brief Test case for evalReg
+    #  @test A simple test case for evalReg - TC29
+    def test_EvalRegression(self):
+        coeff = [-8,4,7]
+        xnew = [-2]
+        exp_out = [12]
+        act_out = reg.evalReg(coeff, xnew)
+        for i in range(0,len(act_out)):
+            a = exp_out[i] - act_out[i]
+            b = exp_out[i]
             assert (div(a,b) <= ADMISS_REL_ERR)
 
