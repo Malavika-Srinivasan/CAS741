@@ -79,7 +79,8 @@ Dec 23, 2018 & 2.0 & Final draft by Malavika\\
 Also, see the table of symbols in CA at: 
 \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}
 \\
-
+Please note that, T in this document refers to Test unlike Theoretical model in 
+CA. \\
 
 \newpage
 
@@ -105,10 +106,10 @@ maintainability, testability and portability.
 
 \subsection{Purpose}
 
-This document will summarize the plan for verification and validation of
-of the modules of \famname{} in compliance with their functions and semantics 
+This document will summarize the plan for verification and validation of the 
+modules of \famname{} in compliance with their functions and semantics 
 mentioned in the MIS document found at 
-\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/MIS/MIS.pdf}
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/MIS/MIS.pdf.}
 
 The goal statement from the CA document is presented below.\\
 \noindent ``Given the set of data points, the choice of software from 
@@ -125,14 +126,14 @@ The goal statement from the CA document is presented below.\\
 
 Some of the modules such as sequence services and plot module are not 
 implemented by \famname{}, but are a part of it. The services offered by these 
-modules, are implemented by python and testing them are out of scope for this 
+modules are implemented by python and testing them are out of scope for this 
 project.
 
 The output module of \famname{} does not compute anything. It essentially gives 
 the output from the modules to the user program by using access methods from 
-interpolation or regression module. It uses plot module for plotting the 
+interpolation and regression modules. It uses plot module for plotting the 
 results. Hence, the testing of output module is covered by the test cases of 
-interpolation and regression module.
+interpolation and regression modules.
 
 The Input module, Interpolation module and the Regression module are tested.
 
@@ -196,8 +197,9 @@ In this section, we will present the test cases for each access method of the
 input module. Since all the access methods are tested, the entire module will 
 be tested. The test cases for this module are selected based on the constraints 
 for the input data. \\
-The typical constraints on the input data for \famname{} is associated with the 
-data type and length of the input data. Some of the inputs such as the degree 
+The typical constraints on the input data for \famname{} are associated with 
+the data type and length of the input data. Some of the inputs such as the 
+degree 
 of the polynomial have mathematical restrictions of being a natural number. The 
 test cases listed below are designed to ensure that the input data to 
 \famname{} does not violate these constraints.  
