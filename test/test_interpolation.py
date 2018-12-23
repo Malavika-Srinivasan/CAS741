@@ -3,16 +3,15 @@
 #  @brief Test cases for Interpolation module
 #  @date 21/12/2018
 
-
-
-
-
 import numpy as np
 from pytest import *
 from src.Interpolation import Interpolation
 from src.Input import Input
 ADMISS_REL_ERR = 1e-2
 
+t = [0, 1, 2, 3]
+y = [0, 1, 2, 3]
+interp = Interpolation(t, y)
 
 ## @brief This method takes care of division by zero
 #  @details If denominator is 0, we assue div(a/b) = 0
@@ -178,5 +177,131 @@ class Test_Interpolation:
         for i in range(0, len(act_coeff)):
             a = exp_coeff[i] - act_coeff[i]
             b = exp_coeff[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 1 for evalMonomial
+    #  @test A simple test case for checking evalMonomial - TC13
+    def test_evalMonomial1(self):
+        coeff = [0,1]
+        t = [2]
+        y = [2]
+        yfit = interp.evalMonomial(np.flip(coeff), t)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 2 for evalMonomial
+    #  @test A simple test case for checking evalMonomial - TC14
+    def test_evalMonomial2(self):
+        coeff = [-1,5,-4]
+        t = [-2]
+        y = [-27]
+        yfit = interp.evalMonomial(np.flip(coeff), t)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 1 for evalLagrange
+    #  @test A simple test case for checking evalLagrange - TC15
+    def test_evalLagrange1(self):
+        xarr = [0,1,2]
+        yarr = [0,1,2]
+        t = [2]
+        y = [2]
+        yfit = interp.evalLagrange(yarr, xarr , t)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 2 for evalLagrange
+    #  @test A simple test case for checking evalLagrange - TC16
+    def test_evalLagrange2(self):
+        xarr = [-2, 0, 1]
+        yarr = [-27, -1, 0]
+        t = [-2]
+        y = [-27]
+        yfit = interp.evalLagrange(yarr, xarr , t)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 1 for evalNewton
+    #  @test A simple test case for checking evalNewton - TC17
+    def test_evalNewton1(self):
+        xarr = [0,1,2]
+        a = [0,1]
+        t = [2]
+        y = [2]
+        yfit = interp.evalNewton(a, xarr , t)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 2 for evalNewton
+    #  @test A simple test case for checking evalNewton - TC18
+    def test_evalNewton2(self):
+        xarr = [-2, 0, 1]
+        a = [-27, 13.0, -4.0]
+        t = [-2]
+        y = [-27]
+        yfit = interp.evalNewton(a, xarr , t)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 1 for evalHermiteCubic
+    #  @test A simple test case for checking evalHermiteCubic - TC19
+    def test_evalHermiteCubic1(self):
+        xarr = [1,3]
+        yarr = [2,1]
+        y = [2,1]
+        xnew = [1, 3]
+        h,v = interp.interpHermiteCubic(xarr,yarr)
+        yfit = interp.evalHermiteCubic(xnew,h)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+    ## @brief Test case 2 for evalHermiteCubic
+    #  @test A simple test case for checking evalHermiteCubic - TC20
+    def test_evalHermiteCubic2(self):
+        xarr = [1, 2, 4, 5]
+        yarr = [2, 1, 4, 3]
+        xnew = [1,2,4,5]
+        y = [2,1,4,3]
+        h, v = interp.interpHermiteCubic(xarr, yarr)
+        yfit = interp.evalHermiteCubic(xnew, h)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
+            assert (div(a, b) <= ADMISS_REL_ERR)
+
+   ## @brief Test case 1 for evalHermiteCubic
+    #  @test A simple test case for checking evalHermiteCubic - TC21
+    def test_evalBSpline(self):
+        t = [0.0, 1.2, 1.9, 3.2, 4.0, 6.5]
+        y = [0.0, 2.3, 3.0, 4.3, 2.9, 3.1]
+        xnew = [0.0, 1.2, 1.9, 3.2, 4.0, 6.5]
+        splObj, act_coeff = interp.interpBSpline(t, y)
+        yfit = interp.evalBSpline(splObj, xnew)
+        # Checking the fit
+        for i in range(0, len(yfit)):
+            a = y[i] - yfit[i]
+            b = y[i]
             assert (div(a, b) <= ADMISS_REL_ERR)
 
