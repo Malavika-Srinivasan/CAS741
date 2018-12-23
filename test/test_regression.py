@@ -1,4 +1,4 @@
-## @file test_interpolation.py
+## @file test_regression.py
 #  @author Malavika Srinivasan
 #  @brief Test cases for Regression module
 #  @date 21/12/2018
