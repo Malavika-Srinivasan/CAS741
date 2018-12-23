@@ -14,7 +14,7 @@ y = [0, 1, 2, 3]
 interp = Interpolation(t, y)
 
 ## @brief This method takes care of division by zero
-#  @details If denominator is 0, we assue div(a/b) = 0
+#  @details If denominator is 0, we assume div(a/b) = 0
 def div(a, b):
     if b == 0:
         ans = 0
@@ -108,9 +108,8 @@ class Test_Interpolation:
         t = [-2, 0, 1]
         y = [-27, -1, 0]
         interp = Interpolation(t, y)
-        exp_coeff = [-1, 5, -4]
+        exp_coeff = [-27, 13.0, -4.0]
         act_coeff = interp.interpNewton(t, y)
-        print(act_coeff)
         for i in range(0, len(act_coeff)):
             a = exp_coeff[i] - act_coeff[i]
             b = exp_coeff[i]

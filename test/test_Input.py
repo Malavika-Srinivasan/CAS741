@@ -16,7 +16,7 @@ from src.Input import Input
 class Test_Input:
 
     ## @brief Test cases for Length mismatch
-    #  @test Tests if exception is raised for incorrect input
+    #  @test Tests if exception is raised for incorrect input - TC1b
     def test_Input_LengthMismatch(self):
 
         #Test case for Length mismatch
@@ -28,6 +28,8 @@ class Test_Input:
         except:
             pass
 
+    ## @brief Test cases for Length mismatch
+    #  @test Tests if exception is raised for incorrect input - TC1a
     def test_Input_MinimumLength(self):
 
         #Test case for Length mismatch
@@ -39,9 +41,11 @@ class Test_Input:
         except:
             pass
 
+    ## @brief Test cases for Length mismatch
+    #  @test Tests if exception is raised for incorrect input - TC2
     def test_Input_WrongType(self):
 
-        #Test case for Length mismatch
+        #Test case for wrong data type
         t = [0,1,2,3,'r']
         y = [0,1,2,3,4]
         input = Input()
@@ -50,10 +54,11 @@ class Test_Input:
         except:
             pass
 
-
+    ## @brief Test cases for Length mismatch
+    #  @test Tests if exception is raised for incorrect input - TC3
     def test_Input_WrongOrder(self):
 
-        #Test case for Length mismatch
+        #Test case for unordered t array
         t = [0,-1,1,2,3]
         y = [0,1,2,3,4]
         input = Input()

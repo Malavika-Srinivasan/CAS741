@@ -4,7 +4,7 @@
 #  @date Dec 21, 2018
 
 
-from Input import *
+from src.Input import Input
 import numpy as np
 from scipy.linalg import lu
 from numpy.linalg import inv
@@ -63,7 +63,7 @@ class Regression:
         s = np.linalg.lstsq(B, b, rcond=None)[0]
         return (s)
 
-    def regOrthogonalTn(self, t, y, deg):
+    def regOrthogonalTn(self, t, y):
         x = np.array(t)
         y = np.array(y)
         SIZE = len(x)

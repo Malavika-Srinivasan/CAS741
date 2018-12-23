@@ -15,7 +15,7 @@ deg = 3
 reg = Regression(t, y, deg)
 
 ## @brief This method takes care of division by zero
-#  @details If denominator is 0, we assue div(a/b) = 0
+#  @details If denominator is 0, we assume div(a/b) = 0
 def div(a, b):
     if b == 0:
         ans = 0
@@ -102,6 +102,7 @@ class Test_Regression:
         reg = Regression(t, y, deg)
         exp_coeff = [6,-1.3]
         act_coeff = reg.regAugSys(t, y, deg)
+
         print (act_coeff)
         for i in range(0,len(act_coeff)):
             a = exp_coeff[i] - act_coeff[i]

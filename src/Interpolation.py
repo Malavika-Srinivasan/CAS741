@@ -3,12 +3,11 @@
 #  @brief This module handles the variailities in interpolation
 #  @date Dec 21, 2018
 from src.Input import Input
-#from Input import *
 import numpy as np
 from scipy.interpolate import *
 class Interpolation:
 
-    def __init__(self,t,y):
+    def __init__(self, t, y):
         input = Input()
         input.verifyInput(t,y)
 
@@ -90,6 +89,7 @@ class Interpolation:
         for j in range(1, SIZE):
             for i in range(SIZE - 1, j - 1, -1):
                 a[i] = float(a[i] - a[i - 1]) / float(x[i] - x[i - j])
+        print(a)
         return a
 
     def evalNewton(self, a, x, xnew):
@@ -114,12 +114,12 @@ class Interpolation:
         hCubObj = PchipInterpolator(x, y)
         return (hCubObj,x)
 
-    def evalHermiteCubic(self, hCubObj,xnew):
+    def evalHermiteCubic(self,xnew,h):
         if type(xnew)==list :
             xnew = np.array(xnew)
         if  type(xnew)==int or type(xnew) == float:
             xnew = np.array([xnew])
-        yfit = hCubObj(xnew)
+        yfit = h(xnew)
         return yfit
 
 
