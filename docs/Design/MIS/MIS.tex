@@ -167,8 +167,8 @@ The following table is taken directly from the Module Guide document for this pr
 
 This module corresponds to R\ref{R_IInputs}, R\ref{R_IverifyIPType} and 
 R\ref{R_IverifyIPData} in the CA document. The secrets of 
-this module are how the data points are input and how they are verified.  The 
-load and verify secrets are isolated to their own access programs.
+this module are how the data points are verified.  The verify secrets are 
+isolated to their own access programs.
 
 \subsection{Module}
 
@@ -180,12 +180,12 @@ Sequence services(\ref{seqSer})
 
 \subsection{Syntax}
 
-\begin{tabular}{p{3cm} p{3cm} p{4cm} >{\raggedright\arraybackslash}p{5cm}}
+\begin{tabular}{p{3cm} p{3cm} p{4cm} >{\raggedright\arraybackslash}p{6cm}}
 	\toprule
 	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 	\midrule
-	loadInput & inFile : string & - &  FileError \\
-	verifyInput & - & - & ValueError, TypeError  \\
+	verifyInput & t:$\mathbb{R}^n$, y:$\mathbb{R}^n$ & - & TypeError, 
+	LengthError, LengthMismatchError.  \\
 	verifyDegree & degree:$\mathbb{N}$ & $degVerify$:$\mathbb{B}$ & ValueError\\
 	\bottomrule
 \end{tabular}
@@ -194,111 +194,20 @@ Sequence services(\ref{seqSer})
 
 NA
 
-\subsubsection{Exported Access Programs}
-
-\begin{center}
-	\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
-		\hline
-		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-		\hline
-		verifyDegree & degree:$\mathbb{N}$ &  $degVerify$:$\mathbb{B}$  & 
-		ValueError \\
-		\hline
-	\end{tabular}
-\end{center}
-
-\ms{I need the verifyDegree as an exported access program because I will be 
-verifying the degree input from regression module if necessary.}
-
-\wss{You don't have a Syntax section and an Exported Access Programs.  The
-  syntax section is already listing all access programs that are exported.}
+\subsubsection{Exported Access Programs} 
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
 
-\renewcommand{\arraystretch}{1.2}
-\begin{longtable*}[l]{l} 
-	\# From R\ref{R_IInputs} in CA\\
-	$t$: $\mathbb{R}^n$ \\
-	$y$: $\mathbb{R}^n$ \\	
-	
-\end{longtable*}
-
-\subsubsection{Environment Variables}
-
-
-inFile: sequence of string \ms{I am leaving it as sequence of strings because 
-sometimes, you may want to append a file name to a path name.}
-\ms{Also, I am thinking if I really need a file input. I think this should be 
-the user program's responsibility. My access programs do not have an interface 
-to accept filename. They will accept only x and y arrays. This needs to be 
-discussed. } 
-
-\wss{The environment variable for a file is not the name of the file, but the
-  contents of the file.  You need to decide what your design is.  I see the
-  input module as providing services that you can use.  Since your module has
-  state information, you need a way to get this state information into the
-  module.  A file is a logical choice.}
-\wss{You cannot use the same name for your environment variable as you use for
-  the first field of your loadInput method.  It is confusing.  I think this
-  might be part of why you are confusing the file name and the file contents.}
+\subsubsection{Environment Variables} \ms{I decided that my input module will 
+only verify the input and will not load or store the input arrays.}
 
 \subsubsection{Assumptions}
 
-\begin{itemize}
-	
-	\item The loadInput will be called before calling the verifyInput 
-	method.
-	\item Regression module will be called before calling verifyDegree method.
-	\item The loadInput will be called before the values of any state variables 
-	will be accessed.
-	
-\end{itemize}
 \subsubsection{Access Routine Semantics}
 
-
-\noindent \textbf{input.$t$:} \wss{You don't actually list an access program
-  with this name?}
-
-\begin{itemize}
-	\item transition: NA 	
-	\item output: \textit{out} := $t$
-	\item exception: NA
-\end{itemize}
-
-\noindent \textbf{input.$y$:} \wss{You don't actually list an access program
-  with this name?}
-\begin{itemize}
-	\item transition: NA 	
-	\item output: \textit{out} := $y$
-	\item exception: NA
-\end{itemize}
-
-\noindent \textbf{loadInput($s$):}
-\begin{itemize}
-	\item transition: {inFile} is used to modify the state variables using 
-	the following procedural specification:
-	
-	\begin{enumerate}
-		
-		\item Read data sequentially from inputFile to populate the state 
-		variables $t$ and $y$.
-		
-		\item verifyInput()
-		
-	\end{enumerate}
-	\item output: NA
-	\item exception: $exc$ := a file name $s$ cannot be found $\lor$ the format 
-	of inFile is incorrect $\Longrightarrow$ FileError.\ms{I am yet to decide 
-	if 
-	the 
-	library will take a .txt and .csv or both. This specification will become 
-	formal once we decide the type of the input file.}
-	
-\end{itemize}
-
-\noindent \textbf{verifyInput():}
+\noindent \textbf{verifyInput(t,y):}
 \begin{itemize}
 \item transition:NA
 \item output: NA
@@ -322,15 +231,10 @@ $ (\exists x \in y \land  x \notin \mathbb{R} )$ & $\Longrightarrow$ TypeError\\
 \end{tabular}\\
 
 ~\newline
-\noindent \textbf{verifyDegree():}
+\noindent \textbf{verifyDegree(deg):}
 \begin{itemize}
-	\item transition: 
-	\begin{itemize}
-		
-		\item $(deg \in \mathbb{N})\Longrightarrow $degVerify$ = 
-		True$
-	\end{itemize}
-	\item output: 
+	\item transition:NA
+	\item output:NA 
 	\item exception: $exc$ := 
 \end{itemize}
 
@@ -371,7 +275,7 @@ interp
 
 \subsection{Uses}
 
-Input(\ref{mInput}), Output(\ref{mOutput}), Sequence services(\ref{seqSer})
+Input(\ref{mInput}), Sequence services(\ref{seqSer})
 
 
 \subsection{Syntax}
@@ -384,23 +288,30 @@ NA
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{4cm} p{4cm} p{4cm} p{3cm}}
+\begin{tabular}{p{4cm} p{4cm} p{6cm} p{1cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-interpMonomial & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$  & - & - \\
-interpLagrange & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & - \\
-interpNewton & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & - \\
-interpHermiteCubic & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & 
+interpMonomial & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$  & x:$\mathbb{R}^n$ & - \\
+interpLagrange & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & x:$\mathbb{R}^n$ & - \\
+interpNewton & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & x:$\mathbb{R}^n$ & - \\
+interpHermiteCubic & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & x:$\mathbb{R}^{n 
+\times n-1}$, int:$\mathbb{R}^{n}$ & 
 - \\
-interpBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & - & - \\
+interpBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & x:$\mathbb{R}^{m}$ & - \\
 
-evalMonomial & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$  & - \\
-evalLagrange & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
-evalNewton & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
-evalHermiteCubic & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - 
+evalMonomial & s:$\mathbb{R}^n$,xNew:$\mathbb{R}^m$  & 
+yNew:$\mathbb{R}^m$  & - 
 \\
-evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
+evalLagrange & s:$\mathbb{R}^n$, t:$\mathbb{R}^n$, xNew:$\mathbb{R}^m$ & 
+yNew:$\mathbb{R}^m$ & - \\
+evalNewton & s:$\mathbb{R}^n$, t:$\mathbb{R}^n$, xNew:$\mathbb{R}^m$ & 
+yNew:$\mathbb{R}^m$ & - \\
+evalHermiteCubic &  xNew:$\mathbb{R}^m$, t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & 
+yNew:$\mathbb{R}^m$ & - 
+\\
+evalBSpline & xNew:$\mathbb{R}^m$, t:$\mathbb{R}^n$,y:$\mathbb{R}^n$  
+& yNew:$\mathbb{R}^m$ & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -408,18 +319,15 @@ evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
 \wss{Your input module has state information, yet you are explicitly providing
   inputs of this same information.  You need to decide what your design is and
   stick to it.}
+\ms{Yes Dr.Smith. Makes sense. Now I don't have state variables at all. My user 
+program handles input, my interpolation and regression modules ris called by 
+user program. The interpolation and regression modules use Input module to 
+verify the input data.}
 
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-\begin{itemize}
-	\item x:$\mathbb{R}^{m \times n}$, \text{where $n$ is the number of data 
-	points 
-	and $m$ is the number of sections.}\\
-	
-	\item interval:$\mathbb{R}^m$, \text{$m$ is the number of sections} \\
-	
-\end{itemize}
+NA
 
 \wss{Why do you have a state variable?  The connection between your inputs and
   your outputs is unclear.  Is the state variable keeping the information that
@@ -430,6 +338,11 @@ evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
   2AA4/2ME3 assignment I showed in class, where the order of interpolation was a
   parameter.  This would mean that you only needed one eval.  The object itself
   would know how to interpret eval}
+\ms{Yes, I had a bit of confusion in handling input and output. I realized I 
+dont need any state variable at all. My Input module will only verify the 
+inputs. User program directly receives output directly from interpolation and 
+regression modules. Then user program can use the services provided by Output 
+module to get variabilities in output. }
 
 \subsubsection{Environment Variables}
 
@@ -437,77 +350,57 @@ NA
 
 \subsubsection{Assumptions}
 
-\begin{itemize}
-	\item evalMonomial() will be called after interpMonomial().
-	\item evalLagrange() will be called after interpLagrange().
-	\item evalNewton() will be called after interpNewton().
-	\item evalHermiteCubic() will be called after interpHermiteCubic.
-	\item evalBSpline() will be called after interpBSpline().
-\end{itemize}
-
 \subsubsection{Access Routine Semantics}
-
-
-\noindent \textbf{interp.$x$:}
-\begin{itemize}
-	\item transition: NA	
-	\item output: \textit{out} := $x$
-	\item exception: NA
-\end{itemize}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-~\newline
 ~\newline
 \noindent \textbf{interpMonomial($t$,$y$):}
 \begin{itemize}
-\item transition: 
-\begin{itemize}
-	\item 
-	\begin{enumerate}
-	\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. This is 
-	necessary as all the methods will be using the same state variable.
-	
-	\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ using the 
-	equation below.
-	
-	\begin{equation*}
-	\begin{bmatrix}
-	1 & t_{1} & t_{1} ^2 & \dots & t_{1} ^{n-1} \\
-	1 & t_{2} & t_{2} ^2 & \dots & t_{2} ^{n-1} \\
-	\vdots & \vdots & \vdots & \vdots \\
-	1 & t_{n} & t_{n} ^2 & \dots & t_{n} ^{n-1} \\
-	\end{bmatrix}
-	\begin{bmatrix}
-	x_1  \\
-	x_2 \\
-	\vdots \\
-	x_n \\
-	\end{bmatrix} = 
-	\begin{bmatrix}
-	y_1  \\
-	y_2 \\
-	\vdots \\
-	y_n \\
-	\end{bmatrix}
-	\end{equation*}\\
-	\end{enumerate}
-	\item $interval[0] \coloneqq t[0] $ , this is initialized to 
-	starting point for non piecewise functions.
-\end{itemize}
+\item transition: NA
+
   
-\item output: NA
+\item output: \textit{out}$\ \coloneqq\ x$ as shown below.
+
+	\begin{enumerate}
+		
+		\item x: $\mathbb{R}^{n}$ obtained by solving for $x$ using 
+		the 
+		equation below.
+		
+		\begin{equation*}
+		\begin{bmatrix}
+		1 & t_{1} & t_{1} ^2 & \dots & t_{1} ^{n-1} \\
+		1 & t_{2} & t_{2} ^2 & \dots & t_{2} ^{n-1} \\
+		\vdots & \vdots & \vdots & \vdots \\
+		1 & t_{n} & t_{n} ^2 & \dots & t_{n} ^{n-1} \\
+		\end{bmatrix}
+		\begin{bmatrix}
+		x_1  \\
+		x_2 \\
+		\vdots \\
+		x_n \\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+		y_1  \\
+		y_2 \\
+		\vdots \\
+		y_n \\
+		\end{bmatrix}
+		\end{equation*}\\
+	\end{enumerate}
  
 \item exception: NA
 \end{itemize}
 
-\noindent \textbf{evalMonomial($t$,$y$):}
+\noindent \textbf{evalMonomial($s$,$xNew$):}
 \begin{itemize}
 	\item transition: NA
 	
-	\item output:  \textit{out} := $yNew$
+	\item output:  \textit{out} $\coloneqq\ yNew$
 	
-	$\forall t_i \in t$, yNew||$y_1$ where $y_1$ is obtained as shown below.
+	$\forall t_i \in xNew$, yNew$\vert\vert\ y_1$, where $y_1$ is obtained as 
+	shown 
+	below.
 	\begin{equation*}
-	y_1 = x_1 + x_2 t_i + x_3 t_i ^2 + x_4 t_i ^3 + ... x_n t_i ^{n-1}  
+	y_1 = s[0] + s[1] t_i + s[2] t_i ^2 + ... s[n-1] t_i ^{n-1}  
 	\end{equation*}
 	
 	\item exception: NA
@@ -517,17 +410,14 @@ NA
 
 \noindent \textbf{interpLagrange($t$,$y$):}
 \begin{itemize}
-	\item transition:
-	\begin{itemize}
-		\item 
+	\item transition: NA
+		
+	\item output: \textit{out}$\ \coloneqq\ x$ as shown below.
+ 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
-			This is necessary as all the methods will be using the same state 
-			variable.
-			
-			\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ 
-			using 
-			the equation below.
+		
+			\item x: $\mathbb{R}^{n}$ obtained by solving for $x$ 
+			using the equation below.
 			
 			\begin{equation*}
 			\begin{bmatrix}
@@ -550,21 +440,18 @@ NA
 			\end{bmatrix}
 			\end{equation*}\\ \\ 
 		\end{enumerate}
-		\item $interval[0] \coloneqq t[0] $ , this is initialized to 
-		starting point for non piecewise functions.
-	\end{itemize}	
-	\item output: NA 
-	
+		
 	\item exception: NA
 \end{itemize}
 
-\noindent \textbf{evalLagrange($t$,$y$):}
+\noindent \textbf{evalLagrange($s$,$t$,$xNew$):}
 \begin{itemize}
 	\item transition: NA
 	
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
+	$\forall t_i \in xNew$, yNew$\vert\vert\ y_0$ where $y_0$ is obtained as 
+	shown 
 	below.
 	
 	\begin{equation*}
@@ -579,25 +466,15 @@ NA
 	\end{equation*}
 	\item exception: NA
 \end{itemize}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-~\newline
-~\newline
 
 \noindent \textbf{interpNewton($t$,$y$):}
 \begin{itemize}
-	\item transition: 
-	\begin{itemize}
-		\item 
-		\begin{enumerate}
-			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
-			This is necessary as all the methods will be using the same state 
-			variable.
-			
-			\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ 
-			using 
-			the equation below.
+	\item transition:NA
+	\item output: \textit{out}$\ \coloneqq\ x$ as shown below.
+		\begin{enumerate}			
+			\item x: $\mathbb{R}^{n}$ obtained by solving for $x$ 
+			using the equation below.
 			\begin{equation*}
 			\begin{bmatrix}
 			\pi_0 (t_0) & 0           & 0            & \dots         & 0 \\
@@ -624,28 +501,21 @@ NA
 			
 			$i < j$ $\implies$ $\pi_j (t) = 0$, 
 			$i \geq j$  $\implies$  $\pi(t) = \Pi_{k=1}^{j-1} (t - t_k)$  
-			
-			%When the limits make it vacuous, the product is taken to be 1.\\
-			%\ms{work on vacuous}
 		\end{enumerate}
-		\item $interval[0] \coloneqq t[0] $ , this is initialized to 
-		starting point for non piecewise functions.
-	\end{itemize}	
-	\item output: NA	
 \item exception: NA
 \end{itemize}
 
 
 
 
-\noindent \textbf{evalNewton($t$,$y$):}
+\noindent \textbf{evalNewton($s$, $t$, $y$):}
 \begin{itemize}
 	\item transition: NA
 	
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
-	below.
+	$\forall t_i \in xNew$, yNew$\vert\vert\ y_0$ where $y_0$ is obtained as 
+	shown below.
 	
 	\begin{equation*}
 	y_0 = x_1 + x_2(t-t_1) + x_3(t-t_1)(t-t_2) + ... 
@@ -660,18 +530,16 @@ NA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \noindent \textbf{interpHermiteCubic($t$,$y$):}
 \begin{itemize}
-	\item transition: 
+\item transition: NA
 	
+\item output: \textit{out}$\ \coloneqq\ (x,\ \text{int})$ as shown below.
+
+
 	\begin{itemize}
-		\item 
-		\begin{enumerate}
-			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
-			This is necessary as all the methods will be using the same state 
-			variable.
-			
-			\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ 
-			using 
-			the equation below.
+	\item 
+	\begin{enumerate}
+		\item x:$\mathbb{R}^{n \times n-1}$ obtained by solving for $x$ using 
+		the equation below.
 		\begin{equation*}
 		\begin{bmatrix}
 		1          & t_0       & t_0 ^{2}         & t_0 ^{3}         \\
@@ -717,31 +585,31 @@ NA
 		\end{bmatrix}
 		\end{equation*}\\ 
 		Where $y_0 ^{(3)}$ represents the third derivative of $y_0$.
-		\end{enumerate}
-		\item interval: $\mathbb{R}^{k} = t[0] $ to $t[n-2]$, by default we 
-		make each point a breakpoint and hence there is a piecewise polynomial 
-		between [$t_{i-1},t_i$).
-	\end{itemize}	
-	
-	\item output: NA.	
+	\end{enumerate}
+	\item int: $\mathbb{R}^{n} = t[0] $ to $t[n-2]$, by default we 
+	make each point a breakpoint and hence there is a piecewise polynomial 
+	between [$t_{i-1},t_i$).
+\end{itemize}	
 	
 \item exception: NA 
 \end{itemize}
 
 
 
-\noindent \textbf{evalHermiteCubic($t$,$y$):}
+\noindent \textbf{evalHermiteCubic($xNew$,$t$,$y$):}
 \begin{itemize}
 	\item transition: 
 		
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
+	$\forall t \in xNew$, yNew$\vert\vert\ y_0$ where $y_0$ is obtained as 
+	shown 
 	below.
 	
 	\begin{equation*}
 	y_0 = x_{k0} + x_{k1} t + x_{k2} t^{2} + x_{k3} t^{3}\ \ for\ k = 0\ to\ n-2
 	\end{equation*}
+	Where $k$ represents the interval to which $t$ belongs.
 	
 	\item exception: NA
 \end{itemize}
@@ -753,16 +621,13 @@ NA
 
 \noindent \textbf{interpBSpline($t$,$y$):}
 \begin{itemize}
-	\item transition: 
+	\item transition:NA 
 	
-		\begin{itemize}
-		\item 
+	\item output: \textit{out}$\ \coloneqq\ x$ as shown below.
+	
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
-			This is necessary as all the methods will be using the same state 
-			variable.
 			
-			\item x: $\mathbb{R}^{m \times n}$ obtained by using the formula 
+			\item x: $\mathbb{R}^{m}$ obtained by using the formula 
 			below.
 			
 			For $k>0$ to $n$, where $n$ is the number of data points
@@ -771,30 +636,20 @@ NA
 			\end{equation*}
 			
 			\ms{BSpline gives the v values which will be used recursively in 
-			formula defined in IM\ref{IM_BSpline} of the CA document}
-			
+				formula defined in IM\ref{IM_BSpline} of the CA document}	
 		\end{enumerate}
-		\item interval: $\mathbb{R}^{k} = t[0] $ to $t[n-2]$, by default we 
-		make each point a breakpoint and hence there is a piecewise polynomial 
-		between [$t_{i-1},t_i$).
-	\end{itemize}
-	
-	
-	 
-	\item output: NA 	
-	 
-	\item exception: NA 
+\item exception: NA 
 \end{itemize}
 
 
-\noindent \textbf{evalBSpline($t$,$y$):}
+\noindent \textbf{evalBSpline($xNew$,$t$,$y$):}
 \begin{itemize}
 	\item transition: 
 	
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
-	below.
+	$\forall t_i \in xNew$, yNew$\vert\vert\ y_0$ where $y_0$ is obtained as 
+	shown below.
 	
 	\begin{equation*}
 	y_0 = B_i ^k (t) = v_i ^k (t) B_i ^{k-1} (t) + (1 - v_{i+1} ^k (t))B_{i+1} 
@@ -825,7 +680,7 @@ reg
 
 \subsection{Uses}
 
-Input(\ref{mInput}), Output(\ref{mOutput}), Sequence services(\ref{seqSer})
+Input(\ref{mInput}), Sequence services(\ref{seqSer})
 
 \subsection{Syntax}
 
@@ -836,146 +691,128 @@ NA
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-	\begin{tabular}{p{4cm} p{4cm} p{4cm} p{1cm}}
+	\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
 		\hline
 		\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 		\hline
-		regNormalEq & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$, deg:$\mathbb{N}$  & 
-		- & - \\
-		regAugSys & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$, deg:$\mathbb{N}$ & -
-		& - \\
-		regOrthogonalTn & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,  
-		deg:$\mathbb{N}$ & -
-		& - \\
-		evalReg & t:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
 		
+		regNormalEq & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$, deg:$\mathbb{N}$  & 
+		x:$\mathbb{R}^{deg+1}$ & - \\
+		
+		regAugSys & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$, deg:$\mathbb{N}$ & 
+		x:$\mathbb{R}^{deg+1}$& - \\
+		
+		regOrthogonalTn & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & x:$\mathbb{R}^{n}$
+		& - \\
+		evalReg & s:$\mathbb{R}^n$, xNew:$\mathbb{R}^m$ & yNew:$\mathbb{R}^m$ & 
+		- \\
+
+		polyval & s:$\mathbb{R}^n$, xNew:$\mathbb{R}^m$ & yNew:$\mathbb{R}^m$ & 
+		- \\		
 		\hline
 	\end{tabular}
 \end{center}
 
 \wss{Again, it is unclear why you have an input parameters module with state
-  information if you aren't going to use that state information.}
+  information if you aren't going to use that state information.}\ms{I dont 
+  have state variables anymore.}
 
 \subsection{Semantics}
 
-\subsubsection{State Variables}
-\begin{itemize}
-
-\item x: $\mathbb{R}^m$\\
-\end{itemize}
-
-\wss{You should give a clue on how to interpret this state variable.  Is it the
-  coefficients for the polynomial?}
+\subsubsection{State Variables} NA
 
 \subsubsection{Environment Variables}
 
 NA
 
 \subsubsection{Assumptions}
-\begin{itemize}
-\item input.verifyDegree() will be called before any of the access programs 
-will be used.
-\item evalReg() will be called after calling (regNormalEq() $\lor$  
-regAugSys() $\lor$ regOrthogonalTn()).
-\end{itemize}
+
 \subsubsection{Access Routine Semantics}
 
-\noindent reg.$x$:
-\begin{itemize}
-	\item transition: NA	
-	\item output: \textit{out} := $x$
-	\item exception: NA
-\end{itemize}
-
-~\newline
-~\newline
 \noindent \textbf{regNormalEq($t$,$y$,$deg$):}
 \begin{itemize}
-	\item transition: 
+	\item transition: NA
+	\item output: \textit{out}$\ \coloneqq\ x$ as shown below. 
+	
 	\begin{itemize}
-		\item $degVerify$ = verifyDegree($deg$)
-		\item ($degVerify == True) \Longrightarrow\  x : \mathbb{R}^n$ is 
-		initialized to $0.0$.\ms{This is 
-		initialization with maximum length possible. For a data of length n, 
-		you can maximum get n coefficients in the polynomial.}
-		\item $x : \mathbb{R}^m$, obtained by solving for $x$ in the 
-		equation below.\ms{m is the degree of the coefficients of the 
-		polynomial.}
+		\item $x : \mathbb{R}^{deg+1}$, obtained by solving for $x$ in the 
+		equation below.
 		\begin{equation*}
 		A^{T} Ax = A^{T}y
 		\end{equation*}  
 	\end{itemize} 
-	\item output: NA
 	\item exception: NA
 \end{itemize}
 
 ~\newline
-~\newline
+
 
 \noindent \textbf{regAugSys($t$,$y$,$deg$):}
 \begin{itemize}
-\item transition: 
-\begin{itemize}
-	\item $degVerify$ = verifyDegree($deg$)
-	\item ($degVerify == True) \Longrightarrow\  x : \mathbb{R}^n$ is 
-	initialized to 0.0. \ms{This is 
-		initialization with maximum length possible. For a data of length n, 
-		you can maximum get n coefficients in the polynomial.}
-	\item $x : \mathbb{R}^m$, obtained by solving for $x$ in the 
-	equation below.\ms{m is the degree of the coefficients of the 
-		polynomial.}
-		\begin{equation*}
-		r + Ax = y
-		\end{equation*}
-		\begin{equation*}
-		A^{T} r = 0
-		\end{equation*}
-		\text{Where $r$ is the residual vector.}
-	\end{itemize}	
-	\item output: NA 
-		
+	\item transition: NA
+	\item output: \textit{out}$\ \coloneqq\ x$ as shown below. 
+	\begin{itemize}
+		\item $x : \mathbb{R}^{deg+1}$, obtained by solving for $x$ in the 
+		equation below.	
+	\begin{equation*}
+	r + Ax = y
+	\end{equation*}
+	\begin{equation*}
+	A^{T} r = 0
+	\end{equation*}
+	\text{Where $r$ is the residual vector.} 
+	\end{itemize}
 	\item exception: NA
 \end{itemize}
 
 ~\newline
 ~\newline
 
-\noindent \textbf{regOrthogonalTn($t$,$y$,$deg$):}
+\noindent \textbf{regOrthogonalTn($t$,$y$):}
+
 \begin{itemize}
-\item transition: 
-\begin{itemize}
-	\item $degVerify$ = verifyDegree($deg$)
-	\item ($degVerify == True)\  x : \mathbb{R}^n$ is 
-	initialized to $0.0$. \ms{This is 
-		initialization with maximum length possible. For a data of length n, 
-		you can maximum get n coefficients in the polynomial.}
-	\item $x :\ \mathbb{R}^m$, obtained by solving for $x$ in the 
-	equation below.\ms{m is the degree of the coefficients of the 
-		polynomial.}
+	\item transition: NA
+	\item output: \textit{out}$\ \coloneqq\ x$ as shown below. 
+	\begin{itemize}
+		\item $x :\ \mathbb{R}^{n}$, obtained by solving for $x$ in the 
+		equation below.\ms{For QR factorization, degree of polynomial = n-1, so 
+		the length of coeff array will be the same as data length.}	
 		\begin{equation*}
 		Ax = Py
 		\end{equation*}\\
-		\text{Where $P$ is the orthogonality matrix.}
-	\end{itemize}	
-	\item output: NA
-	
-	
+		\text{Where $P$ is the orthogonality matrix.} 
+	\end{itemize}
 	\item exception: NA
 \end{itemize}
 
-\noindent \textbf{evalReg($t$):}
+
+
+\noindent \textbf{polyval($s$,$xNew$):}
 \begin{itemize}
 	\item transition: NA
-	\item output: \textit{out} := $yNew$, where
-	$ \forall\ t_i\ \in\ t$,  
+	\item output: \textit{out} := $yNew$, where  
 	\begin{equation*}
-	yNew||(np.poly1d(x)(t_i))
+	yNew \coloneqq numpy.polyval(s,xNew)
+	\end{equation*}
+	\item exception: NA
+	\item implemented by: Python numpy
+\end{itemize}
+
+
+
+\noindent \textbf{evalReg($s$,$xNew$):}
+\begin{itemize}
+	\item transition: NA
+	\item output: \textit{out} := $yNew$, where  
+	\begin{equation*}
+	yNew \coloneqq polyval(s,xNew)
 	\end{equation*}
 	\item exception: NA
 \end{itemize}
 
 \wss{Is this connected to the state variable? I think so?}  \wss{You should use
-  calls to Python in your specification.  Say things mathematically.}
+  calls to Python in your specification.  Say things 
+  mathematically.}\ms{Changes made}
 
 \subsubsection{Local Functions}
 
@@ -1003,14 +840,16 @@ Plot(\ref{plot}), Sequence services(\ref{seqSer})
 	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 	\midrule
 	
-	plotDataFit & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ &  & -  \\
+	plotDataFit & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,yfit:$\mathbb{R}^n$ & plot 
+	& -  
+	\\
 	
-	coeffPlotScreen & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,x:$\mathbb{R}^m$ & 
+	coeffPlotScreen & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,yfit:$\mathbb{R}^n$, 
+	x:$\mathbb{R}^m$ & 
 	x:$\mathbb{R}^m$, plot &  -\\
 	
-	coeffFile& x:$\mathbb{R}^m$,t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & 
-	x:$\mathbb{R}^m$
-	& - \\
+	coeffFile& x:$\mathbb{R}^m$ & 
+	x:$\mathbb{R}^m$ & - \\
 	
 	\bottomrule
 \end{tabular}
@@ -1020,23 +859,6 @@ Plot(\ref{plot}), Sequence services(\ref{seqSer})
 NA
 
 \subsubsection{Exported Access Programs}
-\begin{tabular}{p{3cm} p{3cm} p{4cm} >{\raggedright\arraybackslash}p{5cm}}
-	\toprule
-	\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-	\midrule
-	
-	plotDataFit & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ &  & -  \\
-	
-	coeffPlotScreen & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$,x:$\mathbb{R}^m$ & 
-	x:$\mathbb{R}^m$, plot &  -\\
-	
-	coeffFile& x:$\mathbb{R}^m$,t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & 
-	x:$\mathbb{R}^m$
-	& - \\
-		
-	\bottomrule
-\end{tabular}
-
 
 \subsection{Semantics}
 
@@ -1067,52 +889,40 @@ OutputFile: String\\
 
 
 
-\noindent \textbf{plotDataFit($t$,$y$):}
+\noindent \textbf{plotDataFit($t$,$y$,$yfit$):}
 \begin{itemize}
-	\item transition: 
-	\begin{itemize}
-		\item Call the appropriate evaluate method from the interpolation or 
-		regression module as shown below..
-		
+	\item transition: NA 
+	
+	\item output: \textit{out:=} plot
 		\begin{enumerate}
-			
-			\item $yNew = $\ interp.evalMonomial($t$,$y$) or
-			interp.evalLagrange($t$,$y$) or
-			interp.evalNewton($t$,$y$) or
-			interp.evalHermiteCubic($t$,$y$) or
-			interp.evalBSpline($t$,$y$) or
-			reg.evalReg($t$)
-			
-			\item plot($t,y$) and plot($t$,$yNew$)
-\end{enumerate}	
-	\end{itemize}
-
-	\item output: \text{out:=} plot
+			\item plot($t,y$) and plot($t$,$yfit$)
+		\end{enumerate}
 	
 	\item exception: NA
 \end{itemize}
 
-\noindent \textbf{coeffPlotScreen($t$,$y$):}
+\noindent \textbf{coeffPlotScreen($t$,$y$,$yfit$,$x$):}
 \begin{itemize}
-	\item transition :
-	\begin{itemize}
-		\item plotDataFit($t$,$y$)
-	\end{itemize}
-	\item output: \text{Out:= $interp.x\ \text{or}\ reg.x$, plot  } 
+	\item transition : NA
+
+	\item output: \textit{Out}:= ($x$, plot), where $x$ from the input and plot 
+	as shown below.
+		\begin{itemize}
+		\item plot($t,y$) and plot($t$,$yfit$)
+		\end{itemize}	 
 	\item exception: NA
 \end{itemize}
 
 
 ~\newline
-\noindent \textbf{coeffFile():}
+\noindent \textbf{coeffFile($x$):}
 \begin{itemize}
-	\item transition: 
-	\begin{itemize}
-		
+	\item transition: NA
+	\item output: \textit{Out}:= $x$
+	\begin{itemize}	
 		\item Create OutputFile. 
-		\item write $interp.x\ \text{or}\ reg.x$
+		\item write $x$
 	\end{itemize}
-	\item output: NA
 	\item exception: NA 
 \end{itemize}
 
