@@ -96,7 +96,8 @@ with the addition that template modules have been adapted from
 \cite{GhezziEtAl2003}. The mathematical notation comes from Chapter 3 of
 \citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
 multiple assignment statement and conditional rules follow the form $(c_1
-\Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
+\Longrightarrow r_1 | c_2 \Longrightarrow r_2 | ... | c_n \Longrightarrow r_n 
+)$.
 
 
 
@@ -111,7 +112,8 @@ The following table summarizes the primitive data types used by \progname.
 \midrule
 character & char & a single symbol or digit\\
 integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
-natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
+natural number & $\mathbb{N}$ & a number without a fractional component in [1, 
+$\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 
 boolean & $\mathbb{B}$ & a value from the set\ \{$True$,$False$\}\\
@@ -288,7 +290,8 @@ discussed. }
 	\end{enumerate}
 	\item output: NA
 	\item exception: $exc$ := a file name $s$ cannot be found $\lor$ the format 
-	of inFile is incorrect $\Rightarrow$ FileError.\ms{I am yet to decide if 
+	of inFile is incorrect $\Longrightarrow$ FileError.\ms{I am yet to decide 
+	if 
 	the 
 	library will take a .txt and .csv or both. This specification will become 
 	formal once we decide the type of the input file.}
@@ -302,17 +305,17 @@ discussed. }
 \item exception: $exc$ := 
 \end{itemize}
 
-\begin{tabular}{p{12cm} p{4.75cm}}
+\begin{tabular}{p{10cm} p{6.75cm}}
 	
 	\toprule
 	\textbf{Name}&\textbf{Exception}\\
 	\midrule
 
 
-$ (|t| \leq 1 \lor |y| \leq 1)$ & $\Rightarrow$ LengthError\\
-$ (|t| \neq |y|)$ & $\Rightarrow$ LengthMismatchError\\
-$ (\forall x \in t \land  x \notin \mathbb{R} )$ & $\Rightarrow$ TypeError\\
-$ (\forall x \in y \land  x \notin \mathbb{R} )$ & $\Rightarrow$ TypeError\\
+$ (|t| \leq 1 \lor |y| \leq 1)$ & $\Longrightarrow$ LengthError\\
+$ (|t| \neq |y|)$ & $\Longrightarrow$ LengthMismatchError\\
+$ (\exists x \in t \land  x \notin \mathbb{R} )$ & $\Longrightarrow$ TypeError\\
+$ (\exists x \in y \land  x \notin \mathbb{R} )$ & $\Longrightarrow$ TypeError\\
 
 
 \bottomrule
@@ -338,7 +341,7 @@ $ (\forall x \in y \land  x \notin \mathbb{R} )$ & $\Rightarrow$ TypeError\\
 	\midrule
 	
 	
-	$ (deg \notin \mathbb{N})$ & $\Rightarrow$ ValueError\\
+	$ (deg \notin \mathbb{N})$ & $\Longrightarrow$ ValueError\\
 
 	
 	\bottomrule
@@ -410,7 +413,8 @@ evalBSpline & t:$\mathbb{R}^n$,y:$\mathbb{R}^n$ & yNew:$\mathbb{R}^n$ & - \\
 
 \subsubsection{State Variables}
 \begin{itemize}
-	\item x:$\mathbb{R}^{m X n}$, \text{where $n$ is the number of data points 
+	\item x:$\mathbb{R}^{m \times n}$, \text{where $n$ is the number of data 
+	points 
 	and $m$ is the number of sections.}\\
 	
 	\item interval:$\mathbb{R}^m$, \text{$m$ is the number of sections} \\
@@ -459,10 +463,10 @@ NA
 \begin{itemize}
 	\item 
 	\begin{enumerate}
-	\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. This is 
+	\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. This is 
 	necessary as all the methods will be using the same state variable.
 	
-	\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using the 
+	\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ using the 
 	equation below.
 	
 	\begin{equation*}
@@ -501,9 +505,9 @@ NA
 	
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew.append(y1) where y1 is obtained as shown below.
+	$\forall t_i \in t$, yNew||$y_1$ where $y_1$ is obtained as shown below.
 	\begin{equation*}
-	y1 = x_1 + x_2 t_i + x_3 t_i ^2 + x_4 t_i ^3 + ... x_n t_i ^{n-1}  
+	y_1 = x_1 + x_2 t_i + x_3 t_i ^2 + x_4 t_i ^3 + ... x_n t_i ^{n-1}  
 	\end{equation*}
 	
 	\item exception: NA
@@ -517,11 +521,12 @@ NA
 	\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using 
+			\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ 
+			using 
 			the equation below.
 			
 			\begin{equation*}
@@ -559,7 +564,7 @@ NA
 	
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
 	below.
 	
 	\begin{equation*}
@@ -586,11 +591,12 @@ NA
 	\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using 
+			\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ 
+			using 
 			the equation below.
 			\begin{equation*}
 			\begin{bmatrix}
@@ -638,7 +644,7 @@ NA
 	
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
 	below.
 	
 	\begin{equation*}
@@ -659,11 +665,12 @@ NA
 	\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: $\mathbb{R}^{m X n}$ obtained by solving for $x$ using 
+			\item x: $\mathbb{R}^{m \times n}$ obtained by solving for $x$ 
+			using 
 			the equation below.
 		\begin{equation*}
 		\begin{bmatrix}
@@ -697,19 +704,19 @@ NA
 		\begin{bmatrix}
 		y_0  \\
 		\vdots \\
+		y_n  \\
 		y_0 ^{(1)} \\
-		y_1 ^{(1)} \\
 		\vdots \\
 		y_n ^{(1)} \\
-		y_1 ^{(2)} \\
+		y_0 ^{(2)} \\
 		\vdots \\
 		y_n ^{(2)} \\  
-		y_1 ^{(3)} \\
+		y_0 ^{(3)} \\
 		\vdots \\
 		y_n ^{(3)} \\ 
 		\end{bmatrix}
 		\end{equation*}\\ 
-		
+		Where $y_0 ^{(3)}$ represents the third derivative of $y_0$.
 		\end{enumerate}
 		\item interval: $\mathbb{R}^{k} = t[0] $ to $t[n-2]$, by default we 
 		make each point a breakpoint and hence there is a piecewise polynomial 
@@ -729,7 +736,7 @@ NA
 		
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
 	below.
 	
 	\begin{equation*}
@@ -751,11 +758,12 @@ NA
 		\begin{itemize}
 		\item 
 		\begin{enumerate}
-			\item x: $\mathbb{R}^{m X n} = 0.0 $, this is initialization. 
+			\item x: $\mathbb{R}^{m \times n} = 0.0 $, this is initialization. 
 			This is necessary as all the methods will be using the same state 
 			variable.
 			
-			\item x: $\mathbb{R}^{m X n}$ obtained by using the formula below.
+			\item x: $\mathbb{R}^{m \times n}$ obtained by using the formula 
+			below.
 			
 			For $k>0$ to $n$, where $n$ is the number of data points
 			\begin{equation*}
@@ -785,7 +793,7 @@ NA
 	
 	\item output:  \textit{out} := $yNew$
 	
-	$\forall t_i \in t$, yNew.append($y_0$) where $y_0$ is obtained as shown 
+	$\forall t_i \in t$, yNew||$y_0$ where $y_0$ is obtained as shown 
 	below.
 	
 	\begin{equation*}
@@ -886,10 +894,11 @@ regAugSys() $\lor$ regOrthogonalTn()).
 	\item transition: 
 	\begin{itemize}
 		\item $degVerify$ = verifyDegree($deg$)
-		\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
+		\item ($degVerify == True) \Longrightarrow\  x : \mathbb{R}^n$ is 
+		initialized to $0.0$.\ms{This is 
 		initialization with maximum length possible. For a data of length n, 
 		you can maximum get n coefficients in the polynomial.}
-		\item $x ^ m = \mathbb{R}^m$, obtained by solving for $x$ in the 
+		\item $x : \mathbb{R}^m$, obtained by solving for $x$ in the 
 		equation below.\ms{m is the degree of the coefficients of the 
 		polynomial.}
 		\begin{equation*}
@@ -908,10 +917,11 @@ regAugSys() $\lor$ regOrthogonalTn()).
 \item transition: 
 \begin{itemize}
 	\item $degVerify$ = verifyDegree($deg$)
-	\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
+	\item ($degVerify == True) \Longrightarrow\  x : \mathbb{R}^n$ is 
+	initialized to 0.0. \ms{This is 
 		initialization with maximum length possible. For a data of length n, 
 		you can maximum get n coefficients in the polynomial.}
-	\item $x ^ m = \mathbb{R}^m$, obtained by solving for $x$ in the 
+	\item $x : \mathbb{R}^m$, obtained by solving for $x$ in the 
 	equation below.\ms{m is the degree of the coefficients of the 
 		polynomial.}
 		\begin{equation*}
@@ -935,10 +945,11 @@ regAugSys() $\lor$ regOrthogonalTn()).
 \item transition: 
 \begin{itemize}
 	\item $degVerify$ = verifyDegree($deg$)
-	\item ($degVerify == True) \Longrightarrow  x ^ n = 0.0$ \ms{This is 
+	\item ($degVerify == True)\  x : \mathbb{R}^n$ is 
+	initialized to $0.0$. \ms{This is 
 		initialization with maximum length possible. For a data of length n, 
 		you can maximum get n coefficients in the polynomial.}
-	\item $x ^ m = \mathbb{R}^m$, obtained by solving for $x$ in the 
+	\item $x :\ \mathbb{R}^m$, obtained by solving for $x$ in the 
 	equation below.\ms{m is the degree of the coefficients of the 
 		polynomial.}
 		\begin{equation*}
@@ -958,7 +969,7 @@ regAugSys() $\lor$ regOrthogonalTn()).
 	\item output: \textit{out} := $yNew$, where
 	$ \forall\ t_i\ \in\ t$,  
 	\begin{equation*}
-	yNew.append(np.poly1d(x)(t_i))
+	yNew||(np.poly1d(x)(t_i))
 	\end{equation*}
 	\item exception: NA
 \end{itemize}
@@ -1036,7 +1047,13 @@ NA
 \subsubsection{Environment Variables}
 
 
-OutputFile: Results.csv
+OutputFile: String\\
+
+\noindent The OutputFile represents a file in the hardware's file system.\\
+
+\noindent The name of the file will be results.txt.\\
+
+
 
 \subsubsection{Assumptions}
 
@@ -1092,7 +1109,7 @@ OutputFile: Results.csv
 	\item transition: 
 	\begin{itemize}
 		
-		\item Create a csv file named `Result'
+		\item Create OutputFile. 
 		\item write $interp.x\ \text{or}\ reg.x$
 	\end{itemize}
 	\item output: NA
@@ -1102,6 +1119,7 @@ OutputFile: Results.csv
 \subsubsection{Local Functions}
 
 NA
+
 
 
 %####################################################################
@@ -1234,7 +1252,7 @@ NA
 	\item transition: modify win so that it displays an x-y graph of the data 
 	points showing X and the corresponding Y values.  X is the independent 
 	variable and Y as the dependent variable.
-	\item exception: $( |X| \neq |Y| \Rightarrow \mbox{SeqSizeMismatch})$
+	\item exception: $( |X| \neq |Y| \Longrightarrow \mbox{SeqSizeMismatch})$
 \end{itemize}
 
 \newpage
