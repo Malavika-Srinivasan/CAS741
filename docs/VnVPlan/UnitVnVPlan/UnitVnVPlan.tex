@@ -44,7 +44,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Dec 4, 2018 & 1.0 & First draft by Malavika\\
-
+Dec 23, 2018 & 2.0 & Final draft by Malavika\\
 \bottomrule
 \end{tabularx}
 
@@ -79,7 +79,8 @@ Dec 4, 2018 & 1.0 & First draft by Malavika\\
 Also, see the table of symbols in CA at: 
 \url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/SRS/CA.pdf}
 \\
-
+Please note that, T in this document refers to Test unlike Theoretical model in 
+CA. \\
 
 \newpage
 
@@ -105,10 +106,10 @@ maintainability, testability and portability.
 
 \subsection{Purpose}
 
-This document will summarize the plan for verification and validation of
-of the modules of \famname{} in compliance with their functions and semantics 
+This document will summarize the plan for verification and validation of the 
+modules of \famname{} in compliance with their functions and semantics 
 mentioned in the MIS document found at 
-\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/MIS/MIS.pdf}
+\url{https://github.com/Malavika-Srinivasan/CAS741/tree/master/docs/Design/MIS/MIS.pdf.}
 
 The goal statement from the CA document is presented below.\\
 \noindent ``Given the set of data points, the choice of software from 
@@ -125,15 +126,18 @@ The goal statement from the CA document is presented below.\\
 
 Some of the modules such as sequence services and plot module are not 
 implemented by \famname{}, but are a part of it. The services offered by these 
-modules, are implemented by python and testing them are out of scope for this 
+modules are implemented by python and testing them are out of scope for this 
 project.
+
 The output module of \famname{} does not compute anything. It essentially gives 
 the output from the modules to the user program by using access methods from 
-interpolation or regression module. It uses plot module for plotting the 
+interpolation and regression modules. It uses plot module for plotting the 
 results. Hence, the testing of output module is covered by the test cases of 
-interpolation and regression module.
+interpolation and regression modules.
 
-\wss{What modules are you testing?}
+The Input module, Interpolation module and the Regression module are tested.
+
+\wss{What modules are you testing?}\ms{Added}
 
 \section{Plan}
 
@@ -146,7 +150,7 @@ The verification and validation team for \famname{} includes the following
 people.
 \begin{itemize}
 	\item Malavika Srinivasan 
-	\item Dr.Spencer Smith \wss{missing a space}
+	\item Dr.\ Spencer Smith \wss{missing a space}\ms{space added}
 	\item Hanane Zlitni
 \end{itemize}
 
@@ -159,9 +163,12 @@ will be using cov package which gives the code coverage metrics.
 
 \subsection{Non-Testing Based Verification}
 
-NA \wss{why is this not applicable?  You don't have to do inspections, code
+Code walkthrough and inspection was planned but due to lack of time, they are 
+not conducted at this point of time.
+
+ \wss{why is this not applicable?  You don't have to do inspections, code
   walkthroughs etc, but you should say what it isn't applicable.  If the reason
-  is a lack of time, that can be the reason you give.}
+  is a lack of time, that can be the reason you give.}\ms{Explanation added}
 
 \section{Unit Test Description}
 
@@ -190,8 +197,9 @@ In this section, we will present the test cases for each access method of the
 input module. Since all the access methods are tested, the entire module will 
 be tested. The test cases for this module are selected based on the constraints 
 for the input data. \\
-The typical constraints on the input data for \famname{} is associated with the 
-data type and length of the input data. Some of the inputs such as the degree 
+The typical constraints on the input data for \famname{} are associated with 
+the data type and length of the input data. Some of the inputs such as the 
+degree 
 of the polynomial have mathematical restrictions of being a natural number. The 
 test cases listed below are designed to ensure that the input data to 
 \famname{} does not violate these constraints.  
@@ -240,7 +248,7 @@ Initial State: NA
 
 Input: deg = 1.5 
 
-Output: Exception message (``Degree cannot be a real number'')
+Output: Exception message (``Degree must be a natural number'')
 
 Test Case Derivation: NA
 
@@ -394,29 +402,29 @@ for coverage of modules.
 		\hline	
 		\textbf{Test Number} & \textbf{Modules} \\
 		\hline 
-		T1&  M1      \\ \hline
-		T2&   M1      \\ \hline
-		T3&   M1     \\ \hline
-		T4&   M1     \\ \hline
-		T5&   M2      \\ \hline
-		T6&   M2     \\ \hline
-		T7&   M2     \\ \hline
-		T8&   M2      \\ \hline
-		T9&   M2     \\ \hline
-		T10&  M2      \\ \hline
-		T11&   M2      \\ \hline
-		T12&   M2     \\ \hline
-		T13&   M2     \\ \hline
-		T14&   M2      \\ \hline
-		T15&   M3     \\ \hline
-		T16&   M3     \\ \hline
-		T17&   M3      \\ \hline
+		T1&  Input      \\ \hline
+		T2&  Input      \\ \hline
+		T3&  Input     \\ \hline
+		T4&  Input     \\ \hline
+		T5&  Interpolation      \\ \hline
+		T6&  Interpolation     \\ \hline
+		T7&  Interpolation     \\ \hline
+		T8&  Interpolation      \\ \hline
+		T9&  Interpolation     \\ \hline
+		T10& Interpolation      \\ \hline
+		T11& Interpolation      \\ \hline
+		T12& Interpolation     \\ \hline
+		T13& Interpolation     \\ \hline
+		T14& Interpolation      \\ \hline
+		T15& Regression     \\ \hline
+		T16& Regression     \\ \hline
+		T17& Regression      \\ \hline
 		
 	\end{tabular}\\
 \end{table}
 
 \wss{Please give the names of the modules so that they can be compared to the
-  information (which you will add) in the Scope section.}
+  information (which you will add) in the Scope section.}\ms{Added module name}
 
 
 

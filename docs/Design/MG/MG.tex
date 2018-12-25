@@ -50,8 +50,9 @@
 \midrule
 Oct 27, 2018 & 1.0 & First draft by Malavika\\
 Oct 30, 2018 & 1.1 & Second draft by Malavika\\
-Oct 27, 2018 & 1.0 & Third draft by Malavika\\
-Nov 5, 2018 & 1.2 & Fourth draft by Malavika\\
+Oct 27, 2018 & 1.2 & Third draft by Malavika\\
+Nov 5, 2018 & 1.3 & Fourth draft by Malavika\\
+Dec 24, 2018 & 1.4 & Final draft by Malavika\\
 \bottomrule
 \end{tabularx}
 
@@ -136,11 +137,6 @@ change.
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running. 
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item[\refstepcounter{acnum} \actheacnum \label{acSmoothing}:] The method used
-  to calculate best fit may be smoothing instead of interpolation and
-  regression.
 \item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of output
   data. Instead of best fit coefficients and plot, they may want to obtain the
   value of `y' at a particular `t' or a series of `t' values where $(t_i,y_i)$
@@ -148,6 +144,9 @@ change.
 \item[\refstepcounter{acnum} \actheacnum \label{acDegree}:] The user may not
   want to input the degree of the polynomial for regression and my want it to be
   computed by \famname{}.
+\item[\refstepcounter{acnum} \actheacnum \label{acNewIntReg}:] Additional 
+methods of interpolation and regression than the ones covered in this software 
+may be added in the future.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -162,12 +161,8 @@ decisions will be changed.
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software. \wss{I think we should remove
-    this UC.  It still doesn't really make sense to me.  I have removed it from
-    the blank project template.}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucNonLinear}:] If \famname{} is
-  used with non linear systems, then the results from the software is no longer
+  used with non linear systems, then the results from the software are no longer
   valid.
 \end{description}
 
@@ -183,13 +178,11 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mBH}:] Behaviour-Hiding Module
 \item [\refstepcounter{mnum} \mthemnum \label{mControl}:] User-program Module
 \item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
-
-\item [\refstepcounter{mnum} \mthemnum \label{mBestFit}:] Best fit Module
 \item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Module
 \item [\refstepcounter{mnum} \mthemnum \label{mSD}:] Software Decision Module
 \item [\refstepcounter{mnum} \mthemnum \label{mSeqSer}:] Sequence Services Module 
 \item [\refstepcounter{mnum} \mthemnum \label{mInterp}:] Interpolation Module
-\item [\refstepcounter{mnum} \mthemnum \label{mLinearReg}:] Linear Regression Module
+\item [\refstepcounter{mnum} \mthemnum \label{mLinearReg}:] Regression Module
 \item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plot Module
 \end{description}
 
@@ -208,14 +201,13 @@ operating system.  It will not be reimplemented.  Similarly, \mref{mSeqSer} and
 \midrule
 
 \multirow{3}{0.3\textwidth}{Behaviour-Hiding Module}& Input\\
-& Best fit\\
 & Output\\
 
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & Sequence Services\\
+\multirow{4}{0.3\textwidth}{Software Decision Module} & Sequence Services\\
 & Interpolation\\
-& Linear Regression\\
+& Regression\\
 & Plot\\
 \bottomrule
 
@@ -273,10 +265,14 @@ programming language selected.
 \subsubsection{User-program Module (\mref{mControl})}
 
 \begin{description}
-\item[Secrets:]This is the user program which is abstracted as a module which
-  uses the best fit module to use the appropriate service. \wss{This isn't
+\item[Secrets:]This is the user program which
+  uses the Interpolation, Regression and Output modules to use the appropriate 
+  service. This is not a module of \famname{} but is an external program which 
+  is included here for ease of understanding.
+   \wss{This isn't
     actually a module.  If you want to include it, you should say this.  This is
     an external program that uses the services provided by the other modules.}
+\ms{Mentioned details about UserProgram.}
 	\item[Services:] NA.
 	\item[Implemented By:] User
 \end{description}
@@ -285,25 +281,22 @@ programming language selected.
 \subsubsection{Input Module (\mref{mInput})}
 
 \begin{description}
-	\item[Secrets:]The format and structure of input data.
-	\item[Services:]Converts the input data into the data structure used by
-          other modules and verifies the type of the input. A `TypeError'
-          exception is raised if there is a type mismatch.
+	\item[Secrets:]The constraints of input data.
+	\item[Services:]Verifies the input data. 
+		\begin{enumerate}
+			\item A `TypeError' exception is raised if there is a type mismatch.
+			\item A 'LengthError' exception is raised if length of input arrays 
+			is equal to 1.
+			\item A 'LengthMismatchError' exception is raised if length of the 
+			two input arrays are not the same.
+			\item A 'valueError' exception is raised if the degree input is not 
+			a natural number.
+		\end{enumerate} 
 	\item[Implemented By:] \famname{}
 \end{description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Best fit Module (\mref{mBestFit})}
 
-\begin{description}
-	\item[Secrets:]The user's choice of best fit method and degree of the fit.
-	\item[Services:] Provides the interface to invoke the appropriate method
-          of fit and obtains additional input like degree of the polynomial for
-          regression.
-	\item[Implemented By:] \famname{}
-\end{description}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Output Module (\mref{mOutput})}
 
@@ -322,11 +315,9 @@ programming language selected.
 \begin{description}
 \item[Secrets:] The design decision based on mathematical theorems, physical
   facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
+  \emph{not} described in the CA document.
 \item[Services:] Includes data structure and algorithms used in the system that
   do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
 \item[Implemented By:] --
 \end{description}
 
@@ -337,7 +328,7 @@ programming language selected.
 	\item[Secrets:] The data structure for a sequence data type.
 	\item[Services:] Provides array manipulation, including building an array,
 	accessing a specific entry etc.
-	\item[Implemented By:] Python
+	\item[Implemented By:] Python - Numpy
 \end{description} 
 
 \subsubsection{Interpolation Module (\mref{mInterp})}
@@ -345,7 +336,7 @@ programming language selected.
 \begin{description}
 	\item[Secrets:] The algorithms used for interpolation.
 	\item[Services:] Provides the fit coefficients. \wss{I removed the word
-            best.  With interpolation there is only one fit.}
+            best.  With interpolation there is only one fit.}\ms{Thank you :)}
 	\item[Implemented By:] \famname{}
 \end{description}
 
@@ -362,7 +353,7 @@ programming language selected.
 \begin{description}
 	\item[Secrets:] The data structures and algorithms for plotting data graphically.
 	\item[Services:] Provides a plot function.
-	\item[Implemented By:] Python
+	\item[Implemented By:] Python - Matplotlib
 \end{description}
 
 \section{Traceability Matrix} \label{SecTM}
@@ -370,22 +361,20 @@ programming language selected.
 This section shows two traceability matrices: between the modules and the
 requirements and between the modules and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
 \begin{table}[H]
 \centering
 \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH},\mref{mBH}, \mref{mControl},\mref{mBestFit}, \mref{mInput}, \mref{mSeqSer} \\
+R1 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mInput}, \mref{mSeqSer} \\
 R2 & \mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer}\\
 R3 & \mref{mBH}, \mref{mControl} \mref{mInput}, \mref{mSeqSer}\\
-R4 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
-R5 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\ 
-R6 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
-R7 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
-R8 & \mref{mHH},\mref{mBH}, \mref{mControl}, \mref{mBestFit}\\
+R4 & \mref{mHH},\mref{mBH}, \mref{mControl}\\
+R5 & \mref{mHH},\mref{mBH}, \mref{mControl}\\ 
+R6 & \mref{mHH},\mref{mBH}, \mref{mControl}\\
+R7 & \mref{mHH},\mref{mBH}, \mref{mControl}\\
+R8 & \mref{mHH},\mref{mBH}, \mref{mControl}\\
 R9 & \mref{mControl},\mref{mSD}, \mref{mSeqSer}, \mref{mInterp}, \mref{mLinearReg}\\
 R10 & \mref{mHH},\mref{mBH}, \mref{mOutput}, \mref{mSeqSer}, \mref{mPlot}\\
 
@@ -402,10 +391,9 @@ R10 & \mref{mHH},\mref{mBH}, \mref{mOutput}, \mref{mSeqSer}, \mref{mPlot}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acSmoothing} & \mref{mBestFit}\\
 \acref{acOutput} & \mref{mOutput}\\
-\acref{acDegree} & \mref{mBestFit}\\
+\acref{acDegree} & \mref{mLinearReg}\\
+\acref{acNewIntReg} & \mref{mInterp}, \mref{mLinearReg}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -427,17 +415,12 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.8\textwidth]{UsesHierarchy.jpg}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
 
-\wss{This uses hierarchy is different from the one that I commented on in the
-  issue tracker.  It seems the main difference is the ``best fit'' module.  For
-  both diagrams it would make sense to draw an arrow from the top to input and
-  output.  The user program will use the input and output modules.  This uses
-  relation is covered by transitive closure, but I like it better when it is
-  explicit.}
+
 
 %\section*{References}
 
