@@ -532,7 +532,8 @@ Control: Automatic
 
 Initial State: NA
 
-Input: t = [ 0.0, 1.2,  1.9,  3.2,  4.0,  6.5], y = [ 0.0,  2.3,  3.0,  4.3,  2.9,  3.1], s=0, k=4
+Input: t = [ 0.0, 1.2,  1.9,  3.2,  4.0,  6.5], y = [ 0.0,  2.3,  3.0,  4.3,  
+2.9,  3.1]
 
 
 Output: 
@@ -662,8 +663,8 @@ Type: Automatic
 Initial State: NA 
 
 Input: ~\newline 
-$[1,-5.75, 9.5, 2]$, [1,3]\ms{Interval to be read as 1 to 3}, [1,3]\ms{Input x 
-	values}						
+[1,3]\ms{Points of evaluation}, [1,3]\ms{Input x values}, [2,1]\ms{y 
+val}						
 
 Output: [2,1]\ms{Output for each x value}
 
@@ -679,10 +680,8 @@ Type: Automatic
 Initial State: NA 
 
 Input: ~\newline 
-$[[1.0,1.0, 1.38888889, 2.0]$\\
-$[4.0, 4.0, 1.0, 1.0]$\\
-$[3.0, 3.61111111, 4.0, 4.0]]$, [1,2,4,5]\ms{Interval to be read as 1 to 2, 2 
-	to 4 and 4 to 5}, [1,2,4,5]	\ms{Input x values}				
+ [1,2,4,5]\ms{Points of evaluation}, [1,2,4,5]\ms{x values}, [2, 1, 4, 
+ 3]\ms{y values} 				
 
 Output: [2, 1, 4, 3]\ms{Output for each x value}
 
@@ -696,8 +695,9 @@ Type: Automatic
 
 Initial State: NA 
 
-Input: [0, 2.987, -0.574, 14.670,-10.325, 3.1, 0, 0, 0, 0, 0], t = [ 0.0, 1.2,  
-1.9, 3.2,  4.0,  6.5] 
+Input: [0.0, 1.2, 1.9, 3.2, 4.0, 6.5] \ms{points of evaluation}, [0.0, 1.2, 
+1.9, 3.2, 4.0, 6.5]\ms{x values}, 
+[0.0, 2.3, 3.0, 4.3, 2.9, 3.1]\ms{y values} 
 
 Output: [ 0.0,  2.3,  3.0,  4.3,  2.9,  3.1]
 
