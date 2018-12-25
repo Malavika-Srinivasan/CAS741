@@ -125,8 +125,8 @@ class Test_Interpolation:
         exp_interval = [1,3]
         act_coeff,act_interval = interp.interpHermiteCubic(t, y)
         #Checking the coefficients
-        for i in range(0, len(act_coeff.c)):
-            a = exp_coeff[i] - act_coeff.c[i]
+        for i in range(0, len(act_coeff)):
+            a = exp_coeff[i] - act_coeff[i]
             b = exp_coeff[i]
             assert (div(a, b) <= ADMISS_REL_ERR)
         #Checking interval information
@@ -149,9 +149,9 @@ class Test_Interpolation:
         act_coeff.append([])
         act_coeff.append([])
         act_coeff.append([])
-        act_coeff[0] = list(np.flip((act_coeff1.c[:, 0])))
-        act_coeff[1] = list(np.flip((act_coeff1.c[:, 1])))
-        act_coeff[2] = list(np.flip((act_coeff1.c[:, 2])))
+        act_coeff[0] = list(np.flip((act_coeff1[:, 0])))
+        act_coeff[1] = list(np.flip((act_coeff1[:, 1])))
+        act_coeff[2] = list(np.flip((act_coeff1[:, 2])))
         #Checking coefficients
         for i in range(0, len(act_coeff)):
             for j in range(0,len(act_coeff[i])):
@@ -171,7 +171,7 @@ class Test_Interpolation:
         y = [0.0, 2.3, 3.0, 4.3, 2.9, 3.1]
         exp_coeff = [0, 2.987, -0.574, 14.670,-10.325, 3.1, 0, 0, 0, 0, 0]
         interp = Interpolation(t, y)
-        splObj,act_coeff = interp.interpBSpline(t, y)
+        act_coeff = interp.interpBSpline(t, y)
         #Checking the coefficients
         for i in range(0, len(act_coeff)):
             a = exp_coeff[i] - act_coeff[i]
@@ -267,8 +267,7 @@ class Test_Interpolation:
         yarr = [2,1]
         y = [2,1]
         xnew = [1, 3]
-        h,v = interp.interpHermiteCubic(xarr,yarr)
-        yfit = interp.evalHermiteCubic(xnew,h)
+        yfit = interp.evalHermiteCubic(xnew, xarr, yarr)
         # Checking the fit
         for i in range(0, len(yfit)):
             a = y[i] - yfit[i]
@@ -282,8 +281,7 @@ class Test_Interpolation:
         yarr = [2, 1, 4, 3]
         xnew = [1,2,4,5]
         y = [2,1,4,3]
-        h, v = interp.interpHermiteCubic(xarr, yarr)
-        yfit = interp.evalHermiteCubic(xnew, h)
+        yfit = interp.evalHermiteCubic(xnew, xarr, yarr)
         # Checking the fit
         for i in range(0, len(yfit)):
             a = y[i] - yfit[i]
@@ -296,8 +294,7 @@ class Test_Interpolation:
         t = [0.0, 1.2, 1.9, 3.2, 4.0, 6.5]
         y = [0.0, 2.3, 3.0, 4.3, 2.9, 3.1]
         xnew = [0.0, 1.2, 1.9, 3.2, 4.0, 6.5]
-        splObj, act_coeff = interp.interpBSpline(t, y)
-        yfit = interp.evalBSpline(splObj, xnew)
+        yfit = interp.evalBSpline(xnew, t, y)
         # Checking the fit
         for i in range(0, len(yfit)):
             a = y[i] - yfit[i]

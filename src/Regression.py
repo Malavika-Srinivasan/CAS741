@@ -10,13 +10,6 @@ from scipy.linalg import lu
 from numpy.linalg import inv
 from numpy.linalg import qr
 
-def div(a, b):
-    if b == 0:
-        ans = 0
-    else:
-        ans = a/b
-    return ans
-
 class Regression:
 
     def __init__(self, t, y, deg):

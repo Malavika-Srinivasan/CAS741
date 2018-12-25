@@ -169,13 +169,9 @@ class Test_Correctness:
         act_coeff.append([])
         act_coeff.append([])
         act_coeff.append([])
-        act_coeff[0] = list(np.flip((act_coeff1.c[:, 0])))
-        act_coeff[1] = list(np.flip((act_coeff1.c[:, 1])))
-        act_coeff[2] = list(np.flip((act_coeff1.c[:, 2])))
-        import matplotlib.pyplot as plt
-        plt.plot(t,y,'b*')
-        plt.plot(t,act_coeff1(t),'g-')
-        plt.show()
+        act_coeff[0] = list(np.flip((act_coeff1[:, 0])))
+        act_coeff[1] = list(np.flip((act_coeff1[:, 1])))
+        act_coeff[2] = list(np.flip((act_coeff1[:, 2])))
 
         for i in range(0, len(act_coeff)):
             for j in range(0, len(act_coeff[i])):

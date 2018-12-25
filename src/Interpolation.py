@@ -89,7 +89,6 @@ class Interpolation:
         for j in range(1, SIZE):
             for i in range(SIZE - 1, j - 1, -1):
                 a[i] = float(a[i] - a[i - 1]) / float(x[i] - x[i - j])
-        print(a)
         return a
 
     def evalNewton(self, a, x, xnew):
@@ -112,14 +111,15 @@ class Interpolation:
         x = np.array(x)
         y = np.array(y)
         hCubObj = PchipInterpolator(x, y)
-        return (hCubObj,x)
+        return (hCubObj.c,x)
 
-    def evalHermiteCubic(self,xnew,h):
+    def evalHermiteCubic(self,xnew, x, y):
         if type(xnew)==list :
             xnew = np.array(xnew)
         if  type(xnew)==int or type(xnew) == float:
             xnew = np.array([xnew])
-        yfit = h(xnew)
+        hCubObj = PchipInterpolator(x, y)
+        yfit = hCubObj(xnew)
         return yfit
 
 
@@ -128,12 +128,14 @@ class Interpolation:
         y = np.array(y)
         tck = splrep(x,y,s=0,k=4)
         splObj = BSpline(tck[0],tck[1],tck[2], extrapolate=False)
-        return (splObj,tck[1])
+        return (tck[1])
 
-    def evalBSpline(self, splObj,xnew):
+    def evalBSpline(self, xnew, x, y):
         if type(xnew)==list :
             xnew = np.array(xnew)
         if  type(xnew)==int or type(xnew) == float:
             xnew = np.array([xnew])
+        tck = splrep(x, y, s=0, k=4)
+        splObj = BSpline(tck[0], tck[1], tck[2], extrapolate=False)
         yfit = splev(xnew,splObj)
         return yfit

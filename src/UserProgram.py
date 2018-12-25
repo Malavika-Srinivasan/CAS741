@@ -7,6 +7,8 @@ output = Output()
 print('Monomial')
 t = [-2,0,1]
 y = [-27,-1,0]
+t = [1,2,3,4,5,6]
+y = [1,2,3,4,5,6]
 interp = Interpolation(t,y)
 s = interp.interpMonomial(t,y)
 print(s)
@@ -22,21 +24,22 @@ output.plotDataFit(t,y,yfit)
 print('Newton')
 s = interp.interpNewton(t,y)
 yfit = interp.evalNewton(s,t,t)
-print(yfit)
+print(s)
 
 print('HermiteCubic')
 t = [1,2,4,5]
 y = [2,1,4,3]
-hCubObj,interval = interp.interpHermiteCubic(t,y)
-yfit = interp.evalHermiteCubic(t,hCubObj)
-print(yfit)
+coeff,interval = interp.interpHermiteCubic(t,y)
+yfit = interp.evalHermiteCubic(t, t, y)
+print(coeff)
 
 print('BSpline')
 t = [0, 1.2, 1.9, 3.2, 4, 6.5]
 y = [0, 2.3, 3.0, 4.3,2.9,3.1]
-splObj,coeff = interp.interpBSpline(t,y)
-yfit = interp.evalBSpline(splObj,t)
-print(yfit)
+coeff = interp.interpBSpline(t,y)
+print(coeff)
+yfit = interp.evalBSpline(t, t, y)
+
 
 #Regression
 x = [1,2,3]
